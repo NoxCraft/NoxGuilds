@@ -1,0 +1,17 @@
+name: ${project.artifactId}
+version: ${project.version}
+main: com.noxpvp.noxguilds.NoxGuilds
+depend: [ProtocolLib, BKCommonLib]
+softpend: [Vault]
+
+commands:
+  test:
+    description: does testing stuff
+    usage: /<command>
+  guild:
+    alias: [guilds]
+    description: 
+    usage: /<command> <guild name>
+  guild list:
+    description: Shows all the players guilds
+    usage: /<command>
