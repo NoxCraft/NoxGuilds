@@ -78,10 +78,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.comphenix.attribute</groupId>
-			<artifactId>AttributeStorage</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
-			<scope>compile</scope>
+		    <groupId>com.comphenix.packetwrapper</groupId>
+		    <artifactId>PacketWrapper</artifactId>
+		    <version>1.7.2-R0.5</version>
 		</dependency>
 
 		<!-- Vault -->
@@ -176,6 +175,7 @@
 					<finalName>NoxGuilds</finalName>
 					<artifactSet>
 						<includes>
+						    <include>com.comphenix.packetwrapper:PacketWrapper</include>
 							<include>mkremins:fanciful</include>
 							<include>se.ranzdo.bukkit:methodcommand</include>
 						</includes>

@@ -50,7 +50,7 @@ public class GuildChannel extends BaseChannel {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public GuildChannel(BaseGuild guild) {
-		super(NoxGuildLocale.CHAT_CHANNEL_GUILD_TAG.getDefault());
+		super(NoxGuildLocale.CHAT_CHANNEL_GUILD_TAG.get());
 		
 		this.guild = guild;
 	}

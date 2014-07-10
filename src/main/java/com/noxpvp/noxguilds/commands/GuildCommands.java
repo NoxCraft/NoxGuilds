@@ -43,6 +43,7 @@ import com.noxpvp.noxguilds.locale.FancyLocaleArg;
 import com.noxpvp.noxguilds.locale.NoxGuildLocale;
 import com.noxpvp.noxguilds.manager.GuildManager;
 import com.noxpvp.noxguilds.manager.GuildPlayerManager;
+import com.noxpvp.noxguilds.util.GuildPlayerUtils;
 import com.noxpvp.noxguilds.util.GuildUtil;
 import com.noxpvp.noxguilds.util.MessageUtil;
 import com.noxpvp.noxguilds.util.NoxEnumUtil;
@@ -385,20 +386,20 @@ public class GuildCommands {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	private boolean validateHasGuild(GuildPlayer gp) {
-		if (!gp.hasGuild()) {
+		if (!GuildPlayerUtils.hasGuild(gp)) {
 			NoxGuildLocale.GUILD_ERROR_NO_GUILD.send(gp.getPlayer());
 			return false;
-		} else
-			return true;
+		}
+		
+		return true;
 	}
 	
 	private boolean validateHasGuild(GuildPlayer gp, String guild) {
 		if (!validateHasGuild(gp))
 			return false;
 		
-		for (final Guild g : gp.getGuilds())
-			if (g.getName().equalsIgnoreCase(guild))
-				return true;
+		if (GuildPlayerUtils.hasGuild(gp, guild))
+			return true;
 		
 		NoxGuildLocale.GUILD_ERROR_NO_GUILD_NAMED.send(gp.getPlayer(),
 		        guild);

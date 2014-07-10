@@ -46,11 +46,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import com.bergerkiller.bukkit.common.MessageBuilder;
 import com.bergerkiller.bukkit.common.utils.CommonUtil;
-import com.bergerkiller.bukkit.common.utils.MaterialUtil;
 import com.noxpvp.noxguilds.NoxGuilds;
 import com.noxpvp.noxguilds.guildplayer.GuildPlayer;
 import com.noxpvp.noxguilds.internal.NoxPlugin;
 import com.noxpvp.noxguilds.listeners.NoxListener;
+import com.noxpvp.noxguilds.listeners.NoxPacketListener;
 import com.noxpvp.noxguilds.manager.GuildPlayerManager;
 
 public abstract class CoreBox extends NoxListener<NoxPlugin> implements
@@ -63,7 +63,7 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements
 	private CoreBox	                  backButton;
 	public Runnable	                  closeRunnable;
 	private final GuildPlayerManager	pm;
-	// private NoxPacketListener attributeHider;
+	private final NoxPacketListener	  attributeHider;
 	
 	private ItemStack	              identifiableItem;
 	
@@ -137,40 +137,14 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements
 					gp.deleteCoreBox();
 				}
 				
-				// attributeHider.unRegister();
+				attributeHider.unRegister();
 				thisBox.unregister();
 				box.clear();
 				menuItems = null;
 			}
 		};
 		
-		// this.attributeHider = new
-		// NoxPacketListener(PacketType.OUT_WINDOW_ITEMS) {
-		// public void onPacketSend(PacketSendEvent event) {
-		// if (event.getPlayer() != p)
-		// return;
-		//
-		// CommonPacket packet = event.getPacket();
-		// try {
-		// ItemStack[] items =
-		// packet.read(PacketType.OUT_WINDOW_ITEMS.items);
-		//
-		// for (int i = 0; i < items.length; i++) {
-		// items[i] = removeAttributes(items[i]);
-		// }
-		//
-		// event.getPacket().write(PacketType.OUT_WINDOW_ITEMS.items,
-		// items);
-		//
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// }
-		//
-		// public void onPacketReceive(PacketReceiveEvent arg0) {
-		// return;
-		// }
-		// };
+		attributeHider = new AttributeHider();
 		
 	}
 	
@@ -335,25 +309,12 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements
 		if ((p = getPlayer()) == null)
 			return;
 		
-		// attributeHider.register();
+		attributeHider.register();
 		register();
 		
 		pm.getFromPlayer(p).setCoreBox(this);
 		p.openInventory(box);
 		
-		// for (ItemStack i : box.getContents())
-		// i = remove?Attributes(i);
-	}
-	
-	protected ItemStack removeAttributes(ItemStack item) {
-		if (item == null
-		        || MaterialUtil.isType(item.getType(),
-		                Material.BOOK_AND_QUILL, Material.AIR))
-			return item;
-		
-		// ItemUtil.setMetaTag(item, null);
-		
-		return item;
 	}
 	
 	protected void updatePlayerInvetory() {

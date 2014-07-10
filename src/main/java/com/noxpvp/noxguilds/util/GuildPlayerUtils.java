@@ -32,7 +32,7 @@ import com.noxpvp.noxguilds.manager.GuildPlayerManager;
  * @author ConnorStone
  * 
  */
-public class NoxPlayerUtils {
+public class GuildPlayerUtils {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static fields
@@ -55,18 +55,19 @@ public class NoxPlayerUtils {
 	}
 	
 	public static boolean hasGuild(GuildPlayer p) {
-		
+		// TODO
+		return false;
 	}
 	
 	public static boolean hasGuild(GuildPlayer p, Guild g) {
-		
+		// TODO
+		return false;
 	}
 	
 	public static boolean hasGuild(GuildPlayer p, String guild) {
-		
+		// TODO
+		return false;
 	}
-	
-	// public static
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Methods
