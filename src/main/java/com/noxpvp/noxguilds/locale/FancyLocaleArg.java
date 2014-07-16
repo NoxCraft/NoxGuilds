@@ -37,9 +37,47 @@ import com.noxpvp.noxguilds.manager.GuildPlayerManager;
  */
 public enum FancyLocaleArg {
 	
-	GUILD("GUILD", Guild.class),
-	KINGDOM("KINGDOM", Kingdom.class),
-	PLAYER_INFO("PLAYER_INFO", GuildPlayer.class);
+	GUILD("GUILD", Guild.class) {
+		@Override
+		public FancyMessage parsePart(FancyMessage message, Object arg) {
+			if (arg instanceof Guild) {
+				final Guild g = (Guild) arg;
+				message.then(g.getName())
+				        .itemTooltip(g.getIdentifiableItem());
+			}
+			
+			return message;
+		}
+		
+	}, KINGDOM("KINGDOM", Kingdom.class) {
+		@Override
+		public FancyMessage parsePart(FancyMessage message, Object arg) {
+			if (arg instanceof Kingdom) {
+				final Kingdom k = (Kingdom) arg;
+				message.then(k.getName())
+				        .itemTooltip(k.getIdentifiableItem());
+			}
+			
+			return message;
+		}
+		
+	}, PLAYER_INFO("PLAYER_INFO", GuildPlayer.class) {
+		@Override
+		public FancyMessage parsePart(FancyMessage message, Object arg) {
+			if (arg instanceof GuildPlayer) {
+				final GuildPlayer p = (GuildPlayer) arg;
+				message.then(p.getFormatedName())
+				        .itemTooltip(p.getIdentifiableItem());
+			} else if (arg instanceof Player) {
+				message = parsePart(message, GuildPlayerManager
+				        .getInstance().getFromPlayer((Player) arg));
+			}
+			
+			return message;
+			
+		}
+
+	};
 	
 	private String	 varName;
 	private Class<?>	typeClass;
@@ -49,13 +87,12 @@ public enum FancyLocaleArg {
 		typeClass = type;
 	}
 	
+	public abstract FancyMessage parsePart(FancyMessage message, Object arg);
+	
 	public static String getParseString() {
 		return "%";
 	}
 	
-	/**
-	 * @return the typeClass
-	 */
 	public Class<?> getTypeClass() {
 		return typeClass;
 	}
@@ -64,36 +101,8 @@ public enum FancyLocaleArg {
 		return getParseString() + varName + number + getParseString();
 	}
 	
-	/**
-	 * @return the name
-	 */
 	public String getVarName() {
 		return varName;
-	}
-	
-	public FancyMessage parseFancyPart(FancyMessage message, Object arg) {
-		if (arg instanceof Guild) {
-			final Guild g = (Guild) arg;
-			message.then(g.getName())
-			        .itemTooltip(g.getIdentifiableItem());
-		} else if (arg instanceof Kingdom) {
-			final Kingdom k = (Kingdom) arg;
-			message.then(k.getName())
-			        .itemTooltip(k.getIdentifiableItem());
-		} else if (arg instanceof GuildPlayer) {
-			final GuildPlayer p = (GuildPlayer) arg;
-			message.then(p.getFormatedName())
-			        .itemTooltip(p.getIdentifiableItem());
-		} else if (arg instanceof Player) {
-			message = parseFancyPart(message, GuildPlayerManager
-			        .getInstance().getFromPlayer((Player) arg));
-		}
-		
-		return message;
-	}
-	
-	public String toString(int index) {
-		return getVar(index);
 	}
 	
 }

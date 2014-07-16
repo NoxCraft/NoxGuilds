@@ -32,25 +32,27 @@ import com.noxpvp.noxguilds.util.MessageUtil;
  */
 public class NoxGuildFancyLocale extends NoxLocale {
 	
+	static {
+		COMMAND_ACCEPT_REQUEST = new NoxGuildFancyLocale("command.accept.request", "&6");
+	}
+	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	public static final NoxGuildFancyLocale COMMAND_ACCEPT_REQUEST;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final FancyLocaleArg[]	args;
-	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public NoxGuildFancyLocale(String path, String def,
-	        FancyLocaleArg... fancyArgs) {
+	public NoxGuildFancyLocale(String path, String def) {
 		super(path, def);
 		
-		args = fancyArgs;
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

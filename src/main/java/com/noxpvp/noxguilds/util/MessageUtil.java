@@ -253,7 +253,7 @@ public class MessageUtil {
 					                curArg.getClass())) {
 						
 						// add fancy part
-						ret = type.parseFancyPart(ret, curArg);
+						ret = type.parsePart(ret, curArg);
 						
 						int ind;
 						string.delete(ind = string.indexOf(posFancy) - 1,
