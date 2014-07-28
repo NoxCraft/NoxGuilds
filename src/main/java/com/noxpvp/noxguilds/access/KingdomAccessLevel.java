@@ -12,10 +12,10 @@ import com.noxpvp.noxguilds.util.ItemBuilder;
 import com.noxpvp.noxguilds.util.NoxEnumUtil;
 
 public enum KingdomAccessLevel
-        implements
-        AccessLevel<KingdomAccessLevel, Kingdom, Guild>,
-        NoxEnum<KingdomAccessLevel>,
-        ItemRepresentable {
+		implements
+		AccessLevel<KingdomAccessLevel, Kingdom, Guild>,
+		NoxEnum<KingdomAccessLevel>,
+		ItemRepresentable {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -25,24 +25,24 @@ public enum KingdomAccessLevel
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	OUTSIDER(
-	        null,
-	        "All guilds outside of this kingdom and allied kingdoms"),
+			null,
+			"All guilds outside of this kingdom and allied kingdoms"),
 	KINGDOM_ALLY(
-	        OUTSIDER,
-	        "Any guild inside this kingdom or an allied kingdom"),
+			OUTSIDER,
+			"Any guild inside this kingdom or an allied kingdom"),
 	KINNGDOM_ENEMY(
-	        OUTSIDER,
-	        "Any guild in a kingdom declared an enemy by this kingdom or an allied kingdom");
+			OUTSIDER,
+			"Any guild in a kingdom declared an enemy by this kingdom or an allied kingdom");
 	
 	private KingdomAccessLevel	parent;
-	private String	           desc;
+	private String				desc;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	private KingdomAccessLevel(KingdomAccessLevel parent,
-	        String description) {
+			String description) {
 		this.parent = parent;
 		desc = description;
 	}
@@ -52,7 +52,7 @@ public enum KingdomAccessLevel
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static KingdomAccessLevel getAccessLevel(Kingdom owner,
-	        Guild object) {
+			Guild object) {
 		KingdomAccessLevel last = null;
 		
 		for (final KingdomAccessLevel cur : values()) {
@@ -80,10 +80,10 @@ public enum KingdomAccessLevel
 	
 	public ItemStack getIdentifiableItem() {
 		return new ItemBuilder(Material.BOOKSHELF, 1)
-		        .setName(
-		                ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
-		        .setLore(ChatColor.GOLD + getDescription())
-		        .build();
+				.setName(
+						ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
+				.setLore(ChatColor.GOLD + getDescription())
+				.build();
 	}
 	
 	public KingdomAccessLevel getParent() {

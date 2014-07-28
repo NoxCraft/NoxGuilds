@@ -24,11 +24,14 @@ package com.noxpvp.noxguilds.locale;
 
 import mkremins.fanciful.FancyMessage;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import com.noxpvp.noxguilds.guild.BaseGuild;
 import com.noxpvp.noxguilds.guild.Guild;
 import com.noxpvp.noxguilds.guildplayer.GuildPlayer;
 import com.noxpvp.noxguilds.kingdom.Kingdom;
+import com.noxpvp.noxguilds.land.GuildPlot;
 import com.noxpvp.noxguilds.manager.GuildPlayerManager;
 
 /**
@@ -38,56 +41,91 @@ import com.noxpvp.noxguilds.manager.GuildPlayerManager;
 public enum FancyLocaleArg {
 	
 	GUILD("GUILD", Guild.class) {
+		
 		@Override
 		public FancyMessage parsePart(FancyMessage message, Object arg) {
-			if (arg instanceof Guild) {
-				final Guild g = (Guild) arg;
+			if (arg instanceof Guild || arg instanceof BaseGuild) {
+				final BaseGuild g = (BaseGuild) arg;
 				message.then(g.getName())
-				        .itemTooltip(g.getIdentifiableItem());
+						.color(ChatColor.GREEN)
+						.itemTooltip(g.getIdentifiableItem());
 			}
 			
 			return message;
 		}
 		
-	}, KINGDOM("KINGDOM", Kingdom.class) {
+	},
+	KINGDOM("KINGDOM", Kingdom.class) {
+		
 		@Override
 		public FancyMessage parsePart(FancyMessage message, Object arg) {
 			if (arg instanceof Kingdom) {
 				final Kingdom k = (Kingdom) arg;
 				message.then(k.getName())
-				        .itemTooltip(k.getIdentifiableItem());
+						.color(ChatColor.LIGHT_PURPLE)
+						.itemTooltip(k.getIdentifiableItem());
 			}
 			
 			return message;
 		}
 		
-	}, PLAYER_INFO("PLAYER_INFO", GuildPlayer.class) {
+	},
+	PLOT_INFO("PLOT_INFO", GuildPlot.class) {
+		
+		@Override
+		public FancyMessage parsePart(FancyMessage message, Object arg) {
+			if (arg instanceof GuildPlot) {
+				final GuildPlot plot = (GuildPlot) arg;
+				final String name = plot.getPlayerOwner() != null ?
+						plot.getPlayerOwner().getOffline().getName() : "Unowned";
+				
+				message.then(name)
+						.color(ChatColor.YELLOW)
+						.itemTooltip(plot.getIdentifiableItem());
+			}
+			
+			return message;
+		}
+		
+	},
+	PLAYER_INFO("PLAYER_INFO", GuildPlayer.class) {
+		
 		@Override
 		public FancyMessage parsePart(FancyMessage message, Object arg) {
 			if (arg instanceof GuildPlayer) {
 				final GuildPlayer p = (GuildPlayer) arg;
-				message.then(p.getFormatedName())
-				        .itemTooltip(p.getIdentifiableItem());
+				message.then(p.getPlayer().getName())
+						.color(ChatColor.YELLOW)
+						.itemTooltip(p.getIdentifiableItem());
 			} else if (arg instanceof Player) {
 				message = parsePart(message, GuildPlayerManager
-				        .getInstance().getFromPlayer((Player) arg));
+						.getInstance().getFromPlayer((Player) arg));
 			}
 			
 			return message;
 			
 		}
-
+		
+	},
+	CLICK_COMMAND("CLICK_COMMAND", String.class) {
+		
+		@Override
+		public FancyMessage parsePart(FancyMessage message, Object arg) {
+			if (!(arg instanceof String))
+				return message;
+			
+			return message.command((String) arg);
+		}
+		
 	};
 	
-	private String	 varName;
+	private String		varName;
 	private Class<?>	typeClass;
 	
 	private FancyLocaleArg(String varName, Class<?> type) {
 		this.varName = varName;
 		typeClass = type;
 	}
-	
-	public abstract FancyMessage parsePart(FancyMessage message, Object arg);
 	
 	public static String getParseString() {
 		return "%";
@@ -104,5 +142,7 @@ public enum FancyLocaleArg {
 	public String getVarName() {
 		return varName;
 	}
+	
+	public abstract FancyMessage parsePart(FancyMessage message, Object arg);
 	
 }

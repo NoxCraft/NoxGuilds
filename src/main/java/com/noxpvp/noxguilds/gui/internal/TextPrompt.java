@@ -12,7 +12,7 @@ import com.noxpvp.noxguilds.listeners.NoxPacketListener;
 public abstract class TextPrompt extends NoxPacketListener {
 	
 	private final WrapperPlayServerUpdateSign	packet;
-	private final Player	                  p;
+	private final Player						p;
 	
 	public TextPrompt(Player p) {
 		super(PacketType.Play.Client.UPDATE_SIGN);

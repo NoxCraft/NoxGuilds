@@ -28,11 +28,11 @@ import org.bukkit.command.CommandSender;
 public class NoPermissionException extends RuntimeException {
 	
 	private static final long	serialVersionUID	= 8910717124994314558L;
-	private final String	    permission;
+	private final String		permission;
 	private final CommandSender	sender;
 	
 	public NoPermissionException(CommandSender sender, String permission,
-	        String message) {
+			String message) {
 		super(message);
 		this.sender = sender;
 		this.permission = permission;

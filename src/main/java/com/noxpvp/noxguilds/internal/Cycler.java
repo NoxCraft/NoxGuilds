@@ -32,7 +32,7 @@ public class Cycler<E> implements ListIterator<E> {
 	
 	private final ArrayList<E>	data;
 	
-	private int	               index;
+	private int					index;
 	
 	public Cycler() {
 		data = new ArrayList<E>();

@@ -35,17 +35,17 @@ import com.noxpvp.noxguilds.util.NoxEnumUtil;
  * 
  */
 public enum PlayerPermissionType
-        implements
-        IPermissionType<PlayerPermissionType>,
-        ItemRepresentable {
+		implements
+		IPermissionType<PlayerPermissionType>,
+		ItemRepresentable {
 	
 	ALL(null, "All permissions for your plots"),
 	EDIT(ALL, "All permissions to break and build"),
 	BREAK(EDIT, "Specific permission to break"),
 	BUILD(EDIT, "Specific permission to build"),
 	ACCESS(
-	        ALL,
-	        "All permission to access containers, open doors and switch"),
+			ALL,
+			"All permission to access containers, open doors and switch"),
 	CONTAINER(ACCESS, "All permissions to open containers"),
 	CHEST(CONTAINER, "Specific permission to open chests"),
 	DROPPER(CONTAINER, "Specific permission to open droppers"),
@@ -62,10 +62,10 @@ public enum PlayerPermissionType
 	WOODEN_DOOR(DOOR, "Specific permission to open wooden doors");
 	
 	private PlayerPermissionType	parent;
-	private String	             desc;
+	private String					desc;
 	
 	private PlayerPermissionType(PlayerPermissionType parent,
-	        String description) {
+			String description) {
 		this.parent = parent;
 		desc = description;
 	}
@@ -76,10 +76,10 @@ public enum PlayerPermissionType
 	
 	public ItemStack getIdentifiableItem() {
 		return new ItemBuilder(Material.BOOK, 1)
-		        .setName(
-		                ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
-		        .setLore(ChatColor.GOLD + getDescription())
-		        .build();
+				.setName(
+						ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
+				.setLore(ChatColor.GOLD + getDescription())
+				.build();
 	}
 	
 	public PlayerPermissionType getParent() {

@@ -24,9 +24,11 @@ package com.noxpvp.noxguilds.chat;
 
 import java.util.List;
 
+import mkremins.fanciful.FancyMessage;
+
 import org.bukkit.entity.Player;
 
-import com.noxpvp.noxguilds.guild.BaseGuild;
+import com.noxpvp.noxguilds.guild.Guild;
 import com.noxpvp.noxguilds.locale.NoxGuildLocale;
 
 /**
@@ -43,14 +45,14 @@ public class GuildChannel extends BaseChannel {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final BaseGuild	guild;
+	private final Guild	guild;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public GuildChannel(BaseGuild guild) {
-		super(NoxGuildLocale.CHAT_CHANNEL_GUILD_TAG.get());
+	public GuildChannel(Guild guild) {
+		super();
 		
 		this.guild = guild;
 	}
@@ -66,6 +68,11 @@ public class GuildChannel extends BaseChannel {
 	@Override
 	public List<Player> getReceivers() {
 		return guild.getOnlinePlayers();
+	}
+	
+	@Override
+	public FancyMessage getTag() {
+		return NoxGuildLocale.CHAT_CHANNEL_GUILD_TAG.get(guild);
 	}
 	
 }

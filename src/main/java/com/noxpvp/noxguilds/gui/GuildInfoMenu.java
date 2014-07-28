@@ -22,7 +22,6 @@
  */
 package com.noxpvp.noxguilds.gui;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
@@ -43,13 +42,13 @@ public class GuildInfoMenu extends CoreBox {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static final String	MENU_NAME	= "Guild Menu";
-	public static final int	   size	      = 27;
+	public static final int		size		= 27;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private Guild	           g;
+	private Guild				g;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -64,12 +63,12 @@ public class GuildInfoMenu extends CoreBox {
 		
 		g = guild;
 		final boolean inGuild = g.hasMember(GuildPlayerManager
-		        .getInstance().getFromPlayer(p));
+				.getInstance().getFromPlayer(p));
 		
-		if (inGuild) {
-			setBox(Bukkit.getServer().createInventory(null, 4 * 9,
-			        MENU_NAME));
-		}
+		// if (inGuild) {
+		// setBox(Bukkit.getServer().createInventory(null, 4 * 9,
+		// MENU_NAME));
+		// }
 		
 		// Main item
 		addMenuItem(4, new CoreBoxItem(this, g.getIdentifiableItem()) {
@@ -84,7 +83,7 @@ public class GuildInfoMenu extends CoreBox {
 			
 			public boolean onClick(InventoryClickEvent click) {
 				new AccountManager(getPlayer(), g.getAccount(),
-				        GuildInfoMenu.this).show();
+						GuildInfoMenu.this).show();
 				return true;
 			}
 		});
@@ -99,7 +98,7 @@ public class GuildInfoMenu extends CoreBox {
 		});
 		
 		// Territory
-		addMenuItem(22, new CoreBoxItem(this, g.getTerritoryItem()) {
+		addMenuItem(22, new CoreBoxItem(this, g.getLandItem()) {
 			
 			public boolean onClick(InventoryClickEvent click) {
 				// TODO territory menu
@@ -115,12 +114,12 @@ public class GuildInfoMenu extends CoreBox {
 					return false;
 				
 				new KingdomSelectMenu(getPlayer(), g.getKingdoms(),
-				        GuildInfoMenu.this) {
+						GuildInfoMenu.this) {
 					
 					@Override
 					public void onSelect(Kingdom selected) {
 						new KingdomInfoMenu(getPlayer(), selected,
-						        GuildInfoMenu.this).show();
+								GuildInfoMenu.this).show();
 					}
 				};
 				return true;

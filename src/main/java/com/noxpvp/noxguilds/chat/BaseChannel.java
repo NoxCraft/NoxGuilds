@@ -24,6 +24,8 @@ package com.noxpvp.noxguilds.chat;
 
 import java.util.List;
 
+import mkremins.fanciful.FancyMessage;
+
 import org.bukkit.command.CommandSender;
 
 /**
@@ -40,15 +42,9 @@ public abstract class BaseChannel {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final String	tag;
-	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	public BaseChannel(String tag) {
-		this.tag = tag;
-	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static Methods
@@ -64,8 +60,9 @@ public abstract class BaseChannel {
 	 * @param message
 	 */
 	public void broadcast(FanceeMessage message) {
-		message.send(getReceivers().toArray(
-		        new CommandSender[getReceivers().size()]));
+		for (final CommandSender receiver : getReceivers()) {
+			send(receiver, message);
+		}
 	}
 	
 	/**
@@ -74,35 +71,36 @@ public abstract class BaseChannel {
 	 * @param text
 	 */
 	public void broadcast(TextMessage message) {
-		message.send(getReceivers().toArray(
-		        new CommandSender[getReceivers().size()]));
+		for (final CommandSender receiver : getReceivers()) {
+			send(receiver, message);
+		}
 	}
 	
 	public abstract List<? extends CommandSender> getReceivers();
 	
 	/**
-	 * @return the channel tag
+	 * @return the channel tag in fancy form
 	 */
-	public String getTag() {
-		return tag;
-	}
+	public abstract FancyMessage getTag();
 	
 	/**
-	 * Send a fancy message to a specific player
+	 * Send a fancy message to a specific player from this channel
 	 * 
 	 * @param message
 	 */
-	public void send(CommandSender reciever, FanceeMessage message) {
-		message.send(reciever);
+	public void send(CommandSender receiver, FanceeMessage message) {
+		getTag().then(message.getMessage().toOldMessageFormat()).send(receiver);// TODO
+																				// work
+																				// around
 	}
 	
 	/**
-	 * Send a text based message to specific player
+	 * Send a text based message to specific player from this channel
 	 * 
 	 * @param message
 	 */
-	public void send(CommandSender reciever, TextMessage message) {
-		message.send(reciever);
+	public void send(CommandSender receiver, TextMessage message) {
+		getTag().then(message.getMessage()).send(receiver);
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.noxpvp.noxguilds;
 
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -13,25 +14,33 @@ import se.ranzdo.bukkit.methodcommand.CommandHandler;
 import com.bergerkiller.bukkit.common.ModuleLogger;
 import com.bergerkiller.bukkit.common.config.FileConfiguration;
 import com.bergerkiller.bukkit.common.internal.PermissionHandler;
+import com.noxpvp.noxguilds.chat.ChannelKeeper;
+import com.noxpvp.noxguilds.chat.ServerChannel;
 import com.noxpvp.noxguilds.commands.GuildCommands;
+import com.noxpvp.noxguilds.economy.BankAccount;
+import com.noxpvp.noxguilds.event.CommandEvent;
 import com.noxpvp.noxguilds.gui.internal.ItemRepresentable;
 import com.noxpvp.noxguilds.guild.Guild;
 import com.noxpvp.noxguilds.guild.GuildRank;
-import com.noxpvp.noxguilds.guild.GuildZone;
 import com.noxpvp.noxguilds.guildplayer.GuildPlayer;
 import com.noxpvp.noxguilds.internal.NoxPlugin;
 import com.noxpvp.noxguilds.kingdom.Kingdom;
 import com.noxpvp.noxguilds.kingdom.KingdomRank;
+import com.noxpvp.noxguilds.land.Area;
+import com.noxpvp.noxguilds.land.Zone;
 import com.noxpvp.noxguilds.listeners.LoginListener;
 import com.noxpvp.noxguilds.listeners.LogoutListener;
+import com.noxpvp.noxguilds.listeners.PlayerMoveListener;
+import com.noxpvp.noxguilds.locale.NoxGuildLocale;
 import com.noxpvp.noxguilds.locale.NoxGuildLocale;
 import com.noxpvp.noxguilds.manager.GuildManager;
 import com.noxpvp.noxguilds.manager.GuildPlayerManager;
 import com.noxpvp.noxguilds.manager.KingdomManager;
+import com.noxpvp.noxguilds.manager.PlotManager;
 import com.noxpvp.noxguilds.permisson.PermissionCell;
-import com.noxpvp.noxguilds.territory.Area;
 
-public class NoxGuilds extends NoxPlugin implements ItemRepresentable {
+public class NoxGuilds extends NoxPlugin implements ItemRepresentable,
+		ChannelKeeper<ServerChannel> {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static Fields
@@ -44,35 +53,44 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	private PermissionHandler	permHandler;
-	private CommandHandler	  commandHandler;
-	private ModuleLogger	  pluginLogger;
+	private CommandHandler		commandHandler;
+	private ModuleLogger		pluginLogger;
+	
+	// Chat
+	ServerChannel				globalChat;
 	
 	// Commands
-	GuildCommands	          guildCommands;
+	GuildCommands				guildCommands;
 	
 	// Listeners
-	private LoginListener	  loginListener;
-	private LogoutListener	  logoutListener;
+	private LoginListener		loginListener;
+	private LogoutListener		logoutListener;
+	private PlayerMoveListener	moveListener;
 	
 	// Economy
-	private BankAccount	      serverAccount;
+	private BankAccount			serverAccount;
 	
 	public static NoxGuilds getInstance() {
 		return instance;
 	}
 	
 	@Override
-	public boolean command(CommandSender arg0, String arg1, String[] arg2) {
-		return false;
+	public boolean command(CommandSender arg0, String arg1, String[]
+			arg2) {
+		Bukkit.getPluginManager().callEvent(new CommandEvent(arg0, arg1,
+				arg2));
+		
+		return true;
 	}
 	
 	@Override
 	public void disable() {
 		getMainConfig().save();
 		
-		GuildPlayerManager.getInstance().unloadAndSaveAll();
-		GuildManager.getInstance().unloadAndSaveAll();
 		KingdomManager.getInstance().unloadAndSaveAll();
+		GuildManager.getInstance().unloadAndSaveAll();
+		GuildPlayerManager.getInstance().unloadAndSaveAll();
+		PlotManager.getInstance().unloadAndSaveAll();
 		
 	}
 	
@@ -81,6 +99,7 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable {
 		instance = this;
 		permHandler = new PermissionHandler();
 		commandHandler = new CommandHandler(instance);
+		globalChat = new ServerChannel();
 		
 		VaultAdapter.load();
 		registerCommands();
@@ -91,12 +110,17 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable {
 		}
 		
 		// Managers
-		KingdomManager.setup();
-		GuildManager.setup();
+		PlotManager.setup();
 		GuildPlayerManager.setup();
+		GuildManager.setup();
+		KingdomManager.setup();
 		
 		setupListeners();
 		
+	}
+	
+	public ServerChannel getChatChannel() {
+		return globalChat;
 	}
 	
 	public CommandHandler getCommandHandler() {
@@ -109,7 +133,7 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable {
 	
 	public FileConfiguration getMainConfig() {
 		final FileConfiguration config = new FileConfiguration(instance,
-		        "config.yml");
+				"config.yml");
 		
 		if (config.exists()) {
 			config.load();
@@ -133,17 +157,17 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable {
 	@Override
 	public Class<? extends ConfigurationSerializable>[] getSerialiables() {
 		return new Class[] {
-		        Area.class,
-		        GuildZone.class,
-		        
-		        GuildRank.class,
-		        KingdomRank.class,
-		        
-		        PermissionCell.class,
-		        
-		        GuildPlayer.class,
-		        Guild.class,
-		        Kingdom.class };
+				Area.class,
+				Zone.class,
+				
+				GuildRank.class,
+				KingdomRank.class,
+				
+				PermissionCell.class,
+				
+				GuildPlayer.class,
+				Guild.class,
+				Kingdom.class };
 	}
 	
 	public BankAccount getServerAcount() {
@@ -158,14 +182,15 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable {
 	@Override
 	public void localization() {
 		loadLocales(NoxGuildLocale.class);
+		loadLocales(NoxGuildLocale.class);
 		
 	}
 	
 	@Override
 	public void log(Level l, String msg) {
 		(pluginLogger != null ? pluginLogger
-		        : (pluginLogger = new ModuleLogger("NoxGuilds")))
-		        .log(l, msg);
+				: (pluginLogger = new ModuleLogger("NoxGuilds")))
+				.log(l, msg);
 	}
 	
 	public void registerCommands() {
@@ -179,9 +204,11 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable {
 	private void setupListeners() {
 		loginListener = new LoginListener(instance);
 		logoutListener = new LogoutListener(instance);
+		moveListener = new PlayerMoveListener(instance);
 		
 		loginListener.register();
 		logoutListener.register();
+		moveListener.register();
 	}
 	
 }

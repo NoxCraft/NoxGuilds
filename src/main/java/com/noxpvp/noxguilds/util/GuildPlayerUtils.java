@@ -55,8 +55,7 @@ public class GuildPlayerUtils {
 	}
 	
 	public static boolean hasGuild(GuildPlayer p) {
-		// TODO
-		return false;
+		return p.getGuildsIDs().size() > 0;
 	}
 	
 	public static boolean hasGuild(GuildPlayer p, Guild g) {

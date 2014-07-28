@@ -25,9 +25,11 @@ package com.noxpvp.noxguilds.manager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -39,17 +41,17 @@ import com.bergerkiller.bukkit.common.ModuleLogger;
 import com.noxpvp.noxguilds.internal.Persistant;
 
 public abstract class BaseManager<T extends Persistant> implements
-        IManager<T> {
+		IManager<T> {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final ModuleLogger	logger;
-	private final Class<T>	   typeClass;
-	private final String	   saveFolder;
-	private File	           folder;
-	private final Map<UUID, T>	loadedCache;
+	private final ModuleLogger		logger;
+	private final Class<T>			typeClass;
+	private final String			saveFolder;
+	private File					folder;
+	private final Map<String, T>	loadedCache;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -58,10 +60,9 @@ public abstract class BaseManager<T extends Persistant> implements
 	public BaseManager(Class<T> type, String saveFolderPath) {
 		this.typeClass = type;
 		this.saveFolder = saveFolderPath;
-		this.loadedCache = new HashMap<UUID, T>();
+		this.loadedCache = new HashMap<String, T>();
 		
-		logger = new ModuleLogger(getPlugin(), typeClass.getName()
-		        + "Manager");
+		logger = new ModuleLogger(getPlugin(), getClass().getName());
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,7 +79,7 @@ public abstract class BaseManager<T extends Persistant> implements
 		}
 		
 		final FileConfiguration configRet = YamlConfiguration
-		        .loadConfiguration(configFile);
+				.loadConfiguration(configFile);
 		
 		return configRet;
 	}
@@ -99,8 +100,18 @@ public abstract class BaseManager<T extends Persistant> implements
 		return folder;
 	}
 	
-	public Map<UUID, T> getLoadeds() {
+	public Map<String, T> getLoadedMap() {
 		return Collections.unmodifiableMap(loadedCache);
+	}
+	
+	public List<T> getLoadedValues() {
+		final List<T> ret = new ArrayList<T>();
+		
+		for (final T loaded : loadedCache.values()) {
+			ret.add(loaded);
+		}
+		
+		return Collections.unmodifiableList(ret);
 	}
 	
 	public boolean isLoaded(T object) {
@@ -109,7 +120,7 @@ public abstract class BaseManager<T extends Persistant> implements
 	
 	public void loadObject(T object) {
 		if (!loadedCache.containsKey(object.getPersistentID())) {
-			loadedCache.put(object.getPersistentID(), object);
+			loadedCache.put(object.getPersistentStringID(), object);
 		}
 	}
 	
@@ -152,7 +163,7 @@ public abstract class BaseManager<T extends Persistant> implements
 		}
 	}
 	
-	protected T get(UUID arg) {
+	protected T get(String arg) {
 		T it;
 		if ((it = loadedCache.get(arg)) != null)
 			return it;
@@ -160,7 +171,11 @@ public abstract class BaseManager<T extends Persistant> implements
 			return load(arg);
 	}
 	
-	protected T getIfLoaded(UUID id) {
+	protected T get(UUID arg) {
+		return get(arg.toString());
+	}
+	
+	protected T getIfLoaded(String id) {
 		T object;
 		if ((object = loadedCache.get(id)) != null)
 			return object;
@@ -168,37 +183,45 @@ public abstract class BaseManager<T extends Persistant> implements
 		return null;
 	}
 	
+	protected T getIfLoaded(UUID id) {
+		return getIfLoaded(id.toString());
+	}
+	
 	protected boolean isLoaded(String key) {
 		return loadedCache.containsKey(key);
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected T load(String path) {
+		T created = null;
+		
+		try {
+			created = (T) getConfig(path + ".yml").get(
+					path);
+		} catch (final ClassCastException e) {
+		}
+		
+		if (created != null) {
+			loadedCache.put(created.getPersistentStringID(), created);
+		}
+		
+		return created;
 	}
 	
 	protected T load(T object) {
 		return load(object.getPersistentID());
 	}
 	
-	@SuppressWarnings("unchecked")
 	protected T load(UUID path) {
-		T created = null;
-		
-		try {
-			created = (T) getConfig(path.toString() + ".yml").get(
-			        path.toString());
-		} catch (final ClassCastException e) {
-		}
-		
-		if (created != null) {
-			loadedCache.put(created.getPersistentID(), created);
-		}
-		
-		return created;
+		return load(path.toString());
 	}
 	
-	protected void save(T object, UUID id) {
-		final String ymlName = id.toString() + ".yml";
+	protected void save(T object, String id) {
+		final String ymlName = id + ".yml";
 		final File file = new File(getFile(), ymlName);
 		
 		final FileConfiguration datafile = getConfig(ymlName);
-		datafile.set(id.toString(), object);
+		datafile.set(id, object);
 		
 		try {
 			datafile.save(file);
@@ -206,11 +229,19 @@ public abstract class BaseManager<T extends Persistant> implements
 		}
 	}
 	
-	protected void unload(UUID arg) {
+	protected void save(T object, UUID id) {
+		save(object, id.toString());
+	}
+	
+	protected void unload(String arg) {
 		T object;
 		if ((object = getIfLoaded(arg)) != null) {
 			unload(object);
 		}
+	}
+	
+	protected void unload(UUID arg) {
+		unload(arg.toString());
 	}
 	
 }

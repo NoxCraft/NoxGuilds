@@ -1,18 +1,26 @@
-package com.noxpvp.noxguilds.territory;
+package com.noxpvp.noxguilds.land;
 
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 public class TerritoryCoord implements ConfigurationSerializable {
 	
-	protected Location	           loc;
-	protected WeakReference<Chunk>	chunk;
+	protected Location	loc;
+	
+	public TerritoryCoord(Block blockLocation) {
+		this(blockLocation.getLocation());
+	}
+	
+	public TerritoryCoord(Chunk chunkLocation) {
+		this(new Location(chunkLocation.getWorld(), chunkLocation.getX() * 16, 0,
+				chunkLocation.getZ() * 16));
+	}
 	
 	public TerritoryCoord(Location location) {
 		loc = location;
@@ -21,9 +29,10 @@ public class TerritoryCoord implements ConfigurationSerializable {
 	public TerritoryCoord(Map<String, Object> data) {
 		Object getter;
 		if ((getter = data.get("location")) != null
-		        && getter instanceof Location) {
+				&& getter instanceof Location) {
 			loc = (Location) getter;
 		}
+		
 	}
 	
 	public TerritoryBlock getBlockAt() {
@@ -31,9 +40,7 @@ public class TerritoryCoord implements ConfigurationSerializable {
 	}
 	
 	public Chunk getChunk() {
-		return chunk != null && chunk.get() != null ? chunk.get() :
-		        (chunk = new WeakReference<Chunk>(loc.getWorld()
-		                .getChunkAt(loc))).get();
+		return loc.getChunk();
 	}
 	
 	public Location getLocation() {

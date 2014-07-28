@@ -40,8 +40,8 @@ import com.noxpvp.noxguilds.util.MessageUtil;
 
 public class VaultAdapter {
 	
-	public static Chat	     chat	       = null;
-	public static Economy	 economy	   = null;
+	public static Chat			chat		= null;
+	public static Economy		economy		= null;
 	public static Permission	permission	= null;
 	
 	public static boolean isChatLoaded() {
@@ -58,7 +58,7 @@ public class VaultAdapter {
 	
 	public static void load() {
 		GroupUtils.log = new ModuleLogger(NoxGuilds.getInstance(),
-		        "VaultAdapter.GroupUtils");
+				"VaultAdapter.GroupUtils");
 		setupChat();
 		setupEconomy();
 		setupPermission();
@@ -66,8 +66,8 @@ public class VaultAdapter {
 	
 	public static boolean setupChat() {
 		final RegisteredServiceProvider<Chat> service = Bukkit.getServer()
-		        .getServicesManager().getRegistration(
-		                net.milkbowl.vault.chat.Chat.class);
+				.getServicesManager().getRegistration(
+						net.milkbowl.vault.chat.Chat.class);
 		if (service != null) {
 			chat = service.getProvider();
 		}
@@ -76,8 +76,8 @@ public class VaultAdapter {
 	
 	public static boolean setupEconomy() {
 		final RegisteredServiceProvider<Economy> service = Bukkit
-		        .getServer().getServicesManager().getRegistration(
-		                net.milkbowl.vault.economy.Economy.class);
+				.getServer().getServicesManager().getRegistration(
+						net.milkbowl.vault.economy.Economy.class);
 		if (service != null) {
 			economy = service.getProvider();
 		}
@@ -86,8 +86,8 @@ public class VaultAdapter {
 	
 	public static boolean setupPermission() {
 		final RegisteredServiceProvider<Permission> service = Bukkit
-		        .getServer().getServicesManager().getRegistration(
-		                net.milkbowl.vault.permission.Permission.class);
+				.getServer().getServicesManager().getRegistration(
+						net.milkbowl.vault.permission.Permission.class);
 		if (service != null) {
 			permission = service.getProvider();
 		}
@@ -117,9 +117,9 @@ public class VaultAdapter {
 				return Arrays.asList(VaultAdapter.permission.getGroups());
 			else if (log != null) {
 				log.warning("Could not get group list... "
-				        + (!isPermissionsLoaded() ? "Permissions not loaded."
-				                : permission.hasGroupSupport() ? ""
-				                        : "No Group Support"));
+						+ (!isPermissionsLoaded() ? "Permissions not loaded."
+								: permission.hasGroupSupport() ? ""
+										: "No Group Support"));
 			}
 			
 			return Collections.emptyList();

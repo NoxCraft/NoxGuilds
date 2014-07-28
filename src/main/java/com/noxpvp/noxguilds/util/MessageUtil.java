@@ -56,7 +56,7 @@ public class MessageUtil {
 	}
 	
 	public static void broadcast(final String permission,
-	        String... messages) {
+			String... messages) {
 		sendPermMessages(Bukkit.getOnlinePlayers(), permission, messages);
 	}
 	
@@ -73,15 +73,15 @@ public class MessageUtil {
 	}
 	
 	public static void broadcast(World world, final String permission,
-	        String message) {
+			String message) {
 		sendPermMessages(world.getPlayers().toArray(new Player[0]),
-		        permission, message);
+				permission, message);
 	}
 	
 	public static void broadcast(World world, final String permission,
-	        String... messages) {
+			String... messages) {
 		sendPermMessages(world.getPlayers().toArray(new Player[0]),
-		        permission, messages);
+				permission, messages);
 	}
 	
 	/**
@@ -168,7 +168,7 @@ public class MessageUtil {
 		if (args.length > 0) {
 			for (int i = 0; i < args.length; i++) {
 				StringUtil.replaceAll(msg, "%" + i + "%", LogicUtil
-				        .fixNull(args[i], "null"));
+						.fixNull(args[i], "null"));
 			}
 		}
 		return msg.toString();
@@ -178,10 +178,10 @@ public class MessageUtil {
 		return ChatColor.translateAlternateColorCodes('&', message);
 	}
 	
-	public static FancyMessage parseFancyArguments(String message,
-	        Object... args) {
-		FancyMessage ret = new FancyMessage();
-		boolean started = false;
+	public static FancyMessage parseFancyArguments(FancyMessage starter,
+			String message,
+			Object... args) {
+		FancyMessage ret = starter;
 		final StringBuilder string = new StringBuilder(message);
 		
 		if (args.length > 0) {
@@ -189,7 +189,7 @@ public class MessageUtil {
 			for (int i = 0; i < args.length; i++) {
 				// get all possible fancy parts
 				final String[] posFancys = string.toString().split(
-				        FancyLocaleArg.getParseString());
+						FancyLocaleArg.getParseString());
 				
 				// For each possible fancy part
 				for (final String posFancy : posFancys) {
@@ -201,20 +201,17 @@ public class MessageUtil {
 					// check for having a number, since a fancy part
 					// requires it
 					String numberGet;
-					if (LogicUtil.nullOrEmpty(numberGet = posFancy
-					        .replaceAll("[^0-9]", ""))) {
+					final String copy = posFancy;
+					if (LogicUtil.nullOrEmpty(numberGet = copy
+							.replaceAll("[&§][0-9a-frkmlno]", "")
+							.replaceAll("[^0-9]", ""))) {
 						
 						// if no number, add as not fancy and continue
-						if (!started) {
-							ret.text(posFancy);
-							started = true;
-						} else {
-							ret.then(posFancy);
-						}
+						ret.then(posFancy);
 						
 						int ind;
 						string.delete(ind = string.indexOf(posFancy), ind
-						        + posFancy.length());
+								+ posFancy.length());
 						continue;
 					}
 					
@@ -225,51 +222,47 @@ public class MessageUtil {
 					} catch (final NumberFormatException e) {
 						
 						// Couldn't find it? add as not fancy and continue
-						if (!started) {
-							ret.text(posFancy);
-							started = true;
-						} else {
-							ret.then(posFancy);
-						}
+						
+						ret.then(posFancy);
 						
 						int ind;
 						string.delete(ind = string.indexOf(posFancy), ind
-						        + posFancy.length());
+								+ posFancy.length());
 						continue;
 					}
 					
 					// get the part with no number, to match a enum arg
 					// type
 					final String matcher = posFancy
-					        .replaceAll("[0-9]", "");
+							.replaceAll("[0-9]", "");
 					FancyLocaleArg type;
 					
 					// if number is same arg cycle, type was found, and
 					// type is same as arg type...
 					final Object curArg = args[i];
 					if (number == i
-					        && (type = FancyLocaleArg.valueOf(matcher)) != null
-					        && type.getTypeClass().equals(
-					                curArg.getClass())) {
+							&& (type = FancyLocaleArg.valueOf(matcher)) != null
+							&& type.getTypeClass().equals(
+									curArg.getClass())) {
 						
 						// add fancy part
 						ret = type.parsePart(ret, curArg);
 						
 						int ind;
 						string.delete(ind = string.indexOf(posFancy) - 1,
-						        ind + posFancy.length() + 1);
+								ind + posFancy.length() + 1);
 					}
 				}
 			}
 		} else {
-			ret.text(string.toString());
+			ret.then(string.toString());
 		}
 		
 		return ret;
 	}
 	
 	public static void sendFilteredMessage(CommandSender[] senders,
-	        NoxFilter<CommandSender> filter, String message) {
+			NoxFilter<CommandSender> filter, String message) {
 		for (final CommandSender sender : senders)
 			if (filter.isFiltered(sender)) {
 				sendMessage(sender, message);
@@ -277,7 +270,7 @@ public class MessageUtil {
 	}
 	
 	public static void sendFilteredMessage(Player[] players,
-	        NoxFilter<Player> filter, String message) {
+			NoxFilter<Player> filter, String message) {
 		for (final Player player : players)
 			if (filter.isFiltered(player)) {
 				sendMessage(player, message);
@@ -285,7 +278,7 @@ public class MessageUtil {
 	}
 	
 	public static void sendFilteredMessages(CommandSender[] senders,
-	        NoxFilter<CommandSender> filter, String... messages) {
+			NoxFilter<CommandSender> filter, String... messages) {
 		for (final CommandSender sender : senders)
 			if (filter.isFiltered(sender)) {
 				sendMessages(sender, messages);
@@ -293,7 +286,7 @@ public class MessageUtil {
 	}
 	
 	public static void sendFilteredMessages(Player[] players,
-	        NoxFilter<Player> filter, String... messages) {
+			NoxFilter<Player> filter, String... messages) {
 		for (final Player player : players)
 			if (filter.isFiltered(player)) {
 				sendMessages(player, messages);
@@ -301,7 +294,7 @@ public class MessageUtil {
 	}
 	
 	public static void sendLocale(CommandSender sender, NoxLocale locale,
-	        String... args) {
+			String... args) {
 		locale.send(sender, args);
 	}
 	
@@ -316,7 +309,7 @@ public class MessageUtil {
 	}
 	
 	public static void sendMessageNearby(Entity entity, double radX,
-	        double radY, double radZ, String message) {
+			double radY, double radZ, String message) {
 		for (final Entity e : entity.getNearbyEntities(radX, radY, radZ))
 			if (e instanceof CommandSender) {
 				((CommandSender) e).sendMessage(message);
@@ -324,12 +317,12 @@ public class MessageUtil {
 	}
 	
 	public static void sendMessageNearby(Entity entity, double radius,
-	        String message) {
+			String message) {
 		sendMessageNearby(entity, radius, radius, radius, message);
 	}
 	
 	public static void sendMessages(CommandSender sender,
-	        String... messages) {
+			String... messages) {
 		if (!LogicUtil.nullOrEmpty(messages)) {
 			for (final String message : messages) {
 				sendMessage(sender, message);
@@ -338,66 +331,66 @@ public class MessageUtil {
 	}
 	
 	public static void sendMessages(CommandSender[] senders,
-	        String... messages) {
+			String... messages) {
 		for (final CommandSender sender : senders) {
 			sendMessages(sender, messages);
 		}
 	}
 	
 	public static void sendMessagesToGroup(final String groupName,
-	        String... messages) {
+			String... messages) {
 		sendFilteredMessages(Bukkit.getOnlinePlayers(),
-		        new NoxFilter<Player>() {
-			        
-			        @Override
-			        public boolean isFiltered(Player player) {
-				        if (VaultAdapter.isPermissionsLoaded()
-				                && VaultAdapter.permission
-				                        .hasGroupSupport()
-				                && VaultAdapter.permission.playerInGroup(
-				                        player, groupName))
-					        return true;
-				        else if (VaultAdapter.isPermissionsLoaded()
-				                && !VaultAdapter.permission
-				                        .hasGroupSupport())
-					        return VaultAdapter.permission.has(player,
-					                "group." + groupName);
-				        return false;
-			        }
-		        }, messages);
+				new NoxFilter<Player>() {
+					
+					@Override
+					public boolean isFiltered(Player player) {
+						if (VaultAdapter.isPermissionsLoaded()
+								&& VaultAdapter.permission
+										.hasGroupSupport()
+								&& VaultAdapter.permission.playerInGroup(
+										player, groupName))
+							return true;
+						else if (VaultAdapter.isPermissionsLoaded()
+								&& !VaultAdapter.permission
+										.hasGroupSupport())
+							return VaultAdapter.permission.has(player,
+									"group." + groupName);
+						return false;
+					}
+				}, messages);
 	}
 	
 	public static void sendMessageToGroup(final String groupName,
-	        String message) {
+			String message) {
 		sendFilteredMessage(Bukkit.getOnlinePlayers(),
-		        new NoxFilter<Player>() {
-			        
-			        @Override
-			        public boolean isFiltered(Player player) {
-				        if (VaultAdapter.isPermissionsLoaded()
-				                && VaultAdapter.permission
-				                        .hasGroupSupport()
-				                && VaultAdapter.permission.playerInGroup(
-				                        player, groupName))
-					        return true;
-				        else if (VaultAdapter.isPermissionsLoaded()
-				                && !VaultAdapter.permission
-				                        .hasGroupSupport())
-					        return VaultAdapter.permission.has(player,
-					                "group." + groupName);
-				        return false;
-			        }
-		        }, message);
+				new NoxFilter<Player>() {
+					
+					@Override
+					public boolean isFiltered(Player player) {
+						if (VaultAdapter.isPermissionsLoaded()
+								&& VaultAdapter.permission
+										.hasGroupSupport()
+								&& VaultAdapter.permission.playerInGroup(
+										player, groupName))
+							return true;
+						else if (VaultAdapter.isPermissionsLoaded()
+								&& !VaultAdapter.permission
+										.hasGroupSupport())
+							return VaultAdapter.permission.has(player,
+									"group." + groupName);
+						return false;
+					}
+				}, message);
 	}
 	
 	public static void sendPermMessages(CommandSender[] senders,
-	        final String permission, String... messages) {
+			final String permission, String... messages) {
 		sendFilteredMessages(senders, new NoxFilter<CommandSender>() {
 			
 			@Override
 			public boolean isFiltered(CommandSender sender) {
 				if (VaultAdapter.isPermissionsLoaded()
-				        && VaultAdapter.permission.has(sender, permission))
+						&& VaultAdapter.permission.has(sender, permission))
 					return true;
 				else if (sender.hasPermission(permission))
 					return true;

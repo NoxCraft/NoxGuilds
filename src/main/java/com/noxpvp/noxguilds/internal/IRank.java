@@ -1,4 +1,4 @@
-package com.noxpvp.noxguilds.gui.internal;
+package com.noxpvp.noxguilds.internal;
 
 import java.util.List;
 import java.util.UUID;

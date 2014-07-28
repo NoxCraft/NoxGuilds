@@ -1,4 +1,4 @@
-package com.noxpvp.noxguilds.territory;
+package com.noxpvp.noxguilds.land;
 
 import java.util.UUID;
 
@@ -30,11 +30,11 @@ public interface IZone {
 	 */
 	public String getName();
 	
-	public boolean isInZone(Block b);
+	public boolean overlaps(Block b);
 	
-	public boolean isInZone(Entity e);
+	public boolean overlaps(Entity e);
 	
-	public boolean isInZone(Location loc);
+	public boolean overlaps(Location loc);
 	
 	/**
 	 * Sets the area of this zone

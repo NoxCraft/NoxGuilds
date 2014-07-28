@@ -21,7 +21,7 @@
  * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
  */
 
-package com.noxpvp.noxguilds.gui.internal;
+package com.noxpvp.noxguilds.internal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,9 +33,9 @@ public abstract class BaseReloader implements Reloader {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final String	        name;
+	private final String			name;
 	protected Map<String, Reloader>	reloaders;
-	private final Reloader	        parent;
+	private final Reloader			parent;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -96,14 +96,14 @@ public abstract class BaseReloader implements Reloader {
 		
 		if (section == this)
 			return ((BaseReloader) section).reloaders.get(path
-			        .substring(i2));
+					.substring(i2));
 		else
 			return section.getModule(path.substring(i2));
 	}
 	
 	public Reloader[] getModules() {
 		return new ArrayList<Reloader>(reloaders.values())
-		        .toArray(new Reloader[reloaders.size()]);
+				.toArray(new Reloader[reloaders.size()]);
 	}
 	
 	public String getName() {

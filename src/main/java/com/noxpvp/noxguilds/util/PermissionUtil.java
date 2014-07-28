@@ -51,13 +51,13 @@ public class PermissionUtil {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static boolean hasPermission(Guild g, GuildPlayer player,
-	        GuildPermissionType perm) {
+			GuildPermissionType perm) {
 		
 		if (g.getOwner().equals(player))
 			return true;
 		
 		final GuildAccessLevel level = GuildAccessLevel.getAccessLevel(g,
-		        player);
+				player);
 		
 		if (g.getPermissions().get(level, perm))
 			return true;

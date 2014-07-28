@@ -48,8 +48,12 @@ public abstract class FutureReturn<RT> {
 	// Instance Methods
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public abstract void body();
+	public void get() {
+		body();
+	}
 	
-	public abstract void onReturn(RT returned);
+	protected abstract void body();
+	
+	protected abstract void onReturn(RT returned);
 	
 }

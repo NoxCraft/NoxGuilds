@@ -22,7 +22,7 @@
  */
 package com.noxpvp.noxguilds.gui;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.bukkit.entity.Player;
 
@@ -39,27 +39,27 @@ public abstract class KingdomSelectMenu extends SelectionMenu<Kingdom> {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public static final String	MENU_NAME	= "Select a Kingdom to continue";
+	public static final String			MENU_NAME	= "Select a Kingdom to continue";
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final List<Kingdom>	kingdoms;
+	private final Collection<Kingdom>	kingdoms;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public KingdomSelectMenu(Player p, List<Kingdom> kingdoms,
-	        CoreBox backbutton) {
+	public KingdomSelectMenu(Player p, Collection<Kingdom> kingdoms,
+			CoreBox backbutton) {
 		super(p, MENU_NAME, kingdoms, backbutton);
 		
 		this.kingdoms = kingdoms;
 	}
 	
 	public KingdomSelectMenu(Player p, String menuName,
-	        List<Kingdom> kingdoms, CoreBox backbutton) {
+			Collection<Kingdom> kingdoms, CoreBox backbutton) {
 		super(p, menuName, kingdoms, backbutton);
 		
 		this.kingdoms = kingdoms;
@@ -75,8 +75,7 @@ public abstract class KingdomSelectMenu extends SelectionMenu<Kingdom> {
 	
 	@Override
 	protected KingdomSelectMenu clone() throws CloneNotSupportedException {
-		return new KingdomSelectMenu(getPlayer(), getBox().getName(),
-		        kingdoms, getBackButton()) {
+		return new KingdomSelectMenu(getPlayer(), getBox().getName(), kingdoms, null) {
 			
 			@Override
 			public void onSelect(Kingdom selected) {

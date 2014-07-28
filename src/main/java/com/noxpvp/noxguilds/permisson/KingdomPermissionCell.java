@@ -40,7 +40,7 @@ import com.noxpvp.noxguilds.util.NoxEnumUtil;
  * 
  */
 public class KingdomPermissionCell extends
-        PermissionCell<KingdomAccessLevel, KingdomPermissionType> {
+		PermissionCell<KingdomAccessLevel, KingdomPermissionType> {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static fields
@@ -76,21 +76,21 @@ public class KingdomPermissionCell extends
 		
 		for (final KingdomAccessLevel level : KingdomAccessLevel.values()) {
 			lore.add(ChatColor.GOLD + NoxEnumUtil.getFriendlyName(level)
-			        + ": ");
+					+ ": ");
 			for (final KingdomPermissionType perm : KingdomPermissionType
-			        .values()) {
+					.values()) {
 				if (get(level, perm)) {
 					lore.add("   " + ChatColor.GOLD
-					        + NoxEnumUtil.getFriendlyName(perm) + ": "
-					        + ChatColor.GREEN + "TRUE");
+							+ NoxEnumUtil.getFriendlyName(perm) + ": "
+							+ ChatColor.GREEN + "TRUE");
 				}
 			}
 		}
 		
 		return new ItemBuilder(Material.IRON_DOOR, 1)
-		        .setName(ChatColor.GOLD + "Permissions")
-		        .setLore(lore)
-		        .build();
+				.setName(ChatColor.GOLD + "Permissions")
+				.setLore(lore)
+				.build();
 	}
 	
 }

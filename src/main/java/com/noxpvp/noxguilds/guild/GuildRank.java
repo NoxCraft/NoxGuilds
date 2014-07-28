@@ -3,13 +3,13 @@ package com.noxpvp.noxguilds.guild;
 import java.util.Map;
 import java.util.UUID;
 
-import com.noxpvp.noxguilds.gui.internal.BaseRank;
+import com.noxpvp.noxguilds.internal.BaseRank;
 import com.noxpvp.noxguilds.manager.GuildManager;
 import com.noxpvp.noxguilds.permisson.GuildPermissionCell;
 
 public class GuildRank extends BaseRank<GuildPermissionCell> {
 	
-	private Guild	            guild;
+	private Guild				guild;
 	private GuildPermissionCell	perms;
 	
 	public GuildRank(Guild owner, String name) {
@@ -25,9 +25,9 @@ public class GuildRank extends BaseRank<GuildPermissionCell> {
 		Object getter;
 		Guild temp = null;
 		if ((getter = data.get("guild-id")) != null
-		        && getter instanceof String) {
+				&& getter instanceof String) {
 			temp = GuildManager.getInstance().get(
-			        UUID.fromString((String) getter));
+					UUID.fromString((String) getter));
 		}
 		
 		if (temp != null) {
@@ -35,7 +35,7 @@ public class GuildRank extends BaseRank<GuildPermissionCell> {
 		}
 		
 		if ((getter = data.get("permissions")) != null
-		        && getter instanceof GuildPermissionCell) {
+				&& getter instanceof GuildPermissionCell) {
 			perms = (GuildPermissionCell) getter;
 		} else {
 			perms = new GuildPermissionCell();

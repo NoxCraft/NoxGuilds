@@ -13,10 +13,10 @@ import com.noxpvp.noxguilds.util.ItemBuilder;
 import com.noxpvp.noxguilds.util.NoxEnumUtil;
 
 public enum PlayerAccessLevel
-        implements
-        AccessLevel<PlayerAccessLevel, GuildPlayer, GuildPlayer>,
-        NoxEnum<PlayerAccessLevel>,
-        ItemRepresentable {
+		implements
+		AccessLevel<PlayerAccessLevel, GuildPlayer, GuildPlayer>,
+		NoxEnum<PlayerAccessLevel>,
+		ItemRepresentable {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -26,15 +26,15 @@ public enum PlayerAccessLevel
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	OUTSIDER(
-	        null,
-	        "Any player not accociated with this player through guild/kingdom ally or friendship"),
+			null,
+			"Any player not accociated with this player through guild/kingdom ally or friendship"),
 	ALLY(
-	        OUTSIDER,
-	        "Players in the same guild or a guild allied through a nation"),
+			OUTSIDER,
+			"Players in the same guild or a guild allied through a nation"),
 	FRIEND(ALLY, "Players who the player has added to their friends list");
 	
 	private PlayerAccessLevel	parent;
-	private String	          desc;
+	private String				desc;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -50,7 +50,7 @@ public enum PlayerAccessLevel
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static PlayerAccessLevel getAccessLevel(GuildPlayer owner,
-	        GuildPlayer object) {
+			GuildPlayer object) {
 		PlayerAccessLevel last = null;
 		
 		for (final PlayerAccessLevel cur : values()) {
@@ -102,10 +102,10 @@ public enum PlayerAccessLevel
 	
 	public ItemStack getIdentifiableItem() {
 		return new ItemBuilder(Material.BOOKSHELF, 1)
-		        .setName(
-		                ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
-		        .setLore(ChatColor.GOLD + getDescription())
-		        .build();
+				.setName(
+						ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
+				.setLore(ChatColor.GOLD + getDescription())
+				.build();
 	}
 	
 	public PlayerAccessLevel getParent() {

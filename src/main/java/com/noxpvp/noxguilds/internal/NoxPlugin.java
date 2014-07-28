@@ -31,7 +31,6 @@ import com.bergerkiller.bukkit.common.config.ConfigurationNode;
 import com.bergerkiller.bukkit.common.internal.PermissionHandler;
 import com.noxpvp.noxguilds.MasterReloader;
 import com.noxpvp.noxguilds.NoxGuilds;
-import com.noxpvp.noxguilds.gui.internal.Reloader;
 import com.noxpvp.noxguilds.permisson.NoxPermission;
 
 public abstract class NoxPlugin extends PluginBase {

@@ -54,30 +54,30 @@ import com.noxpvp.noxguilds.listeners.NoxPacketListener;
 import com.noxpvp.noxguilds.manager.GuildPlayerManager;
 
 public abstract class CoreBox extends NoxListener<NoxPlugin> implements
-        ICoreBox, ItemRepresentable, Cloneable {
+		ICoreBox, ItemRepresentable, Cloneable {
 	
-	private final UUID	              playerID;
-	private final String	          name;
-	private Inventory	              box;
+	private final UUID					playerID;
+	private final String				name;
+	private Inventory					box;
 	private Map<Integer, CoreBoxItem>	menuItems;
-	private CoreBox	                  backButton;
-	public Runnable	                  closeRunnable;
+	private CoreBox						backButton;
+	public Runnable						closeRunnable;
 	private final GuildPlayerManager	pm;
-	private final NoxPacketListener	  attributeHider;
+	private final NoxPacketListener		attributeHider;
 	
-	private ItemStack	              identifiableItem;
+	private ItemStack					identifiableItem;
 	
 	public CoreBox(Player p, String name, int size) {
 		this(p, name, size, null, NoxGuilds.getInstance());
 	}
 	
 	public CoreBox(Player p, String name, int size,
-	        @Nullable CoreBox backButton) {
+			@Nullable CoreBox backButton) {
 		this(p, name, size, backButton, NoxGuilds.getInstance());
 	}
 	
 	public CoreBox(Player p, String name, int size,
-	        @Nullable CoreBox backbutton, NoxPlugin plugin) {
+			@Nullable CoreBox backbutton, NoxPlugin plugin) {
 		this(p, name, InventoryType.CHEST, size, backbutton, plugin);
 	}
 	
@@ -86,21 +86,21 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements
 	}
 	
 	public CoreBox(Player p, String name, InventoryType type,
-	        @Nullable CoreBox backButton) {
+			@Nullable CoreBox backButton) {
 		this(p, name, type, 0, backButton, NoxGuilds.getInstance());
 	}
 	
 	public CoreBox(final Player p, String name, InventoryType type,
-	        int size, @Nullable CoreBox backButton, NoxPlugin plugin) {
+			int size, @Nullable CoreBox backButton, NoxPlugin plugin) {
 		super(plugin);
 		
 		pm = GuildPlayerManager.getInstance();
 		playerID = p.getUniqueId();
 		
-		this.name = name;
+		this.name = ChatColor.GOLD + name;
 		box = size == 0 ?
-		        Bukkit.getServer().createInventory(null, type, name) :
-		        Bukkit.getServer().createInventory(null, size, name);
+				Bukkit.getServer().createInventory(null, type, this.name) :
+				Bukkit.getServer().createInventory(null, size, this.name);
 		
 		menuItems = new HashMap<Integer, CoreBoxItem>();
 		
@@ -110,11 +110,11 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements
 			final ItemStack button = new ItemStack(Material.ARROW);
 			final ItemMeta meta = button.getItemMeta();
 			
-			meta.setDisplayName(ChatColor.GOLD + name);
+			meta.setDisplayName(this.name);
 			meta.setLore(Arrays.asList(ChatColor.AQUA
-			        + "<- Go Back To The \"" + ChatColor.GOLD
-			        + backButton.getName().replaceAll("(?i)menu", "")
-			        + ChatColor.AQUA + "\" Menu"));
+					+ "<- Go Back To The \"" + ChatColor.GOLD
+					+ backButton.getName().replaceAll("(?i)menu", "")
+					+ ChatColor.AQUA + "\" Menu"));
 			
 			button.setItemMeta(meta);
 			
@@ -128,7 +128,7 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements
 			public void run() {
 				Player p;
 				if ((p = getPlayer()) != null
-				        && box.getViewers().contains(p)) {
+						&& box.getViewers().contains(p)) {
 					p.closeInventory();
 				}
 				
@@ -154,7 +154,7 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements
 		
 		ItemStack checkNull;
 		return (checkNull = box.getItem(slot)) != null
-		        && checkNull.equals(item.getItem());
+				&& checkNull.equals(item.getItem());
 	}
 	
 	public void clickHandler(InventoryClickEvent event) {
@@ -179,7 +179,7 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements
 			final ItemMeta meta = identifiableItem.getItemMeta();
 			
 			meta.setDisplayName(new MessageBuilder().gold("Menu: ")
-			        .yellow(ChatColor.stripColor(name)).toString());
+					.yellow(ChatColor.stripColor(name)).toString());
 			
 			identifiableItem.setItemMeta(meta);
 		}
@@ -226,7 +226,7 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements
 	public boolean isValid() {
 		final Player p = getPlayer();
 		return p != null && p.isValid()
-		        && pm.getFromPlayer(p).hasCoreBox(this);
+				&& pm.getFromPlayer(p).hasCoreBox(this);
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -250,20 +250,20 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements
 		final ItemStack clickedItem = event.getCurrentItem();
 		if (event.getRawSlot() < box.getSize() - 1) {
 			if (clickedItem != null
-			        && clickedItem.getType() != Material.AIR) {
+					&& clickedItem.getType() != Material.AIR) {
 				
 				CoreBoxItem item;
 				if ((item = getMenuItem(event.getRawSlot())) != null)
 					if (item.onClick(event)) {
 						player.playSound(player.getLocation(),
-						        Sound.CLICK, 1, 0);
+								Sound.CLICK, 1, 0);
 					} else {
 						player.playSound(player.getLocation(),
-						        Sound.NOTE_BASS, 2, -2);
+								Sound.NOTE_BASS, 2, -2);
 					}
 			}
 		} else if (backButton != null
-		        && event.getRawSlot() == box.getSize() - 1) {
+				&& event.getRawSlot() == box.getSize() - 1) {
 			try {
 				((CoreBox) backButton.clone()).show();
 				player.playSound(player.getLocation(), Sound.CLICK, 1, 0);
@@ -291,7 +291,7 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements
 	
 	public boolean removeMenuItem(CoreBoxItem item) {
 		return box.removeItem(item.getItem()) == null
-		        && menuItems.values().remove(item);
+				&& menuItems.values().remove(item);
 	}
 	
 	public void removeMenuItem(int slot) {

@@ -1,4 +1,4 @@
-package com.noxpvp.noxguilds.gui.internal;
+package com.noxpvp.noxguilds.internal;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +14,7 @@ import com.noxpvp.noxguilds.permisson.PermissionCell;
 import com.noxpvp.noxguilds.permisson.PermissionCellKeeper;
 
 public abstract class BaseRank<T extends PermissionCell<?, ?>> implements
-        IRank, PermissionCellKeeper<T> {
+		IRank, PermissionCellKeeper<T> {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static Fields
@@ -26,9 +26,9 @@ public abstract class BaseRank<T extends PermissionCell<?, ?>> implements
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private UUID	           id;
-	private List<UUID>	       currentMembers;
-	private String	           rankName;
+	private UUID				id;
+	private List<UUID>			currentMembers;
+	private String				rankName;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors

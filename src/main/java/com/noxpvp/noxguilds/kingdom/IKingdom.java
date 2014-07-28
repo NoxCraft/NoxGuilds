@@ -1,6 +1,6 @@
 package com.noxpvp.noxguilds.kingdom;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import com.noxpvp.noxguilds.guild.Guild;
@@ -29,7 +29,7 @@ public interface IKingdom {
 	 * 
 	 * @return list of ally kingdoms
 	 */
-	public List<Kingdom> getAllies();
+	public Set<Kingdom> getAllies();
 	
 	/**
 	 * Gets the capital guild in this kingdom
@@ -43,14 +43,14 @@ public interface IKingdom {
 	 * 
 	 * @return list of enemiese
 	 */
-	public List<Kingdom> getEnemies();
+	public Set<Kingdom> getEnemies();
 	
 	/**
 	 * Gets a list of guilds currently in this kingdom
 	 * 
 	 * @return list of guilds
 	 */
-	public List<Guild> getGuilds();
+	public Set<Guild> getGuilds();
 	
 	/**
 	 * Gets the unique id of this kingdom

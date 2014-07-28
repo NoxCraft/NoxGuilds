@@ -24,6 +24,7 @@ package com.noxpvp.noxguilds.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -45,7 +46,7 @@ public class ItemBuilder {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	private final ItemStack	item;
-	private ItemMeta	    meta;
+	private ItemMeta		meta;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -54,6 +55,10 @@ public class ItemBuilder {
 	public ItemBuilder(ItemStack item) {
 		this.item = item;
 		meta = item.getItemMeta();
+	}
+	
+	public ItemBuilder(Material type) {
+		this(new ItemStack(type, 1));
 	}
 	
 	public ItemBuilder(Material type, int amount) {
@@ -90,12 +95,12 @@ public class ItemBuilder {
 		return item.clone();
 	}
 	
-	public ItemBuilder setLore(List<String> lore) {
+	public ItemBuilder setLore(Collection<String> lore) {
 		final List<String> formated = new ArrayList<String>();
 		
 		for (final String s : lore) {
 			formated.addAll(MessageUtil.convertStringForLore(MessageUtil
-			        .parseColor(s)));
+					.parseColor(s)));
 		}
 		
 		meta.setLore(formated);

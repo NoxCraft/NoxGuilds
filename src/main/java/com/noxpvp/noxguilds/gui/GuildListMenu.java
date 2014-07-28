@@ -46,7 +46,7 @@ public class GuildListMenu extends CoreBox {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static final String	MENU_NAME	= "Guild list";
-	private static final int	size	  = 9;
+	private static final int	size		= 9;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
@@ -60,20 +60,20 @@ public class GuildListMenu extends CoreBox {
 		super(p, MENU_NAME, size);
 		
 		final List<Guild> guilds = new ArrayList<Guild>(GuildManager
-		        .getInstance().getLoadeds().values());
+				.getInstance().getLoadedMap().values());
 		final PagedCoreBoxRegion guildsRegion = new PagedCoreBoxRegion(
-		        this, new Vector(0, 0, 1), 1, 7);
+				this, new Vector(0, 0, 1), 1, 7);
 		
 		for (final Guild g : guilds) {
 			guildsRegion
-			        .add(new CoreBoxItem(this, g.getIdentifiableItem()) {
-				        
-				        public boolean onClick(InventoryClickEvent click) {
-					        new GuildInfoMenu(getPlayer(), g,
-					                GuildListMenu.this).show();
-					        return true;
-				        }
-			        });
+					.add(new CoreBoxItem(this, g.getIdentifiableItem()) {
+						
+						public boolean onClick(InventoryClickEvent click) {
+							new GuildInfoMenu(getPlayer(), g,
+									GuildListMenu.this).show();
+							return true;
+						}
+					});
 		}
 		
 		addMenuItem(0, guildsRegion.getBackArrow());

@@ -32,8 +32,8 @@ import org.bukkit.inventory.ItemStack;
 
 import com.bergerkiller.bukkit.common.utils.LogicUtil;
 import com.bergerkiller.bukkit.common.utils.StringUtil;
-import com.noxpvp.noxguilds.AccountBase;
-import com.noxpvp.noxguilds.PlayerAccount;
+import com.noxpvp.noxguilds.economy.AccountBase;
+import com.noxpvp.noxguilds.economy.PlayerAccount;
 import com.noxpvp.noxguilds.gui.internal.CoreBox;
 import com.noxpvp.noxguilds.gui.internal.CoreBoxItem;
 import com.noxpvp.noxguilds.gui.internal.TextPrompt;
@@ -56,7 +56,7 @@ public class AccountManager extends CoreBox {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private AccountBase	       givenAccount;
+	private AccountBase			givenAccount;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -74,19 +74,19 @@ public class AccountManager extends CoreBox {
 	 * @param backButton
 	 */
 	public AccountManager(Player p, AccountBase bank, CoreBox backButton) {
-		super(p, ChatColor.GOLD + MENU_NAME, InventoryType.DISPENSER,
-		        backButton);
+		super(p, MENU_NAME, InventoryType.DISPENSER,
+				backButton);
 		
 		final Player player = p;
 		givenAccount = bank;
 		final PlayerAccount playerAccount = new PlayerAccount(player);
 		
 		final ItemStack deposit = new ItemBuilder(Material.GOLD_BLOCK, 1)
-		        .setName(ChatColor.AQUA + "Click to deposit")
-		        .build();
+				.setName(ChatColor.AQUA + "Click to deposit")
+				.build();
 		final ItemStack withdraw = new ItemBuilder(Material.IRON_BLOCK, 1)
-		        .setName(ChatColor.AQUA + "Click to withdraw")
-		        .build();
+				.setName(ChatColor.AQUA + "Click to withdraw")
+				.build();
 		
 		addMenuItem(3, new CoreBoxItem(this, withdraw) {
 			
@@ -114,15 +114,15 @@ public class AccountManager extends CoreBox {
 								return;
 							else {
 								final Result r = playerAccount
-								        .depositFrom(givenAccount, amount);
+										.depositFrom(givenAccount, amount);
 								r.send(player);
 								
 								if (r.isResult()) {
 									player.playSound(player.getLocation(),
-									        Sound.ARROW_HIT, 1, 0);
+											Sound.ARROW_HIT, 1, 0);
 								} else {
 									player.playSound(player.getLocation(),
-									        Sound.ANVIL_LAND, 1, 0);
+											Sound.ANVIL_LAND, 1, 0);
 								}
 							}
 						}
@@ -155,15 +155,15 @@ public class AccountManager extends CoreBox {
 								return;
 							else {
 								final Result r = givenAccount.depositFrom(
-								        playerAccount, amount);
+										playerAccount, amount);
 								r.send(player);
 								
 								if (r.isResult()) {
 									player.playSound(player.getLocation(),
-									        Sound.ARROW_HIT, 1, 0);
+											Sound.ARROW_HIT, 1, 0);
 								} else {
 									player.playSound(player.getLocation(),
-									        Sound.ANVIL_LAND, 1, 0);
+											Sound.ANVIL_LAND, 1, 0);
 								}
 							}
 						}

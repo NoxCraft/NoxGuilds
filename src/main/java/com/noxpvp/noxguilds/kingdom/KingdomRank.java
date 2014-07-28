@@ -3,7 +3,7 @@ package com.noxpvp.noxguilds.kingdom;
 import java.util.Map;
 import java.util.UUID;
 
-import com.noxpvp.noxguilds.gui.internal.BaseRank;
+import com.noxpvp.noxguilds.internal.BaseRank;
 import com.noxpvp.noxguilds.manager.KingdomManager;
 import com.noxpvp.noxguilds.permisson.KingdomPermissionCell;
 
@@ -13,7 +13,7 @@ public class KingdomRank extends BaseRank<KingdomPermissionCell> {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private Kingdom	              owner;
+	private Kingdom					owner;
 	private KingdomPermissionCell	perms;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,9 +35,9 @@ public class KingdomRank extends BaseRank<KingdomPermissionCell> {
 		Kingdom temp = null;
 		
 		if ((getter = data.get("kingdom-id")) != null
-		        && getter instanceof String) {
+				&& getter instanceof String) {
 			temp = KingdomManager.getInstance().get(
-			        UUID.fromString((String) getter));
+					UUID.fromString((String) getter));
 		}
 		
 		if (temp != null) {
@@ -45,7 +45,7 @@ public class KingdomRank extends BaseRank<KingdomPermissionCell> {
 		}
 		
 		if ((getter = data.get("permissions")) != null
-		        && getter instanceof KingdomPermissionCell) {
+				&& getter instanceof KingdomPermissionCell) {
 			perms = (KingdomPermissionCell) getter;
 		} else {
 			perms = new KingdomPermissionCell();

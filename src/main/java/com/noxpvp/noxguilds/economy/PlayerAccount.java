@@ -1,9 +1,11 @@
-package com.noxpvp.noxguilds;
+package com.noxpvp.noxguilds.economy;
 
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+
+import com.noxpvp.noxguilds.VaultAdapter;
 
 public class PlayerAccount extends AccountBase {
 	
@@ -31,7 +33,7 @@ public class PlayerAccount extends AccountBase {
 	
 	public boolean deposit(double amount) {
 		return VaultAdapter.economy.depositPlayer(holder, amount)
-		        .transactionSuccess();
+				.transactionSuccess();
 	}
 	
 	public String getAccountName() {
@@ -49,6 +51,6 @@ public class PlayerAccount extends AccountBase {
 	
 	public boolean pay(double amount) {
 		return VaultAdapter.economy.withdrawPlayer(holder, amount)
-		        .transactionSuccess();
+				.transactionSuccess();
 	}
 }

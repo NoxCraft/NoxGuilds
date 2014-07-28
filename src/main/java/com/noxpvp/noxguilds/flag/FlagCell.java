@@ -37,7 +37,7 @@ public class FlagCell implements ConfigurationSerializable {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public static final String	         NODE_FLAGS	= "flags";
+	public static final String				NODE_FLAGS	= "flags";
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields

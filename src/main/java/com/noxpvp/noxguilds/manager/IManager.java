@@ -23,8 +23,8 @@
 
 package com.noxpvp.noxguilds.manager;
 
+import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -36,7 +36,9 @@ public interface IManager<T extends Persistant> {
 	
 	public FileConfiguration getConfig(String name);
 	
-	public Map<UUID, T> getLoadeds();
+	public Map<String, T> getLoadedMap();
+	
+	public List<T> getLoadedValues();
 	
 	public NoxPlugin getPlugin();
 	

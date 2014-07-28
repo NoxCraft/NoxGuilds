@@ -26,7 +26,7 @@ public class NoxMessageBuilder extends MessageBuilder {
 		super();
 		
 		append(NoxGuildLocale.CHAT_HEADER_START_SPECIFIC.get(context))
-		        .newLine();
+				.newLine();
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

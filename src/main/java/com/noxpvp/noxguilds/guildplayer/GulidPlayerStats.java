@@ -35,23 +35,23 @@ public class GulidPlayerStats implements ConfigurationSerializable {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public static final String	NODE_DEATHS	       = "deaths";
-	public static final String	NODE_LASTDEATH	   = "last-death";
-	public static final String	NODE_KILLS	       = "deaths";
-	public static final String	NODE_LAST_KILL	   = "last-kill";
-	public static final String	NODE_LAST_LOGIN	   = "last-login";
+	public static final String	NODE_DEATHS			= "deaths";
+	public static final String	NODE_LASTDEATH		= "last-death";
+	public static final String	NODE_KILLS			= "deaths";
+	public static final String	NODE_LAST_KILL		= "last-kill";
+	public static final String	NODE_LAST_LOGIN		= "last-login";
 	public static final String	NODE_FIRST_CREATED	= "first-created";
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private int	               deaths;
-	private String	           lastDeath;
-	private int	               kills;
-	private String	           lastKill;
-	private Date	           lastLogin;
-	private Date	           firstCreated;
+	private int					deaths;
+	private String				lastDeath;
+	private int					kills;
+	private String				lastKill;
+	private Date				lastLogin;
+	private Date				firstCreated;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -70,40 +70,40 @@ public class GulidPlayerStats implements ConfigurationSerializable {
 	public GulidPlayerStats(Map<String, Object> data) {
 		Object getter;
 		if ((getter = data.get(NODE_DEATHS)) != null
-		        && getter instanceof Number) {
+				&& getter instanceof Number) {
 			deaths = deaths;
 		} else {
 			deaths = 0;
 		}
 		
 		if ((getter = data.get(NODE_LASTDEATH)) != null
-		        && getter instanceof String) {
+				&& getter instanceof String) {
 			lastDeath = (String) getter;
 		} else {
 			lastDeath = "";
 		}
 		
 		if ((getter = data.get(NODE_KILLS)) != null
-		        && getter instanceof Number) {
+				&& getter instanceof Number) {
 			kills = (Integer) getter;
 		} else {
 			kills = 0;
 		}
 		
 		if ((getter = data.get(NODE_LAST_KILL)) != null
-		        && getter instanceof String) {
+				&& getter instanceof String) {
 			lastKill = (String) getter;
 		} else {
 			lastKill = "";
 		}
 		
 		if ((getter = data.get(NODE_LAST_LOGIN)) != null
-		        && getter instanceof Date) {
+				&& getter instanceof Date) {
 			lastLogin = (Date) getter;
 		}
 		
 		if ((getter = data.get(NODE_FIRST_CREATED)) != null
-		        && getter instanceof Date) {
+				&& getter instanceof Date) {
 			firstCreated = (Date) getter;
 		}
 	}
@@ -129,7 +129,10 @@ public class GulidPlayerStats implements ConfigurationSerializable {
 	}
 	
 	public double getKDRatio() {
-		return kills / deaths;
+		if (kills > 0 && deaths > 0)
+			return kills = deaths;
+		
+		return 0;
 	}
 	
 	public int getKills() {

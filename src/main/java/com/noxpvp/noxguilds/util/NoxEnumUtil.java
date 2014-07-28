@@ -50,7 +50,7 @@ public class NoxEnumUtil {
 	
 	public static String getFriendlyName(Enum<?> e) {
 		return WordUtils.capitalizeFully(e.name().replace("_", " ")
-		        .toLowerCase());
+				.toLowerCase());
 	}
 	
 	public static boolean isChildOf(NoxEnum<?> child, NoxEnum<?> parent) {

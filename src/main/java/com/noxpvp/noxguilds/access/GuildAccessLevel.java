@@ -39,21 +39,21 @@ import com.noxpvp.noxguilds.util.NoxEnumUtil;
  * 
  */
 public enum GuildAccessLevel
-        implements
-        AccessLevel<GuildAccessLevel, Guild, GuildPlayer>,
-        NoxEnum<GuildAccessLevel>,
-        ItemRepresentable {
+		implements
+		AccessLevel<GuildAccessLevel, Guild, GuildPlayer>,
+		NoxEnum<GuildAccessLevel>,
+		ItemRepresentable {
 	
 	OUTSIDER(
-	        null,
-	        "Any player not accociated with this guild or guilds of the same nation"),
+			null,
+			"Any player not accociated with this guild or guilds of the same nation"),
 	ALLY(
-	        OUTSIDER,
-	        "Players in guilds that have been declared allies through a common kingdom"),
+			OUTSIDER,
+			"Players in guilds that have been declared allies through a common kingdom"),
 	MEMBER(ALLY, "Players in this guild");
 	
 	private GuildAccessLevel	parent;
-	private String	         desc;
+	private String				desc;
 	
 	private GuildAccessLevel(GuildAccessLevel parent, String description) {
 		this.parent = parent;
@@ -61,7 +61,7 @@ public enum GuildAccessLevel
 	}
 	
 	public static GuildAccessLevel getAccessLevel(Guild owner,
-	        GuildPlayer p) {
+			GuildPlayer p) {
 		GuildAccessLevel last = null;
 		
 		for (final GuildAccessLevel level : values()) {
@@ -114,10 +114,10 @@ public enum GuildAccessLevel
 	
 	public ItemStack getIdentifiableItem() {
 		return new ItemBuilder(Material.BOOKSHELF, 1)
-		        .setName(
-		                ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
-		        .setLore(ChatColor.GOLD + getDescription())
-		        .build();
+				.setName(
+						ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
+				.setLore(ChatColor.GOLD + getDescription())
+				.build();
 		
 	}
 	

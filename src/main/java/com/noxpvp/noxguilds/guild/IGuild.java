@@ -1,6 +1,6 @@
 package com.noxpvp.noxguilds.guild;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.inventory.ItemStack;
@@ -9,8 +9,6 @@ import com.noxpvp.noxguilds.guildplayer.GuildPlayer;
 import com.noxpvp.noxguilds.kingdom.Kingdom;
 
 public interface IGuild {
-	
-	// Main Data
 	
 	/**
 	 * Gets the unique id for this guild
@@ -24,24 +22,15 @@ public interface IGuild {
 	 * 
 	 * @return
 	 */
-	public List<Kingdom> getKingdoms();
+	public Set<Kingdom> getKingdoms();
 	
 	/**
-	 * Gets the list of {@link UUID} of players in this guild
-	 * 
-	 * @return {@link List} uuid list
-	 */
-	public List<UUID> getMembers();
-	
-	/**
-	 * Gets the tax set for members is this guild by the mayor
-	 * 
 	 * @return tax
 	 */
 	public double getMemberTax();
 	
 	/**
-	 * Returns the player changable name for this guild
+	 * Returns the player changeable name for this guild
 	 * 
 	 * @return {@link String} Name
 	 */
@@ -52,7 +41,7 @@ public interface IGuild {
 	 * 
 	 * @return
 	 */
-	public List<GuildPlayer> getOnlineMembers();
+	public Set<GuildPlayer> getOnlineMembers();
 	
 	/**
 	 * Gets the single GuildPlayer owner of this guild
@@ -69,15 +58,6 @@ public interface IGuild {
 	public boolean hasKingdom();
 	
 	/**
-	 * Gets if the given {@link GuildPlayer} is a member of this guild
-	 * 
-	 * @param player
-	 * @return true if the given player is a member of this guild,
-	 *         otherwise false
-	 */
-	public boolean hasMember(GuildPlayer player);
-	
-	/**
 	 * Gets if friendly fire is turned on for this guild
 	 * 
 	 * @return
@@ -91,8 +71,6 @@ public interface IGuild {
 	 * @return open
 	 */
 	public boolean isOpen();
-	
-	// Members
 	
 	/**
 	 * Gets if the tax in this guild is percent based

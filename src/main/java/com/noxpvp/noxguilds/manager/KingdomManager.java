@@ -22,7 +22,7 @@ public class KingdomManager extends BaseManager<Kingdom> {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private NoxPlugin	          plugin;
+	private NoxPlugin				plugin;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -35,6 +35,7 @@ public class KingdomManager extends BaseManager<Kingdom> {
 	public KingdomManager(NoxPlugin plugin) {
 		super(Kingdom.class, "kingdoms");
 		
+		this.plugin = plugin;
 		KingdomManager.instance = this;
 	}
 	
@@ -43,12 +44,11 @@ public class KingdomManager extends BaseManager<Kingdom> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static KingdomManager getInstance() {
-		if (instance != null)
-			return instance;
-		else {
+		if (instance == null) {
 			setup();
-			return instance;
 		}
+		
+		return instance;
 	}
 	
 	public static void setup() {
@@ -67,7 +67,7 @@ public class KingdomManager extends BaseManager<Kingdom> {
 	
 	public NoxPlugin getPlugin() {
 		return plugin != null ? plugin
-		        : (plugin = NoxGuilds.getInstance());
+				: (plugin = NoxGuilds.getInstance());
 	}
 	
 	public void load() {

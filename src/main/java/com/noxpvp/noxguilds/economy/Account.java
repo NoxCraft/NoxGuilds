@@ -1,4 +1,4 @@
-package com.noxpvp.noxguilds;
+package com.noxpvp.noxguilds.economy;
 
 public interface Account {
 	

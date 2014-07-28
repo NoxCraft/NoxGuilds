@@ -58,7 +58,7 @@ public abstract class GuildSelectMenu extends SelectionMenu<Guild> {
 	}
 	
 	public GuildSelectMenu(Player p, String menuName, List<Guild> guilds,
-	        CoreBox backbutton) {
+			CoreBox backbutton) {
 		super(p, menuName, guilds, backbutton);
 		
 		this.guilds = guilds;
@@ -75,7 +75,7 @@ public abstract class GuildSelectMenu extends SelectionMenu<Guild> {
 	@Override
 	protected GuildSelectMenu clone() throws CloneNotSupportedException {
 		return new GuildSelectMenu(getPlayer(), getBox().getName(),
-		        guilds, getBackButton()) {
+				guilds, getBackButton()) {
 			
 			@Override
 			public void onSelect(Guild selected) {

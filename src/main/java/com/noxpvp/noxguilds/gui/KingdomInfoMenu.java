@@ -45,7 +45,7 @@ public class KingdomInfoMenu extends CoreBox {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private Kingdom	           kingdom;
+	private Kingdom				kingdom;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors

@@ -16,13 +16,14 @@ public class GuildManager extends BaseManager<Guild> {
 	// Static Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
+	private static final String	savePath	= "guilds";
 	private static GuildManager	instance;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private NoxPlugin	        plugin;
+	private NoxPlugin			plugin;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -33,7 +34,7 @@ public class GuildManager extends BaseManager<Guild> {
 	}
 	
 	public GuildManager(NoxPlugin plugin) {
-		super(Guild.class, "guilds");
+		super(Guild.class, savePath);
 		
 		GuildManager.instance = this;
 	}
@@ -66,7 +67,7 @@ public class GuildManager extends BaseManager<Guild> {
 	}
 	
 	public Guild getByName(String guildName) {
-		for (final Guild g : getLoadeds().values())
+		for (final Guild g : getLoadedMap().values())
 			if (g.getName().equalsIgnoreCase(guildName))
 				return g;
 		
@@ -75,11 +76,11 @@ public class GuildManager extends BaseManager<Guild> {
 	
 	public NoxPlugin getPlugin() {
 		return plugin != null ? plugin
-		        : (plugin = NoxGuilds.getInstance());
+				: (plugin = NoxGuilds.getInstance());
 	}
 	
 	public boolean hasGuild(String name) {
-		for (final Guild g : getLoadeds().values())
+		for (final Guild g : getLoadedMap().values())
 			if (g.getName().equalsIgnoreCase(name))
 				return true;
 		

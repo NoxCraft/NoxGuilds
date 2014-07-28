@@ -36,8 +36,8 @@ public abstract class NoxListener<T extends NoxPlugin> implements Listener {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final T	            plugin;
-	private boolean	            isRegistered;
+	private final T				plugin;
+	private boolean				isRegistered;
 	private final PluginManager	pm;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

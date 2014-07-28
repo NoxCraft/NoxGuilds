@@ -25,6 +25,8 @@ package com.noxpvp.noxguilds.chat;
 import java.util.ArrayList;
 import java.util.List;
 
+import mkremins.fanciful.FancyMessage;
+
 import org.bukkit.entity.Player;
 
 import com.noxpvp.noxguilds.guild.Guild;
@@ -52,7 +54,7 @@ public class KingdomChannel extends BaseChannel {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public KingdomChannel(BaseKingdom kingdom) {
-		super(NoxGuildLocale.CHAT_CHANNEL_KINGDOM_TAG.get());
+		super();
 		
 		this.kingdom = kingdom;
 	}
@@ -76,5 +78,10 @@ public class KingdomChannel extends BaseChannel {
 		}
 		
 		return ret;
+	};
+	
+	@Override
+	public FancyMessage getTag() {
+		return NoxGuildLocale.CHAT_CHANNEL_KINGDOM_TAG.get(kingdom);
 	}
 }

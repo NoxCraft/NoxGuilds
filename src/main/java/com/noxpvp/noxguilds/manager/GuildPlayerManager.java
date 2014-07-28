@@ -15,13 +15,14 @@ public class GuildPlayerManager extends BaseManager<GuildPlayer> {
 	// Static Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
+	private static final String			savePath	= "guildplayers";
 	private static GuildPlayerManager	instance;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private NoxPlugin	              plugin;
+	private NoxPlugin					plugin;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -31,24 +32,23 @@ public class GuildPlayerManager extends BaseManager<GuildPlayer> {
 		this(NoxGuilds.getInstance());
 	}
 	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Static Methods
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
 	public GuildPlayerManager(NoxPlugin plugin) {
-		super(GuildPlayer.class, "guildplayers");
+		super(GuildPlayer.class, savePath);
 		
 		GuildPlayerManager.instance = this;
 		this.plugin = plugin;
 	}
 	
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Static Methods
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
 	public static GuildPlayerManager getInstance() {
-		if (instance != null)
-			return instance;
-		else {
+		if (instance == null) {
 			setup();
-			return instance;
 		}
+		
+		return instance;
 	}
 	
 	public static void setup() {
@@ -75,7 +75,7 @@ public class GuildPlayerManager extends BaseManager<GuildPlayer> {
 	
 	public NoxPlugin getPlugin() {
 		return plugin != null ? plugin
-		        : (plugin = NoxGuilds.getInstance());
+				: (plugin = NoxGuilds.getInstance());
 	}
 	
 	public void load() {

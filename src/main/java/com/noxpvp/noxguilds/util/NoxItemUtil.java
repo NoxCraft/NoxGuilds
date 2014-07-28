@@ -52,14 +52,14 @@ public class NoxItemUtil {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static ItemStack addLore(ItemStack item, int startingIndex,
-	        String... lore) {
+			String... lore) {
 		final ItemMeta meta = item.getItemMeta();
 		
 		if (!LogicUtil.nullOrEmpty(lore)) {
 			final List<String> curLore = meta.getLore();
 			for (final String s : lore) {
 				curLore.addAll(startingIndex++, MessageUtil
-				        .convertStringForLore(MessageUtil.parseColor(s)));
+						.convertStringForLore(MessageUtil.parseColor(s)));
 			}
 			
 			meta.setLore(curLore);

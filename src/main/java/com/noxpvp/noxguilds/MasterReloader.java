@@ -23,11 +23,11 @@
 
 package com.noxpvp.noxguilds;
 
-import com.noxpvp.noxguilds.gui.internal.BaseReloader;
+import com.noxpvp.noxguilds.internal.BaseReloader;
 
 public final class MasterReloader extends BaseReloader {
 	
-	private static final String	  root	= "Master";
+	private static final String		root	= "Master";
 	private static MasterReloader	instance;
 	
 	private MasterReloader() {

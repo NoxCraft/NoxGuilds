@@ -1,13 +1,13 @@
-package com.noxpvp.noxguilds.gui.internal;
+package com.noxpvp.noxguilds.internal;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
-public interface RankKeeper<T extends BaseRank> {
+public interface RankKeeper<T extends BaseRank<?>> {
 	
 	public boolean addRank(T rank);
 	
-	public List<T> getRanks();
+	public Set<T> getRanks();
 	
 	public boolean hasRank(T rank);
 	

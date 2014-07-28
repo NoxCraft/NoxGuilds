@@ -25,6 +25,8 @@ package com.noxpvp.noxguilds.chat;
 import java.util.Arrays;
 import java.util.List;
 
+import mkremins.fanciful.FancyMessage;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -49,7 +51,7 @@ public class ServerChannel extends BaseChannel {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public ServerChannel() {
-		super(NoxGuildLocale.CHAT_CHANNEL_SERVER_TAG.get());
+		super();
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -64,4 +66,10 @@ public class ServerChannel extends BaseChannel {
 	public List<Player> getReceivers() {
 		return Arrays.asList(Bukkit.getOnlinePlayers());
 	}
+	
+	@Override
+	public FancyMessage getTag() {
+		return new FancyMessage(NoxGuildLocale.CHAT_CHANNEL_SERVER_TAG.get());
+	}
+	
 }

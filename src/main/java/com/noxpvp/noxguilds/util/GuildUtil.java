@@ -1,5 +1,10 @@
 package com.noxpvp.noxguilds.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
+
 import com.noxpvp.noxguilds.guild.Guild;
 import com.noxpvp.noxguilds.guildplayer.GuildPlayer;
 import com.noxpvp.noxguilds.kingdom.Kingdom;
@@ -21,6 +26,16 @@ public class GuildUtil {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static Methods
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	public static List<String> getUUIDStrings(Collection<UUID> ids) {
+		final List<String> ret = new ArrayList<String>();
+		
+		for (final UUID id : ids) {
+			ret.add(id.toString());
+		}
+		
+		return ret;
+	}
 	
 	public static boolean isAllyOf(Guild of, Guild ally) {
 		if (of.hasKingdom()) {
@@ -63,6 +78,19 @@ public class GuildUtil {
 		return false;
 	}
 	
+	public static List<UUID> UUIDSFromStrings(Collection<String> ids) {
+		final List<UUID> ret = new ArrayList<UUID>();
+		
+		for (final String id : ids) {
+			try {
+				ret.add(UUID.fromString(id));
+			} catch (final IllegalArgumentException e) {
+				continue;
+			}
+		}
+		
+		return ret;
+	}
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Methods
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
