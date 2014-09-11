@@ -33,14 +33,11 @@ public class Question {
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public Question(FancyMessage question, List<QuestionOption> options,
-			CommandSender... receivers) {
+	public Question(FancyMessage question, List<QuestionOption> options, CommandSender... receivers) {
 		this(question, options, 15, receivers);
 	}
 	
-	public Question(FancyMessage question, List<QuestionOption> options,
-			int secondTimeout,
-			CommandSender... receivers) {
+	public Question(FancyMessage question, List<QuestionOption> options, int secondTimeout, CommandSender... receivers) {
 		this.question = question;
 		this.options = options;
 		recievers = receivers;
@@ -79,13 +76,11 @@ public class Question {
 		
 	}
 	
-	public Question(String message, List<QuestionOption> options,
-			CommandSender... receivers) {
+	public Question(String message, List<QuestionOption> options, CommandSender... receivers) {
 		this(new FancyMessage(message), options, 15, receivers);
 	}
 	
-	public Question(String message, List<QuestionOption> options, int SecondTimeout,
-			CommandSender... receivers) {
+	public Question(String message, List<QuestionOption> options, int SecondTimeout, CommandSender... receivers) {
 		this(new FancyMessage(message), options, SecondTimeout, receivers);
 	}
 	
@@ -111,21 +106,16 @@ public class Question {
 	public void send() {
 		// commandListener.register();
 		
-		question.then(" Options: ")
-				.color(ChatColor.YELLOW);
+		question.then(" Options: ").color(ChatColor.YELLOW);
 		
 		final Iterator<QuestionOption> optIter = options.iterator();
 		while (optIter.hasNext()) {
 			final QuestionOption o = optIter.next();
 			
-			question.then(o.getName())
-					.command("/" + o.getCommand())
-					.color(ChatColor.AQUA)
-					.style(ChatColor.UNDERLINE);
+			question.then(o.getName()).command("/" + o.getCommand()).color(ChatColor.AQUA).style(ChatColor.UNDERLINE);
 			
 			if (optIter.hasNext()) {
-				question.then(", ")
-						.color(ChatColor.YELLOW);
+				question.then(", ").color(ChatColor.YELLOW);
 			}
 		}
 		

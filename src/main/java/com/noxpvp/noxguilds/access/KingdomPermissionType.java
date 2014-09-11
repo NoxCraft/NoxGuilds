@@ -34,15 +34,10 @@ import com.noxpvp.noxguilds.util.NoxEnumUtil;
  * @author ConnorStone
  * 
  */
-public enum KingdomPermissionType
-		implements
-		IPermissionType<KingdomPermissionType>,
-		ItemRepresentable {
+public enum KingdomPermissionType implements IPermissionType<KingdomPermissionType>, ItemRepresentable {
 	
 	ALL(null, "All permissions to the kingdom"),
-	MANAGE(
-			ALL,
-			"All permissions for managing important stuff, recommended for trusted members only"),
+	MANAGE(ALL, "All permissions for managing important stuff, recommended for trusted members only"),
 	SET(MANAGE, "All permissions for settings"),
 	TAXES(SET, "All permission for setting taxes"),
 	TAX_AMOUNT(TAXES, "Specific permission to set the tax amount"),
@@ -53,8 +48,7 @@ public enum KingdomPermissionType
 	private KingdomPermissionType	parent;
 	private String					desc;
 	
-	private KingdomPermissionType(KingdomPermissionType parent,
-			String description) {
+	private KingdomPermissionType(KingdomPermissionType parent, String description) {
 		this.parent = parent;
 		desc = description;
 	}
@@ -64,11 +58,8 @@ public enum KingdomPermissionType
 	}
 	
 	public ItemStack getIdentifiableItem() {
-		return new ItemBuilder(Material.BOOK, 1)
-				.setName(
-						ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
-				.setLore(ChatColor.GOLD + getDescription())
-				.build();
+		return new ItemBuilder(Material.BOOK, 1).setName(ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
+			.setLore(ChatColor.GOLD + getDescription()).build();
 	}
 	
 	public KingdomPermissionType getParent() {

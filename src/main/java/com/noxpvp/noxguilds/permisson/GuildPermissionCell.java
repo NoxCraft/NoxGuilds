@@ -39,8 +39,7 @@ import com.noxpvp.noxguilds.util.NoxEnumUtil;
  * @author ConnorStone
  * 
  */
-public class GuildPermissionCell extends
-		PermissionCell<GuildAccessLevel, GuildPermissionType> {
+public class GuildPermissionCell extends PermissionCell<GuildAccessLevel, GuildPermissionType> {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static fields
@@ -75,29 +74,22 @@ public class GuildPermissionCell extends
 		final List<String> lore = new ArrayList<String>();
 		
 		for (final GuildAccessLevel level : GuildAccessLevel.values()) {
-			lore.add(ChatColor.GOLD + NoxEnumUtil.getFriendlyName(level)
-					+ ": ");
-			for (final GuildPermissionType perm : GuildPermissionType
-					.values()) {
+			lore.add(ChatColor.GOLD + NoxEnumUtil.getFriendlyName(level) + ": ");
+			for (final GuildPermissionType perm : GuildPermissionType.values()) {
 				if (isSet(level, perm)) {
 					if (get(level, perm)) {
-						lore.add("   " + ChatColor.GOLD
-								+ NoxEnumUtil.getFriendlyName(perm) + ": "
-								+ ChatColor.GREEN + "True");
+						lore.add("   " + ChatColor.GOLD + NoxEnumUtil.getFriendlyName(perm) + ": " + ChatColor.GREEN
+							+ "True");
 					} else {
-						lore.add("   " + ChatColor.GOLD
-								+ NoxEnumUtil.getFriendlyName(perm) + ": "
-								+ ChatColor.RED + "False");
+						lore.add("   " + ChatColor.GOLD + NoxEnumUtil.getFriendlyName(perm) + ": " + ChatColor.RED
+							+ "False");
 					}
 					
 				}
 			}
 		}
 		
-		return new ItemBuilder(Material.IRON_DOOR, 1)
-				.setName(ChatColor.GOLD + "Permissions")
-				.setLore(lore)
-				.build();
+		return new ItemBuilder(Material.IRON_DOOR, 1).setName(ChatColor.GOLD + "Permissions").setLore(lore).build();
 	}
 	
 }

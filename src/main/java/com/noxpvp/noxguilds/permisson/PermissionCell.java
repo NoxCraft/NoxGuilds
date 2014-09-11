@@ -13,7 +13,7 @@ import com.noxpvp.noxguilds.access.IPermissionType;
 import com.noxpvp.noxguilds.gui.internal.ItemRepresentable;
 
 public abstract class PermissionCell<A extends AccessLevel<?, ?, ?>, PT extends Enum<?> & IPermissionType<PT>>
-		implements ConfigurationSerializable, ItemRepresentable {
+	implements ConfigurationSerializable, ItemRepresentable {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static Fields
@@ -39,10 +39,8 @@ public abstract class PermissionCell<A extends AccessLevel<?, ?, ?>, PT extends 
 	@SuppressWarnings("unchecked")
 	public PermissionCell(Map<String, Object> serMap) {
 		Object getter;
-		if ((getter = serMap.containsKey(NODE_PERMS_KEY)) != null
-				&& getter instanceof Map) {
-			this.cell = (HashMap<A, Map<PT, Boolean>>) serMap
-					.get(NODE_PERMS_KEY);
+		if ((getter = serMap.containsKey(NODE_PERMS_KEY)) != null && getter instanceof Map) {
+			this.cell = (HashMap<A, Map<PT, Boolean>>) serMap.get(NODE_PERMS_KEY);
 		} else {
 			this.cell = new HashMap<A, Map<PT, Boolean>>();
 		}
@@ -99,8 +97,7 @@ public abstract class PermissionCell<A extends AccessLevel<?, ?, ?>, PT extends 
 			// Else if the given type is a member of the current type, and
 			// more specific than another found parent, set the value of
 			// parent
-			else if (parentType == null || type.isChildOf(cur) ? cur
-					.isChildOf(parentType) : false) {
+			else if (parentType == null || type.isChildOf(cur) ? cur.isChildOf(parentType) : false) {
 				parentValue = map.get(cur);
 				parentType = cur;
 			}

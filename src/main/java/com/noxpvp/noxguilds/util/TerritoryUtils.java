@@ -9,8 +9,7 @@ import com.noxpvp.noxguilds.manager.PlotManager;
 public class TerritoryUtils {
 	
 	public static Guild getOwner(TerritoryCoord coord) {
-		final GuildPlot plot = PlotManager.getInstance().getPlot(
-				new TerritoryID(coord.getChunk()));
+		final GuildPlot plot = PlotManager.getInstance().getPlot(new TerritoryID(coord.getChunk()));
 		
 		if (plot != null)
 			return plot.getGuildOwner();

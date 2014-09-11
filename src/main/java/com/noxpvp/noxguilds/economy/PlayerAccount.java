@@ -32,8 +32,7 @@ public class PlayerAccount extends AccountBase {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public boolean deposit(double amount) {
-		return VaultAdapter.economy.depositPlayer(holder, amount)
-				.transactionSuccess();
+		return VaultAdapter.economy.depositPlayer(holder, amount).transactionSuccess();
 	}
 	
 	public String getAccountName() {
@@ -50,7 +49,6 @@ public class PlayerAccount extends AccountBase {
 	}
 	
 	public boolean pay(double amount) {
-		return VaultAdapter.economy.withdrawPlayer(holder, amount)
-				.transactionSuccess();
+		return VaultAdapter.economy.withdrawPlayer(holder, amount).transactionSuccess();
 	}
 }

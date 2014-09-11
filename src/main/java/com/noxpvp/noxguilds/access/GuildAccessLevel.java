@@ -39,29 +39,61 @@ import com.noxpvp.noxguilds.util.NoxEnumUtil;
  * 
  */
 public enum GuildAccessLevel
-		implements
-		AccessLevel<GuildAccessLevel, Guild, GuildPlayer>,
-		NoxEnum<GuildAccessLevel>,
-		ItemRepresentable {
+	implements
+	AccessLevel<GuildAccessLevel, Guild, GuildPlayer>,
+	NoxEnum<GuildAccessLevel>,
+	ItemRepresentable {
 	
-	OUTSIDER(
-			null,
-			"Any player not accociated with this guild or guilds of the same nation"),
-	ALLY(
-			OUTSIDER,
-			"Players in guilds that have been declared allies through a common kingdom"),
-	MEMBER(ALLY, "Players in this guild");
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Static fields
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	OUTSIDER(null, "Any player not associated with this guild or guilds of the same nation") {
+		
+		@Override
+		public boolean filter(Guild owner, GuildPlayer player) {
+			return !GuildUtil.isAllyOf(owner, player);
+		}
+		
+	},
+	ALLY(OUTSIDER, "Players in guilds that have been declared allies through a common kingdom") {
+		
+		@Override
+		public boolean filter(Guild owner, GuildPlayer player) {
+			return GuildUtil.isAllyOf(owner, player);
+		}
+		
+	},
+	MEMBER(ALLY, "Players in this guild") {
+		
+		@Override
+		public boolean filter(Guild owner, GuildPlayer player) {
+			return owner.hasMember(player);
+		}
+		
+	};
+	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Instance Fields
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	private GuildAccessLevel	parent;
 	private String				desc;
+	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Constructors
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	private GuildAccessLevel(GuildAccessLevel parent, String description) {
 		this.parent = parent;
 		desc = description;
 	}
 	
-	public static GuildAccessLevel getAccessLevel(Guild owner,
-			GuildPlayer p) {
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Static Methods
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	public static GuildAccessLevel getAccessLevel(Guild owner, GuildPlayer p) {
 		GuildAccessLevel last = null;
 		
 		for (final GuildAccessLevel level : values()) {
@@ -75,19 +107,7 @@ public enum GuildAccessLevel
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Static fields
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Instance Fields
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Constructors
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Static Methods
+	// Instance Methods
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public boolean filter(Guild owner, GuildPlayer player) {
@@ -104,20 +124,13 @@ public enum GuildAccessLevel
 		
 	}
 	
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Instance Methods
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
 	public String getDescription() {
 		return desc;
 	}
 	
 	public ItemStack getIdentifiableItem() {
-		return new ItemBuilder(Material.BOOKSHELF, 1)
-				.setName(
-						ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
-				.setLore(ChatColor.GOLD + getDescription())
-				.build();
+		return new ItemBuilder(Material.BOOKSHELF, 1).setName(ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
+			.setLore(ChatColor.GOLD + getDescription()).build();
 		
 	}
 	

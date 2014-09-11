@@ -34,18 +34,13 @@ import com.noxpvp.noxguilds.util.NoxEnumUtil;
  * @author ConnorStone
  * 
  */
-public enum GuildPermissionType
-		implements
-		IPermissionType<GuildPermissionType>,
-		ItemRepresentable {
+public enum GuildPermissionType implements IPermissionType<GuildPermissionType>, ItemRepresentable {
 	
 	ALL(null, "All permissions to the guild"),
 	EDIT(ALL, "All permissions to break and build"),
 	BREAK(EDIT, "Specific permission to break"),
 	BUILD(EDIT, "Specific permission to build"),
-	ACCESS(
-			ALL,
-			"All permission to access containers, open doors and switch"),
+	ACCESS(ALL, "All permission to access containers, open doors and switch"),
 	CONTAINER(ACCESS, "All permissions to open containers"),
 	CHEST(CONTAINER, "Specific permission to open chests"),
 	DROPPER(CONTAINER, "Specific permission to open droppers"),
@@ -60,49 +55,29 @@ public enum GuildPermissionType
 	DOOR(ACCESS, "All permissions to open doors"),
 	WOODEN_TRAP_DOOR(DOOR, "Specific permission to open wooden trap doors"),
 	WOODEN_DOOR(DOOR, "Specific permission to open wooden doors"),
-	TELEPORT(
-			ACCESS,
-			"All permission for teleporting in and out of the guild"),
+	TELEPORT(ACCESS, "All permission for teleporting in and out of the guild"),
 	GUILD_SPAWN(
-			TELEPORT,
-			"Specific permission to use the guild spawn command to spawn to teleport to the guild spawn point"),
-	TP_INTO(
-			TELEPORT,
-			"Specific permission to teleport into the guild in anyway besides guild spawn"),
-	TP_OUTOF(
-			TELEPORT,
-			"Specific permission to teleport out of the guild in anyway"),
-	MANAGE(
-			ALL,
-			"All permissions for managing important stuff, recommended for trusted members only"),
+		TELEPORT,
+		"Specific permission to use the guild spawn command to spawn to teleport to the guild spawn point"),
+	TP_INTO(TELEPORT, "Specific permission to teleport into the guild in anyway besides guild spawn"),
+	TP_OUTOF(TELEPORT, "Specific permission to teleport out of the guild in anyway"),
+	MANAGE(ALL, "All permissions for managing important stuff, recommended for trusted members only"),
 	BANK(MANAGE, "All permission to manage the guild bank"),
-	DEPOSIT(
-			BANK,
-			"Specific permission to deposit money into the guild bank"),
-	WITHDRAW(
-			BANK,
-			"Specific permission to withdraw money out of the guild bank"),
+	DEPOSIT(BANK, "Specific permission to deposit money into the guild bank"),
+	WITHDRAW(BANK, "Specific permission to withdraw money out of the guild bank"),
 	TERRITORY(MANAGE, "All permissions for editing guild territory"),
-	CLAIM(
-			TERRITORY,
-			"Specific permission to claim territory for the guild"),
+	CLAIM(TERRITORY, "Specific permission to claim territory for the guild"),
 	UNCLAIM(TERRITORY, "Specific permission to unclaim guild territory"),
 	RECRUIT(MANAGE, "All permissions for managing guild members"),
 	ADD_MEMBER(RECRUIT, "Specific permission to add members to the guild"),
-	KICK_MEMBER(
-			RECRUIT,
-			"Specific permission to kick members from the guild"),
-	PERMS(
-			MANAGE,
-			"All permissions to edit guild permissions, HANDLE WITH CARE"),
+	KICK_MEMBER(RECRUIT, "Specific permission to kick members from the guild"),
+	PERMS(MANAGE, "All permissions to edit guild permissions, HANDLE WITH CARE"),
 	ADD_PERM(PERMS, "Specific permission to add permissions"),
 	REMOVE_PERM(PERMS, "Specific permission to remove permissions"),
 	ZONING(MANAGE, "All permissions for editing guild zones"),
 	ADD_ZONE(ZONING, "Specific permission for adding guild zones"),
 	REMOVE_ZONE(ZONING, "Specific permission for removing guild zones"),
-	EDIT_ZONE(
-			ZONING,
-			"Specific permission for editing any zone, with the exception of removing any"),
+	EDIT_ZONE(ZONING, "Specific permission for editing any zone, with the exception of removing any"),
 	SET(MANAGE, "All permissions for settings"),
 	TAXES(SET, "All permission for setting taxes"),
 	TAX_AMOUNT(TAXES, "Specific permission to set the tax amount"),
@@ -113,8 +88,7 @@ public enum GuildPermissionType
 	private GuildPermissionType	parent;
 	private String				desc;
 	
-	private GuildPermissionType(GuildPermissionType parent,
-			String description) {
+	private GuildPermissionType(GuildPermissionType parent, String description) {
 		this.parent = parent;
 		desc = description;
 	}
@@ -124,12 +98,8 @@ public enum GuildPermissionType
 	}
 	
 	public ItemStack getIdentifiableItem() {
-		return new ItemBuilder(
-				Material.BOOK, 1)
-				.setName(
-						ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
-				.setLore(ChatColor.GOLD + getDescription())
-				.build();
+		return new ItemBuilder(Material.BOOK, 1).setName(ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
+			.setLore(ChatColor.GOLD + getDescription()).build();
 	}
 	
 	public GuildPermissionType getParent() {

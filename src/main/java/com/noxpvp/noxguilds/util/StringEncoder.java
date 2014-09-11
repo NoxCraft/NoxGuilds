@@ -60,8 +60,7 @@ public class StringEncoder {
 		while (iterater.hasNext()) {
 			final Entry<String, Object> entry = iterater.next();
 			
-			ret.append(entry.getKey()).append(keyValueSeparater).append(
-					entry.getValue());
+			ret.append(entry.getKey()).append(keyValueSeparater).append(entry.getValue());
 			
 			if (iterater.hasNext()) {
 				ret.append(entrySeparater);

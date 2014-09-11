@@ -29,10 +29,9 @@ import com.noxpvp.noxguilds.permisson.KingdomPermissionCell;
 import com.noxpvp.noxguilds.permisson.PermissionCellKeeper;
 import com.noxpvp.noxguilds.util.GuildUtil;
 
-public abstract class BaseKingdom implements IKingdom, Persistant,
-		RankKeeper<KingdomRank>,
-		PermissionCellKeeper<KingdomPermissionCell>, Account,
-		ChannelKeeper<KingdomChannel>, Membership<Guild>, ItemRepresentable {
+public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<KingdomRank>,
+	PermissionCellKeeper<KingdomPermissionCell>, Account, ChannelKeeper<KingdomChannel>, Membership<Guild>,
+	ItemRepresentable {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static fields
@@ -76,32 +75,27 @@ public abstract class BaseKingdom implements IKingdom, Persistant,
 	public BaseKingdom(Map<String, Object> data) {
 		Object getter;
 		
-		if ((getter = data.get(NODE_KINGDOM_ID)) != null
-				&& getter instanceof String) {
+		if ((getter = data.get(NODE_KINGDOM_ID)) != null && getter instanceof String) {
 			id = UUID.fromString((String) getter);
 		} else
 			return;
 		
-		if ((getter = data.get(NODE_KINGDOM_NAME)) != null
-				&& getter instanceof String) {
+		if ((getter = data.get(NODE_KINGDOM_NAME)) != null && getter instanceof String) {
 			name = (String) getter;
 		} else
 			throw new NullPointerException("Could not get kingdom name from save");
 		
-		if ((getter = data.get(NODE_KINGDOM_CAPITAL)) != null
-				&& getter instanceof String) {
+		if ((getter = data.get(NODE_KINGDOM_CAPITAL)) != null && getter instanceof String) {
 			capital = UUID.fromString((String) getter);
 		}
 		
-		if ((getter = data.get(NODE_KINGDOM_TAG)) != null
-				&& getter instanceof String) {
+		if ((getter = data.get(NODE_KINGDOM_TAG)) != null && getter instanceof String) {
 			tag = (String) getter;
 		} else {
 			tag = Settings.defaultKingdomTag;
 		}
 		
-		if ((getter = data.get(NODE_KINGDOM_ALLIES)) != null
-				&& getter instanceof Set<?>) {
+		if ((getter = data.get(NODE_KINGDOM_ALLIES)) != null && getter instanceof Set<?>) {
 			final Set<UUID> ids = new HashSet<UUID>();
 			for (final String id : (Set<String>) getter) {
 				ids.add(UUID.fromString(id));
@@ -112,8 +106,7 @@ public abstract class BaseKingdom implements IKingdom, Persistant,
 			allies = new HashSet<UUID>();
 		}
 		
-		if ((getter = data.get(NODE_KINGDOM_ENEMIES)) != null
-				&& getter instanceof Set<?>) {
+		if ((getter = data.get(NODE_KINGDOM_ENEMIES)) != null && getter instanceof Set<?>) {
 			final Set<UUID> ids = new HashSet<UUID>();
 			for (final String id : (Set<String>) getter) {
 				ids.add(UUID.fromString(id));
@@ -124,8 +117,7 @@ public abstract class BaseKingdom implements IKingdom, Persistant,
 			enemies = new HashSet<UUID>();
 		}
 		
-		if ((getter = data.get(NODE_KINGDOM_GUILDS)) != null
-				&& getter instanceof Set<?>) {
+		if ((getter = data.get(NODE_KINGDOM_GUILDS)) != null && getter instanceof Set<?>) {
 			final Set<UUID> ids = new HashSet<UUID>();
 			for (final String id : (Set<String>) getter) {
 				ids.add(UUID.fromString(id));
@@ -136,8 +128,7 @@ public abstract class BaseKingdom implements IKingdom, Persistant,
 			guilds = new HashSet<UUID>();
 		}
 		
-		if ((getter = data.get(NODE_KINGDOM_RANKS)) != null
-				&& getter instanceof Set<?>) {
+		if ((getter = data.get(NODE_KINGDOM_RANKS)) != null && getter instanceof Set<?>) {
 			ranks = (Set<KingdomRank>) getter;
 		} else {
 			ranks = new HashSet<KingdomRank>();
@@ -302,25 +293,21 @@ public abstract class BaseKingdom implements IKingdom, Persistant,
 	
 	public void invite(final Guild guild) {
 		invitedGuilds.add(guild);
-		guild.getChatChannel()
-				.broadcast(
-						new FanceeMessage(NoxGuildLocale.KINGDOM_INVITED_GUILD
-								.get(guild)));
+		guild.getChatChannel().broadcast(new FanceeMessage(NoxGuildLocale.KINGDOM_INVITED_GUILD.get(guild)));
 		
 		int i;
 		if ((i = lastInviteRunners.get(guild)) != 0) {
 			Bukkit.getScheduler().cancelTask(i);
 		}
 		
-		lastInviteRunners.put(guild, Bukkit.getScheduler().runTaskLater(
-				NoxGuilds.getInstance(), new Runnable() {
-					
-					public void run() {
-						invitedGuilds.remove(guild);
-						lastInviteRunners.remove(guild);
-					}
-					
-				}, 20 * 30).getTaskId());
+		lastInviteRunners.put(guild, Bukkit.getScheduler().runTaskLater(NoxGuilds.getInstance(), new Runnable() {
+			
+			public void run() {
+				invitedGuilds.remove(guild);
+				lastInviteRunners.remove(guild);
+			}
+			
+		}, 20 * 30).getTaskId());
 	}
 	
 	public boolean isInvited(Guild object) {

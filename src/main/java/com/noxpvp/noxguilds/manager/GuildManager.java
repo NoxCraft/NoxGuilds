@@ -75,8 +75,7 @@ public class GuildManager extends BaseManager<Guild> {
 	}
 	
 	public NoxPlugin getPlugin() {
-		return plugin != null ? plugin
-				: (plugin = NoxGuilds.getInstance());
+		return plugin != null ? plugin : (plugin = NoxGuilds.getInstance());
 	}
 	
 	public boolean hasGuild(String name) {

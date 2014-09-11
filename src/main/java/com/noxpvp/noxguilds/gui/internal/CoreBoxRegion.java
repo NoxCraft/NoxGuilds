@@ -35,17 +35,14 @@ public class CoreBoxRegion {
 	private final CoreBox		parent;
 	private final int			rows;
 	
-	public CoreBoxRegion(CoreBox parent, Vector topLeft, int height,
-			int width) {
+	public CoreBoxRegion(CoreBox parent, Vector topLeft, int height, int width) {
 		this.parent = parent;
 		rows = parent.getBox().getSize();
 		
 		if (height > rows)
-			throw new IllegalArgumentException(
-					"Cannot use height larger than box rows");
+			throw new IllegalArgumentException("Cannot use height larger than box rows");
 		if (width > 9)
-			throw new IllegalArgumentException(
-					"Cannot use width larger than 9");
+			throw new IllegalArgumentException("Cannot use width larger than 9");
 		
 		a = topLeft;
 		b = new Vector(a.getX() + height, 0, a.getZ() + width);
@@ -64,11 +61,8 @@ public class CoreBoxRegion {
 		for (int curX = (int) a.getX(); curX <= b.getX(); curX++) {
 			for (int curZ = (int) a.getZ(); curZ <= b.getZ(); curZ++) {
 				
-				if ((tempItem = box
-						.getItem(tempSlot = getSlotFromCoord(new Vector(
-								curX, 0, curZ)))) != null
-						&&
-						tempItem.getType() != Material.AIR) {
+				if ((tempItem = box.getItem(tempSlot = getSlotFromCoord(new Vector(curX, 0, curZ)))) != null
+					&& tempItem.getType() != Material.AIR) {
 					continue;
 				}
 				
@@ -82,8 +76,7 @@ public class CoreBoxRegion {
 	public void clearRegion() {
 		for (int curX = (int) a.getX(); curX < b.getX(); curX++) {
 			for (int curZ = (int) a.getZ(); curZ < b.getZ(); curZ++) {
-				final int tempSlot = getSlotFromCoord(new Vector(curX, 0,
-						curZ));
+				final int tempSlot = getSlotFromCoord(new Vector(curX, 0, curZ));
 				
 				parent.removeMenuItem(tempSlot);
 			}

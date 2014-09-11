@@ -59,19 +59,15 @@ public class PagedCoreBoxRegion extends CoreBoxRegion {
 	 * @param height
 	 * @param width
 	 */
-	public PagedCoreBoxRegion(CoreBox parent, Vector topLeft, int height,
-			int width) {
+	public PagedCoreBoxRegion(CoreBox parent, Vector topLeft, int height, int width) {
 		super(parent, topLeft, height, width);
 		
 		size = height * width;
 		items = new Cycler<CoreBoxItem>();
 		
-		final ItemStack arrowBack = new ItemBuilder(Material.ARROW, 1)
-				.setName(ChatColor.AQUA + "Previous Page")
-				.build();
-		final ItemStack arrowNext = new ItemBuilder(Material.ARROW, 1)
-				.setName(ChatColor.AQUA + "Next Page")
-				.build();
+		final ItemStack arrowBack = new ItemBuilder(Material.ARROW, 1).setName(ChatColor.AQUA + "Previous Page")
+			.build();
+		final ItemStack arrowNext = new ItemBuilder(Material.ARROW, 1).setName(ChatColor.AQUA + "Next Page").build();
 		
 		next = new CoreBoxItem(parent, arrowNext) {
 			

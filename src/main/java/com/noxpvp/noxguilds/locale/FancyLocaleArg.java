@@ -46,9 +46,7 @@ public enum FancyLocaleArg {
 		public FancyMessage parsePart(FancyMessage message, Object arg) {
 			if (arg instanceof Guild || arg instanceof BaseGuild) {
 				final BaseGuild g = (BaseGuild) arg;
-				message.then(g.getName())
-						.color(ChatColor.GREEN)
-						.itemTooltip(g.getIdentifiableItem());
+				message.then(g.getName()).color(ChatColor.GREEN).itemTooltip(g.getIdentifiableItem());
 			}
 			
 			return message;
@@ -61,9 +59,7 @@ public enum FancyLocaleArg {
 		public FancyMessage parsePart(FancyMessage message, Object arg) {
 			if (arg instanceof Kingdom) {
 				final Kingdom k = (Kingdom) arg;
-				message.then(k.getName())
-						.color(ChatColor.LIGHT_PURPLE)
-						.itemTooltip(k.getIdentifiableItem());
+				message.then(k.getName()).color(ChatColor.LIGHT_PURPLE).itemTooltip(k.getIdentifiableItem());
 			}
 			
 			return message;
@@ -76,12 +72,10 @@ public enum FancyLocaleArg {
 		public FancyMessage parsePart(FancyMessage message, Object arg) {
 			if (arg instanceof GuildPlot) {
 				final GuildPlot plot = (GuildPlot) arg;
-				final String name = plot.getPlayerOwner() != null ?
-						plot.getPlayerOwner().getOffline().getName() : "Unowned";
+				final String name = plot.getPlayerOwner() != null ? plot.getPlayerOwner().getOffline().getName()
+					: "Unowned";
 				
-				message.then(name)
-						.color(ChatColor.YELLOW)
-						.itemTooltip(plot.getIdentifiableItem());
+				message.then(name).color(ChatColor.YELLOW).itemTooltip(plot.getIdentifiableItem());
 			}
 			
 			return message;
@@ -94,12 +88,9 @@ public enum FancyLocaleArg {
 		public FancyMessage parsePart(FancyMessage message, Object arg) {
 			if (arg instanceof GuildPlayer) {
 				final GuildPlayer p = (GuildPlayer) arg;
-				message.then(p.getPlayer().getName())
-						.color(ChatColor.YELLOW)
-						.itemTooltip(p.getIdentifiableItem());
+				message.then(p.getPlayer().getName()).color(ChatColor.YELLOW).itemTooltip(p.getIdentifiableItem());
 			} else if (arg instanceof Player) {
-				message = parsePart(message, GuildPlayerManager
-						.getInstance().getFromPlayer((Player) arg));
+				message = parsePart(message, GuildPlayerManager.getInstance().getFromPlayer((Player) arg));
 			}
 			
 			return message;

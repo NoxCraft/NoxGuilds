@@ -95,15 +95,13 @@ public abstract class BaseReloader implements Reloader {
 		}
 		
 		if (section == this)
-			return ((BaseReloader) section).reloaders.get(path
-					.substring(i2));
+			return ((BaseReloader) section).reloaders.get(path.substring(i2));
 		else
 			return section.getModule(path.substring(i2));
 	}
 	
 	public Reloader[] getModules() {
-		return new ArrayList<Reloader>(reloaders.values())
-				.toArray(new Reloader[reloaders.size()]);
+		return new ArrayList<Reloader>(reloaders.values()).toArray(new Reloader[reloaders.size()]);
 	}
 	
 	public String getName() {

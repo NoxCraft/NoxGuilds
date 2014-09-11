@@ -18,8 +18,7 @@ public class TerritoryCoord implements ConfigurationSerializable {
 	}
 	
 	public TerritoryCoord(Chunk chunkLocation) {
-		this(new Location(chunkLocation.getWorld(), chunkLocation.getX() * 16, 0,
-				chunkLocation.getZ() * 16));
+		this(new Location(chunkLocation.getWorld(), chunkLocation.getX() * 16, 0, chunkLocation.getZ() * 16));
 	}
 	
 	public TerritoryCoord(Location location) {
@@ -28,8 +27,7 @@ public class TerritoryCoord implements ConfigurationSerializable {
 	
 	public TerritoryCoord(Map<String, Object> data) {
 		Object getter;
-		if ((getter = data.get("location")) != null
-				&& getter instanceof Location) {
+		if ((getter = data.get("location")) != null && getter instanceof Location) {
 			loc = (Location) getter;
 		}
 		

@@ -24,8 +24,7 @@ public class CommandEvent extends Event {
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public CommandEvent(CommandSender sender, String label,
-			String[] args) {
+	public CommandEvent(CommandSender sender, String label, String[] args) {
 		this.sender = sender;
 		this.label = label;
 		this.args = args;

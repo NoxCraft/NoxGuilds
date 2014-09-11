@@ -26,9 +26,9 @@ package com.noxpvp.noxguilds.manager;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -40,8 +40,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import com.bergerkiller.bukkit.common.ModuleLogger;
 import com.noxpvp.noxguilds.internal.Persistant;
 
-public abstract class BaseManager<T extends Persistant> implements
-		IManager<T> {
+public abstract class BaseManager<T extends Persistant> implements IManager<T> {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
@@ -78,8 +77,7 @@ public abstract class BaseManager<T extends Persistant> implements
 			}
 		}
 		
-		final FileConfiguration configRet = YamlConfiguration
-				.loadConfiguration(configFile);
+		final FileConfiguration configRet = YamlConfiguration.loadConfiguration(configFile);
 		
 		return configRet;
 	}
@@ -105,13 +103,7 @@ public abstract class BaseManager<T extends Persistant> implements
 	}
 	
 	public List<T> getLoadedValues() {
-		final List<T> ret = new ArrayList<T>();
-		
-		for (final T loaded : loadedCache.values()) {
-			ret.add(loaded);
-		}
-		
-		return Collections.unmodifiableList(ret);
+		return Collections.unmodifiableList(new ArrayList<T>(loadedCache.values()));
 	}
 	
 	public boolean isLoaded(T object) {
@@ -156,10 +148,15 @@ public abstract class BaseManager<T extends Persistant> implements
 	}
 	
 	public void unloadAndSaveAll() {
-		final Iterator<T> iterate = loadedCache.values().iterator();
-		while (iterate.hasNext()) {
-			save(iterate.next());
-			iterate.remove();
+		// final Iterator<T> iterate = loadedCache.values().iterator();
+		// while (iterate.hasNext()) {
+		// save(iterate.next());
+		// iterate.remove();
+		// }
+		
+		final Collection<T> values = new ArrayList<T>(loadedCache.values());
+		for (final T v : values) {
+			unloadAndSave(v);
 		}
 	}
 	
@@ -196,13 +193,12 @@ public abstract class BaseManager<T extends Persistant> implements
 		T created = null;
 		
 		try {
-			created = (T) getConfig(path + ".yml").get(
-					path);
+			created = (T) getConfig(path + ".yml").get(path);
 		} catch (final ClassCastException e) {
 		}
 		
 		if (created != null) {
-			loadedCache.put(created.getPersistentStringID(), created);
+			load(created);
 		}
 		
 		return created;

@@ -51,15 +51,13 @@ public abstract class KingdomSelectMenu extends SelectionMenu<Kingdom> {
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public KingdomSelectMenu(Player p, Collection<Kingdom> kingdoms,
-			CoreBox backbutton) {
+	public KingdomSelectMenu(Player p, Collection<Kingdom> kingdoms, CoreBox backbutton) {
 		super(p, MENU_NAME, kingdoms, backbutton);
 		
 		this.kingdoms = kingdoms;
 	}
 	
-	public KingdomSelectMenu(Player p, String menuName,
-			Collection<Kingdom> kingdoms, CoreBox backbutton) {
+	public KingdomSelectMenu(Player p, String menuName, Collection<Kingdom> kingdoms, CoreBox backbutton) {
 		super(p, menuName, kingdoms, backbutton);
 		
 		this.kingdoms = kingdoms;

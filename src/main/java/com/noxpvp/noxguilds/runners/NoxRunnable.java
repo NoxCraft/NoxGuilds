@@ -80,10 +80,8 @@ public abstract class NoxRunnable extends BukkitRunnable {
 	}
 	
 	public NoxRunnable start(int delay) {
-		id = period > 0 ?
-				runTaskTimer(NoxGuilds.getInstance(), delay, period)
-						.getTaskId() :
-				runTaskLater(NoxGuilds.getInstance(), delay).getTaskId();
+		id = period > 0 ? runTaskTimer(NoxGuilds.getInstance(), delay, period).getTaskId() : runTaskLater(
+			NoxGuilds.getInstance(), delay).getTaskId();
 		
 		if (tickTime > 0) {
 			new BukkitRunnable() {

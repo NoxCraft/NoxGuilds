@@ -69,41 +69,35 @@ public class GulidPlayerStats implements ConfigurationSerializable {
 	// Deserialize
 	public GulidPlayerStats(Map<String, Object> data) {
 		Object getter;
-		if ((getter = data.get(NODE_DEATHS)) != null
-				&& getter instanceof Number) {
+		if ((getter = data.get(NODE_DEATHS)) != null && getter instanceof Number) {
 			deaths = deaths;
 		} else {
 			deaths = 0;
 		}
 		
-		if ((getter = data.get(NODE_LASTDEATH)) != null
-				&& getter instanceof String) {
+		if ((getter = data.get(NODE_LASTDEATH)) != null && getter instanceof String) {
 			lastDeath = (String) getter;
 		} else {
 			lastDeath = "";
 		}
 		
-		if ((getter = data.get(NODE_KILLS)) != null
-				&& getter instanceof Number) {
+		if ((getter = data.get(NODE_KILLS)) != null && getter instanceof Number) {
 			kills = (Integer) getter;
 		} else {
 			kills = 0;
 		}
 		
-		if ((getter = data.get(NODE_LAST_KILL)) != null
-				&& getter instanceof String) {
+		if ((getter = data.get(NODE_LAST_KILL)) != null && getter instanceof String) {
 			lastKill = (String) getter;
 		} else {
 			lastKill = "";
 		}
 		
-		if ((getter = data.get(NODE_LAST_LOGIN)) != null
-				&& getter instanceof Date) {
+		if ((getter = data.get(NODE_LAST_LOGIN)) != null && getter instanceof Date) {
 			lastLogin = (Date) getter;
 		}
 		
-		if ((getter = data.get(NODE_FIRST_CREATED)) != null
-				&& getter instanceof Date) {
+		if ((getter = data.get(NODE_FIRST_CREATED)) != null && getter instanceof Date) {
 			firstCreated = (Date) getter;
 		}
 	}

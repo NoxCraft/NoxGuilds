@@ -32,15 +32,13 @@ import com.noxpvp.noxguilds.listeners.LoginListener;
 import com.noxpvp.noxguilds.listeners.LogoutListener;
 import com.noxpvp.noxguilds.listeners.PlayerMoveListener;
 import com.noxpvp.noxguilds.locale.NoxGuildLocale;
-import com.noxpvp.noxguilds.locale.NoxGuildLocale;
 import com.noxpvp.noxguilds.manager.GuildManager;
 import com.noxpvp.noxguilds.manager.GuildPlayerManager;
 import com.noxpvp.noxguilds.manager.KingdomManager;
 import com.noxpvp.noxguilds.manager.PlotManager;
 import com.noxpvp.noxguilds.permisson.PermissionCell;
 
-public class NoxGuilds extends NoxPlugin implements ItemRepresentable,
-		ChannelKeeper<ServerChannel> {
+public class NoxGuilds extends NoxPlugin implements ItemRepresentable, ChannelKeeper<ServerChannel> {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static Fields
@@ -75,10 +73,8 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable,
 	}
 	
 	@Override
-	public boolean command(CommandSender arg0, String arg1, String[]
-			arg2) {
-		Bukkit.getPluginManager().callEvent(new CommandEvent(arg0, arg1,
-				arg2));
+	public boolean command(CommandSender arg0, String arg1, String[] arg2) {
+		Bukkit.getPluginManager().callEvent(new CommandEvent(arg0, arg1, arg2));
 		
 		return true;
 	}
@@ -132,8 +128,7 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable,
 	}
 	
 	public FileConfiguration getMainConfig() {
-		final FileConfiguration config = new FileConfiguration(instance,
-				"config.yml");
+		final FileConfiguration config = new FileConfiguration(instance, "config.yml");
 		
 		if (config.exists()) {
 			config.load();
@@ -156,18 +151,13 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable,
 	@SuppressWarnings("unchecked")
 	@Override
 	public Class<? extends ConfigurationSerializable>[] getSerialiables() {
-		return new Class[] {
-				Area.class,
-				Zone.class,
-				
-				GuildRank.class,
-				KingdomRank.class,
-				
-				PermissionCell.class,
-				
-				GuildPlayer.class,
-				Guild.class,
-				Kingdom.class };
+		return new Class[] { Area.class, Zone.class,
+		
+		GuildRank.class, KingdomRank.class,
+		
+		PermissionCell.class,
+		
+		GuildPlayer.class, Guild.class, Kingdom.class };
 	}
 	
 	public BankAccount getServerAcount() {
@@ -188,9 +178,7 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable,
 	
 	@Override
 	public void log(Level l, String msg) {
-		(pluginLogger != null ? pluginLogger
-				: (pluginLogger = new ModuleLogger("NoxGuilds")))
-				.log(l, msg);
+		(pluginLogger != null ? pluginLogger : (pluginLogger = new ModuleLogger("NoxGuilds"))).log(l, msg);
 	}
 	
 	public void registerCommands() {

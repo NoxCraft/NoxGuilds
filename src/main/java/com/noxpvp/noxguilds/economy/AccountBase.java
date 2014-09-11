@@ -40,15 +40,8 @@ public abstract class AccountBase implements Account, ItemRepresentable {
 	// Menu item
 	public ItemStack getIdentifiableItem() {
 		return new ItemBuilder(Material.GOLD_INGOT, 1)
-				.setName(
-						ChatColor.GOLD
-								+ "Balance: "
-								+ ChatColor.AQUA
-								+ VaultAdapter.economy
-										.format(getBalance()))
-				.setLore(" ", ChatColor.AQUA + "Click here to deposit",
-						ChatColor.AQUA + "or withdraw funds")
-				.build();
+			.setName(ChatColor.GOLD + "Balance: " + ChatColor.AQUA + VaultAdapter.economy.format(getBalance()))
+			.setLore(" ", ChatColor.AQUA + "Click here to deposit", ChatColor.AQUA + "or withdraw funds").build();
 		
 	}
 	
@@ -61,25 +54,21 @@ public abstract class AccountBase implements Account, ItemRepresentable {
 	 */
 	public Result withdrawTo(AccountBase receiver, double amount) {
 		if (!canPay(amount))
-			return new Result(false, NoxGuildLocale.TRANSFER_FAILED
-					.get(getAccountName() + " can't afford to pay "
-							+ amount));
+			return new Result(false, NoxGuildLocale.TRANSFER_FAILED.get(getAccountName() + " can't afford to pay "
+				+ amount));
 		
 		if (!pay(amount))
-			return new Result(false, NoxGuildLocale.TRANSFER_FAILED
-					.get(getAccountName() + " could not pay " + amount));
+			return new Result(false, NoxGuildLocale.TRANSFER_FAILED.get(getAccountName() + " could not pay " + amount));
 		
 		if (!receiver.deposit(amount)) {
 			// refund
 			deposit(amount);
-			return new Result(false, NoxGuildLocale.TRANSFER_FAILED
-					.get(receiver.getAccountName() + " could not deposit "
-							+ amount));
+			return new Result(false, NoxGuildLocale.TRANSFER_FAILED.get(receiver.getAccountName()
+				+ " could not deposit " + amount));
 		}
 		
-		return new Result(true, NoxGuildLocale.TRANSFER_SUCCESS
-				.get(receiver.getAccountName() + " Recieved " + amount)
-				+ " from " + getAccountName());
+		return new Result(true, NoxGuildLocale.TRANSFER_SUCCESS.get(receiver.getAccountName() + " Recieved " + amount)
+			+ " from " + getAccountName());
 	}
 	
 }

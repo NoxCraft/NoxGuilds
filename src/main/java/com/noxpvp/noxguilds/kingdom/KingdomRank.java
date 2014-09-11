@@ -34,18 +34,15 @@ public class KingdomRank extends BaseRank<KingdomPermissionCell> {
 		Object getter;
 		Kingdom temp = null;
 		
-		if ((getter = data.get("kingdom-id")) != null
-				&& getter instanceof String) {
-			temp = KingdomManager.getInstance().get(
-					UUID.fromString((String) getter));
+		if ((getter = data.get("kingdom-id")) != null && getter instanceof String) {
+			temp = KingdomManager.getInstance().get(UUID.fromString((String) getter));
 		}
 		
 		if (temp != null) {
 			owner = temp;
 		}
 		
-		if ((getter = data.get("permissions")) != null
-				&& getter instanceof KingdomPermissionCell) {
+		if ((getter = data.get("permissions")) != null && getter instanceof KingdomPermissionCell) {
 			perms = (KingdomPermissionCell) getter;
 		} else {
 			perms = new KingdomPermissionCell();

@@ -31,8 +31,7 @@ public class NoPermissionException extends RuntimeException {
 	private final String		permission;
 	private final CommandSender	sender;
 	
-	public NoPermissionException(CommandSender sender, String permission,
-			String message) {
+	public NoPermissionException(CommandSender sender, String permission, String message) {
 		super(message);
 		this.sender = sender;
 		this.permission = permission;

@@ -24,18 +24,15 @@ public class GuildRank extends BaseRank<GuildPermissionCell> {
 		
 		Object getter;
 		Guild temp = null;
-		if ((getter = data.get("guild-id")) != null
-				&& getter instanceof String) {
-			temp = GuildManager.getInstance().get(
-					UUID.fromString((String) getter));
+		if ((getter = data.get("guild-id")) != null && getter instanceof String) {
+			temp = GuildManager.getInstance().get(UUID.fromString((String) getter));
 		}
 		
 		if (temp != null) {
 			setGuild(temp);
 		}
 		
-		if ((getter = data.get("permissions")) != null
-				&& getter instanceof GuildPermissionCell) {
+		if ((getter = data.get("permissions")) != null && getter instanceof GuildPermissionCell) {
 			perms = (GuildPermissionCell) getter;
 		} else {
 			perms = new GuildPermissionCell();

@@ -45,14 +45,12 @@ public class NoxPermission implements INoxPermission {
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public NoxPermission(NoxPlugin plugin, String node,
-			String description, PermissionDefault defaults) {
+	public NoxPermission(NoxPlugin plugin, String node, String description, PermissionDefault defaults) {
 		this(plugin, node, description, defaults, new NoxPermission[0]);
 	}
 	
-	public NoxPermission(NoxPlugin plugin, String node,
-			String description, PermissionDefault defaults,
-			NoxPermission... children) {
+	public NoxPermission(NoxPlugin plugin, String node, String description, PermissionDefault defaults,
+		NoxPermission... children) {
 		this.plugin = plugin;
 		if (!node.startsWith("noxguilds.")) {
 			this.node = "nox." + node;
@@ -65,8 +63,7 @@ public class NoxPermission implements INoxPermission {
 		parents = new String[1];
 		this.description = description;
 		defaultPermission = defaults;
-		parents[0] = this.node.substring(0, this.node.lastIndexOf('.'))
-				+ "*";
+		parents[0] = this.node.substring(0, this.node.lastIndexOf('.')) + "*";
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

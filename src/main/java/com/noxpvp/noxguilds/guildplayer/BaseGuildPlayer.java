@@ -30,9 +30,8 @@ import com.noxpvp.noxguilds.permisson.PermissionCellKeeper;
 import com.noxpvp.noxguilds.permisson.PlayerPermissionCell;
 import com.noxpvp.noxguilds.util.ItemBuilder;
 
-public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant,
-		PermissionCellKeeper<PlayerPermissionCell>, Account,
-		ItemRepresentable {
+public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant, PermissionCellKeeper<PlayerPermissionCell>,
+	Account, ItemRepresentable {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static Fields
@@ -63,22 +62,18 @@ public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant,
 	@SuppressWarnings("unchecked")
 	public BaseGuildPlayer(Map<String, Object> data) {
 		Object getter;
-		if ((getter = data.get(NODE_UID)) != null
-				&& getter instanceof String) {
+		if ((getter = data.get(NODE_UID)) != null && getter instanceof String) {
 			playerUUID = UUID.fromString((String) getter);
 		} else
-			throw new IllegalStateException(
-					"Could not load player uid from data file");
+			throw new IllegalStateException("Could not load player uid from data file");
 		
-		if ((getter = data.get(NODE_PLAYER_PERMS)) != null
-				&& getter instanceof PlayerPermissionCell) {
+		if ((getter = data.get(NODE_PLAYER_PERMS)) != null && getter instanceof PlayerPermissionCell) {
 			perms = (PlayerPermissionCell) getter;
 		} else {
 			perms = new PlayerPermissionCell();
 		}
 		
-		if ((getter = data.get(NODE_PLAYER_STATS)) != null
-				&& getter instanceof GulidPlayerStats) {
+		if ((getter = data.get(NODE_PLAYER_STATS)) != null && getter instanceof GulidPlayerStats) {
 			stats = (GulidPlayerStats) getter;
 		} else {
 			stats = new GulidPlayerStats();
@@ -134,8 +129,7 @@ public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant,
 	}
 	
 	public CoreBox getCoreBox() {
-		return currentBox != null && currentBox.get() != null ? currentBox
-				.get() : null;
+		return currentBox != null && currentBox.get() != null ? currentBox.get() : null;
 	}
 	
 	public String getFormatedName() {
@@ -164,25 +158,13 @@ public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant,
 	}
 	
 	public ItemStack getIdentifiableItem() {
-		return new ItemBuilder(new ItemStack(Material.SKULL_ITEM, 1,
-				(short) 3))
-				.setName(getFormatedName())
-				.setLore(
-						ChatColor.GOLD + "Kills: " + ChatColor.AQUA
-								+ getStats().getKills(),
-						ChatColor.GOLD + "Deaths: " + ChatColor.AQUA
-								+ getStats().getDeaths(),
-						ChatColor.GOLD
-								+ "KD Ratio: "
-								+ ChatColor.AQUA
-								+ String.format("%.2f", getStats()
-										.getKDRatio()),
-						ChatColor.GOLD + "Last login: " + ChatColor.AQUA
-								+ getStats().getLastLogin().toString(),
-						ChatColor.GOLD + "Join date: " + ChatColor.AQUA
-								+ getStats().getFirstCreated().toString()
-				)
-				.build();
+		return new ItemBuilder(new ItemStack(Material.SKULL_ITEM, 1, (short) 3))
+			.setName(getFormatedName())
+			.setLore(ChatColor.GOLD + "Kills: " + ChatColor.AQUA + getStats().getKills(),
+				ChatColor.GOLD + "Deaths: " + ChatColor.AQUA + getStats().getDeaths(),
+				ChatColor.GOLD + "KD Ratio: " + ChatColor.AQUA + String.format("%.2f", getStats().getKDRatio()),
+				ChatColor.GOLD + "Last login: " + ChatColor.AQUA + getStats().getLastLogin().toString(),
+				ChatColor.GOLD + "Join date: " + ChatColor.AQUA + getStats().getFirstCreated().toString()).build();
 	}
 	
 	public OfflinePlayer getOffline() {

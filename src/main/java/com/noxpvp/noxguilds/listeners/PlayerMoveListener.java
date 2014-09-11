@@ -48,11 +48,9 @@ public class PlayerMoveListener extends NoxListener<NoxGuilds> {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerChunkMove(PlayerChunkMoveEvent event) {
 		
-		final GuildPlayer p = GuildPlayerManager.getInstance().getFromPlayer(
-				event.getPlayer());
+		final GuildPlayer p = GuildPlayerManager.getInstance().getFromPlayer(event.getPlayer());
 		final GuildPlot lastPlot = (GuildPlot) p.getOption(lastPlotKey);
-		final GuildPlot newPlot = PlotManager.getInstance().getPlot(
-				new TerritoryID(event.getToChunk()).getID());
+		final GuildPlot newPlot = PlotManager.getInstance().getPlot(new TerritoryID(event.getToChunk()).getID());
 		
 		if (lastPlot == newPlot)
 			return;
@@ -69,12 +67,10 @@ public class PlayerMoveListener extends NoxListener<NoxGuilds> {
 			return;
 		}
 		
-		if (lastPlot == null
-				|| lastPlot.getGuildOwnerID() != newPlot.getGuildOwnerID()) {
+		if (lastPlot == null || lastPlot.getGuildOwnerID() != newPlot.getGuildOwnerID()) {
 			Guild g = null;
 			if ((g = newPlot.getGuildOwner()) != null) {
-				NoxGuildLocale.PLAYER_MOVED_GUILD
-						.send(event.getPlayer(), g, newPlot);
+				NoxGuildLocale.PLAYER_MOVED_GUILD.send(event.getPlayer(), g, newPlot);
 				
 			} else {
 				NoxGuildLocale.PLAYER_MOVED_UNOWNED.send(event.getPlayer());
@@ -92,14 +88,12 @@ public class PlayerMoveListener extends NoxListener<NoxGuilds> {
 		final Location from = event.getFrom();
 		final Location to = event.getTo();
 		
-		if ((int) from.getX() == (int) to.getX() &&
-				(int) from.getZ() == (int) to.getZ() &&
-				(int) from.getY() == (int) to.getZ())
+		if ((int) from.getX() == (int) to.getX() && (int) from.getZ() == (int) to.getZ()
+			&& (int) from.getY() == (int) to.getZ())
 			return;
 		
 		if (from.getChunk() != to.getChunk()) {
-			Bukkit.getPluginManager().callEvent(
-					new PlayerChunkMoveEvent(event.getPlayer(), from, to));
+			Bukkit.getPluginManager().callEvent(new PlayerChunkMoveEvent(event.getPlayer(), from, to));
 		}
 		
 	}

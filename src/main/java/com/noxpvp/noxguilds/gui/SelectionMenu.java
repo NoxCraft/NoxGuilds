@@ -39,8 +39,7 @@ import com.noxpvp.noxguilds.gui.internal.PagedCoreBoxRegion;
  * @author ConnorStone
  * 
  */
-public abstract class SelectionMenu<T extends ItemRepresentable> extends
-		CoreBox {
+public abstract class SelectionMenu<T extends ItemRepresentable> extends CoreBox {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static fields
@@ -66,24 +65,19 @@ public abstract class SelectionMenu<T extends ItemRepresentable> extends
 		this(p, menuName, items, null);
 	}
 	
-	public SelectionMenu(Player p, String menuName, Collection<T> items,
-			CoreBox backbutton) {
+	public SelectionMenu(Player p, String menuName, Collection<T> items, CoreBox backbutton) {
 		super(p, menuName, 9, backbutton);
 		
 		this.items = items;
 		
-		int size = Math.min(45, Math.max(9,
-				(int) (this.items.size() / 9.0) * 9));
-		setBox(Bukkit.getServer()
-				.createInventory(null, size + 9, menuName));
+		int size = Math.min(45, Math.max(9, (int) (this.items.size() / 9.0) * 9));
+		setBox(Bukkit.getServer().createInventory(null, size + 9, menuName));
 		
-		final PagedCoreBoxRegion itemRg = new PagedCoreBoxRegion(this,
-				new Vector(0, 0, 0), size / 9, 9);
+		final PagedCoreBoxRegion itemRg = new PagedCoreBoxRegion(this, new Vector(0, 0, 0), size / 9, 9);
 		
 		size = getBox().getSize();
 		addMenuItem(size - 9, itemRg.getBackArrow());
-		addMenuItem(getBackButton() != null ? size - 2 : size - 1, itemRg
-				.getNextArrow());
+		addMenuItem(getBackButton() != null ? size - 2 : size - 1, itemRg.getNextArrow());
 		
 		for (final T item : this.items) {
 			itemRg.add(new CoreBoxItem(this, item.getIdentifiableItem()) {

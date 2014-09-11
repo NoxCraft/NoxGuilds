@@ -1,8 +1,8 @@
 package com.noxpvp.noxguilds.economy;
 
-import com.noxpvp.noxguilds.VaultAdapter;
-
 import net.milkbowl.vault.economy.EconomyResponse;
+
+import com.noxpvp.noxguilds.VaultAdapter;
 
 public class BankAccount extends AccountBase {
 	
@@ -25,8 +25,7 @@ public class BankAccount extends AccountBase {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public boolean deposit(double amount) {
-		return VaultAdapter.economy.bankDeposit(name, amount)
-				.transactionSuccess();
+		return VaultAdapter.economy.bankDeposit(name, amount).transactionSuccess();
 	}
 	
 	public String getAccountName() {
@@ -35,12 +34,10 @@ public class BankAccount extends AccountBase {
 	
 	public double getBalance() {
 		EconomyResponse r;
-		return (r = VaultAdapter.economy.bankBalance(name)) != null ? r.balance
-				: 0D;
+		return (r = VaultAdapter.economy.bankBalance(name)) != null ? r.balance : 0D;
 	}
 	
 	public boolean pay(double amount) {
-		return VaultAdapter.economy.bankWithdraw(name, amount)
-				.transactionSuccess();
+		return VaultAdapter.economy.bankWithdraw(name, amount).transactionSuccess();
 	}
 }

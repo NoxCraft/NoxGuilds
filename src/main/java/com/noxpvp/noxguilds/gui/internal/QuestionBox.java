@@ -53,15 +53,13 @@ public abstract class QuestionBox extends CoreBox {
 	}
 	
 	public QuestionBox(Player p, String question, CoreBox backbutton) {
-		super(p, ChatColor.AQUA
-				+ question.substring(0, Math.min(30, question.length())),
-				InventoryType.DISPENSER, backbutton);
+		super(p, ChatColor.AQUA + question.substring(0, Math.min(30, question.length())), InventoryType.DISPENSER,
+			backbutton);
 		
 		// Setup Items
 		
 		// Confirm
-		final CoreBoxItem confirm = new CoreBoxItem(this,
-				QuestionBox.confirmItem) {
+		final CoreBoxItem confirm = new CoreBoxItem(this, QuestionBox.confirmItem) {
 			
 			public boolean onClick(InventoryClickEvent click) {
 				QuestionBox.this.onConfirm();
@@ -70,8 +68,7 @@ public abstract class QuestionBox extends CoreBox {
 		};
 		
 		// Deny
-		final CoreBoxItem deny = new CoreBoxItem(this,
-				QuestionBox.denyItem) {
+		final CoreBoxItem deny = new CoreBoxItem(this, QuestionBox.denyItem) {
 			
 			public boolean onClick(InventoryClickEvent click) {
 				QuestionBox.this.onDeny();

@@ -11,8 +11,7 @@ import com.noxpvp.noxguilds.manager.PlotManager;
 import com.noxpvp.noxguilds.permisson.PermissionCellKeeper;
 import com.noxpvp.noxguilds.permisson.PlayerPermissionCell;
 
-public class GuildPlot extends TerritoryBlock implements
-		PermissionCellKeeper<PlayerPermissionCell> {
+public class GuildPlot extends TerritoryBlock implements PermissionCellKeeper<PlayerPermissionCell> {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static fields
@@ -21,7 +20,7 @@ public class GuildPlot extends TerritoryBlock implements
 	// Serializers start
 	private static final String			NODE_GUILD_OWNER	= "guild-owner-id";
 	private static final String			NODE_PLAYER_OWNER	= "player-owner-id";
-	private static final String			NODE_PERMISSIONS	= "perms";
+	private static final String			NODE_PERMISSIONS	= "player-perms";
 	// Serializers end
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -30,7 +29,7 @@ public class GuildPlot extends TerritoryBlock implements
 	
 	private UUID						guildOwner;
 	private UUID						playerOwner;
-	private final PlayerPermissionCell	perms;
+	private final PlayerPermissionCell	playerPerms;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -40,7 +39,7 @@ public class GuildPlot extends TerritoryBlock implements
 		super(location);
 		
 		guildOwner = owner.getPersistentID();
-		perms = new PlayerPermissionCell();
+		playerPerms = new PlayerPermissionCell();
 		
 		PlotManager.getInstance().loadObject(this);
 	}
@@ -50,25 +49,22 @@ public class GuildPlot extends TerritoryBlock implements
 		
 		Object getter;
 		
-		if ((getter = data.get(NODE_GUILD_OWNER)) != null
-				&& getter instanceof String) {
+		if ((getter = data.get(NODE_GUILD_OWNER)) != null && getter instanceof String) {
 			guildOwner = UUID.fromString((String) getter);
 		} else {
 			guildOwner = null;
 		}
 		
-		if ((getter = data.get(NODE_PLAYER_OWNER)) != null
-				&& getter instanceof String) {
+		if ((getter = data.get(NODE_PLAYER_OWNER)) != null && getter instanceof String) {
 			playerOwner = UUID.fromString((String) getter);
 		} else {
 			playerOwner = null;
 		}
 		
-		if ((getter = data.get(NODE_PERMISSIONS)) != null
-				&& getter instanceof PlayerPermissionCell) {
-			perms = (PlayerPermissionCell) getter;
+		if ((getter = data.get(NODE_PERMISSIONS)) != null && getter instanceof PlayerPermissionCell) {
+			playerPerms = (PlayerPermissionCell) getter;
 		} else {
-			perms = new PlayerPermissionCell();
+			playerPerms = new PlayerPermissionCell();
 		}
 		
 	}
@@ -93,7 +89,7 @@ public class GuildPlot extends TerritoryBlock implements
 	}
 	
 	public PlayerPermissionCell getPermissions() {
-		return perms;
+		return playerPerms;
 	}
 	
 	public GuildPlayer getPlayerOwner() {
@@ -119,8 +115,8 @@ public class GuildPlot extends TerritoryBlock implements
 			data.put(NODE_PLAYER_OWNER, playerOwner.toString());
 		}
 		
-		if (perms.getPerms().size() > 0) {
-			data.put(NODE_PERMISSIONS, perms);
+		if (playerPerms.getPerms().size() > 0) {
+			data.put(NODE_PERMISSIONS, playerPerms);
 		}
 		
 		return data;

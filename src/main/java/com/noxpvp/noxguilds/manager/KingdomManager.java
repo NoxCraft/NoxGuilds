@@ -66,8 +66,7 @@ public class KingdomManager extends BaseManager<Kingdom> {
 	}
 	
 	public NoxPlugin getPlugin() {
-		return plugin != null ? plugin
-				: (plugin = NoxGuilds.getInstance());
+		return plugin != null ? plugin : (plugin = NoxGuilds.getInstance());
 	}
 	
 	public void load() {

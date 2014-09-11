@@ -62,8 +62,7 @@ public class GuildInfoMenu extends CoreBox {
 		super(p, MENU_NAME, size, backbutton);
 		
 		g = guild;
-		final boolean inGuild = g.hasMember(GuildPlayerManager
-				.getInstance().getFromPlayer(p));
+		final boolean inGuild = g.hasMember(GuildPlayerManager.getInstance().getFromPlayer(p));
 		
 		// if (inGuild) {
 		// setBox(Bukkit.getServer().createInventory(null, 4 * 9,
@@ -82,8 +81,7 @@ public class GuildInfoMenu extends CoreBox {
 		addMenuItem(18, new CoreBoxItem(this, g.getAccountItem()) {
 			
 			public boolean onClick(InventoryClickEvent click) {
-				new AccountManager(getPlayer(), g.getAccount(),
-						GuildInfoMenu.this).show();
+				new AccountManager(getPlayer(), g.getAccount(), GuildInfoMenu.this).show();
 				return true;
 			}
 		});
@@ -113,13 +111,11 @@ public class GuildInfoMenu extends CoreBox {
 				if (!g.hasKingdom())
 					return false;
 				
-				new KingdomSelectMenu(getPlayer(), g.getKingdoms(),
-						GuildInfoMenu.this) {
+				new KingdomSelectMenu(getPlayer(), g.getKingdoms(), GuildInfoMenu.this) {
 					
 					@Override
 					public void onSelect(Kingdom selected) {
-						new KingdomInfoMenu(getPlayer(), selected,
-								GuildInfoMenu.this).show();
+						new KingdomInfoMenu(getPlayer(), selected, GuildInfoMenu.this).show();
 					}
 				};
 				return true;

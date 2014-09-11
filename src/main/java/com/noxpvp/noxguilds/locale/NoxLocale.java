@@ -15,8 +15,7 @@ public class NoxLocale extends LocalizationEnum {
 	@Override
 	public String get(String... args) {
 		if (args.length > 0)
-			return MessageUtil.parseArguments(MessageUtil
-					.parseColor(getDefault()), args);
+			return MessageUtil.parseArguments(MessageUtil.parseColor(getDefault()), args);
 		
 		return MessageUtil.parseColor(getDefault());
 	}

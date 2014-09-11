@@ -45,17 +45,14 @@ public abstract class LandOwner implements ConfigurationSerializable {
 	
 	public LandOwner(Map<String, Object> data) {
 		Object getter;
-		if ((getter = data.get(SERIALIZE_PLOTS)) != null
-				&& getter instanceof Collection) {
+		if ((getter = data.get(SERIALIZE_PLOTS)) != null && getter instanceof Collection) {
 			plots = new HashSet<String>((Collection<String>) getter);
 		} else {
 			plots = new HashSet<String>();
 		}
 		
-		if ((getter = data.get(SERIALIZE_ZONES)) != null
-				&& getter instanceof Collection) {
-			zones = new HashSet<UUID>(GuildUtil
-					.UUIDSFromStrings((Collection<String>) getter));
+		if ((getter = data.get(SERIALIZE_ZONES)) != null && getter instanceof Collection) {
+			zones = new HashSet<UUID>(GuildUtil.UUIDSFromStrings((Collection<String>) getter));
 		} else {
 			zones = new HashSet<UUID>();
 		}
@@ -89,9 +86,7 @@ public abstract class LandOwner implements ConfigurationSerializable {
 	}
 	
 	public ItemStack getLandItem() {
-		return new ItemBuilder(Material.GRASS)
-				.setName(ChatColor.GREEN + "Territory")
-				.build();
+		return new ItemBuilder(Material.GRASS).setName(ChatColor.GREEN + "Territory").build();
 	}
 	
 	public abstract int getMaxPlots();

@@ -38,8 +38,7 @@ public class TerritoryBlock implements Persistant, ItemRepresentable {
 	public TerritoryBlock(Map<String, Object> data) {
 		Object getter;
 		
-		if ((getter = data.get(NODE_LOCATION)) != null
-				&& getter instanceof Location) {
+		if ((getter = data.get(NODE_LOCATION)) != null && getter instanceof Location) {
 			coord = new TerritoryCoord((Location) getter);
 		}
 		
@@ -64,8 +63,7 @@ public class TerritoryBlock implements Persistant, ItemRepresentable {
 		final Chunk c = coord.getChunk();
 		
 		final Location max = new Location(c.getWorld(), c.getX(), 0, c.getZ());
-		final Location min = new Location(c.getWorld(), c.getX() + 16, 256,
-				c.getZ() + 16);
+		final Location min = new Location(c.getWorld(), c.getX() + 16, 256, c.getZ() + 16);
 		
 		return new Area(max, min);
 	}

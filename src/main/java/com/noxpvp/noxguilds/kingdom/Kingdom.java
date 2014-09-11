@@ -23,12 +23,8 @@ public class Kingdom extends BaseKingdom {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static ModuleLogger		kingdomLogger			= new ModuleLogger(
-																	NoxGuilds
-																			.getInstance(),
-																	"Kingdoms");
-	public static final ItemStack	genericKingdomItem		= new ItemStack(
-																	Material.BEACON);
+	private static ModuleLogger		kingdomLogger			= new ModuleLogger(NoxGuilds.getInstance(), "Kingdoms");
+	public static final ItemStack	genericKingdomItem		= new ItemStack(Material.BEACON);
 	
 	// Serializers start
 	public static final String		NODE_KINGDOM_ITEM		= "kingdom-item";
@@ -75,43 +71,37 @@ public class Kingdom extends BaseKingdom {
 		
 		Object getter;
 		
-		if ((getter = data.get(NODE_KINGDOM_ITEM)) != null
-				&& getter instanceof ItemStack) {
+		if ((getter = data.get(NODE_KINGDOM_ITEM)) != null && getter instanceof ItemStack) {
 			kingdomBadge = (ItemStack) getter;
 		} else {
 			kingdomBadge = genericKingdomItem.clone();
 		}
 		
-		if ((getter = data.get(NODE_PERMS)) != null
-				&& getter instanceof KingdomPermissionCell) {
+		if ((getter = data.get(NODE_PERMS)) != null && getter instanceof KingdomPermissionCell) {
 			perms = (KingdomPermissionCell) getter;
 		} else {
 			perms = new KingdomPermissionCell();
 		}
 		
-		if ((getter = data.get(NODE_OPEN)) != null
-				&& getter instanceof Boolean) {
+		if ((getter = data.get(NODE_OPEN)) != null && getter instanceof Boolean) {
 			open = (Boolean) getter;
 		} else {
 			open = Settings.defaultKingdomOpen;
 		}
 		
-		if ((getter = data.get(NODE_FRIENDLYFIRE)) != null
-				&& getter instanceof Boolean) {
+		if ((getter = data.get(NODE_FRIENDLYFIRE)) != null && getter instanceof Boolean) {
 			friendlyFire = (Boolean) getter;
 		} else {
 			friendlyFire = Settings.defaultKingdomFriendlyFire;
 		}
 		
-		if ((getter = data.get(NODE_TAXES)) != null
-				&& getter instanceof Number) {
+		if ((getter = data.get(NODE_TAXES)) != null && getter instanceof Number) {
 			taxes = (Double) getter;
 		} else {
 			taxes = Settings.defaultTaxesKingdom;
 		}
 		
-		if ((getter = data.get(NODE_TAXESPERCENTBASED)) != null
-				&& getter instanceof Boolean) {
+		if ((getter = data.get(NODE_TAXESPERCENTBASED)) != null && getter instanceof Boolean) {
 			isTaxPercent = (Boolean) getter;
 		} else {
 			isTaxPercent = Settings.defaultTaxesKingdomPercent;
@@ -134,16 +124,11 @@ public class Kingdom extends BaseKingdom {
 	
 	public ItemStack getIdentifiableItem() {
 		final Set<String> lore = new HashSet<String>();
-		lore.add(ChatColor.GOLD + "Owner: " + ChatColor.AQUA
-				+ getKing().getPlayer().getName());
+		lore.add(ChatColor.GOLD + "Owner: " + ChatColor.AQUA + getKing().getPlayer().getName());
 		lore.add(ChatColor.GOLD + "Tag: ");
-		lore.addAll(MessageUtil.convertStringForLore(ChatColor.AQUA
-				+ getTag()));
+		lore.addAll(MessageUtil.convertStringForLore(ChatColor.AQUA + getTag()));
 		
-		kingdomBadge = new ItemBuilder(kingdomBadge)
-				.setName(ChatColor.GREEN + getName())
-				.setLore(lore)
-				.build();
+		kingdomBadge = new ItemBuilder(kingdomBadge).setName(ChatColor.GREEN + getName()).setLore(lore).build();
 		
 		return kingdomBadge.clone();
 	}

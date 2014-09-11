@@ -50,14 +50,12 @@ public class PermissionUtil {
 	// Static Methods
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public static boolean hasPermission(Guild g, GuildPlayer player,
-			GuildPermissionType perm) {
+	public static boolean hasPermission(Guild g, GuildPlayer player, GuildPermissionType perm) {
 		
 		if (g.getOwner().equals(player))
 			return true;
 		
-		final GuildAccessLevel level = GuildAccessLevel.getAccessLevel(g,
-				player);
+		final GuildAccessLevel level = GuildAccessLevel.getAccessLevel(g, player);
 		
 		if (g.getPermissions().get(level, perm))
 			return true;

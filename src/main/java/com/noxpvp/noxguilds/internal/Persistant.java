@@ -30,18 +30,18 @@ import org.bukkit.configuration.serialization.ConfigurationSerializable;
 public interface Persistant extends ConfigurationSerializable {
 	
 	/**
-	 * Gets the persistant id of this object as a string
-	 * 
-	 * @return
-	 */
-	public String getPersistentStringID();
-	
-	/**
 	 * Gets the persistent id of this object
 	 * 
 	 * @return
 	 */
 	public UUID getPersistentID();
+	
+	/**
+	 * Gets the persistant id of this object as a string
+	 * 
+	 * @return
+	 */
+	public String getPersistentStringID();
 	
 	/**
 	 * Lets the object know when it attempt to load any data from file that

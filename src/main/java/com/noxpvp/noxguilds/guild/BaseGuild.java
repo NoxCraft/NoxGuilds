@@ -42,11 +42,9 @@ import com.noxpvp.noxguilds.permisson.PermissionCellKeeper;
 import com.noxpvp.noxguilds.util.ItemBuilder;
 import com.noxpvp.noxguilds.util.NoxItemUtil;
 
-public abstract class BaseGuild extends LandOwner implements IGuild, Account,
-		Persistant,
-		PermissionCellKeeper<GuildPermissionCell>,
-		RankKeeper<GuildRank>, ItemRepresentable,
-		ChannelKeeper<GuildChannel>, Membership<GuildPlayer> {
+public abstract class BaseGuild extends LandOwner implements IGuild, Account, Persistant,
+	PermissionCellKeeper<GuildPermissionCell>, RankKeeper<GuildRank>, ItemRepresentable, ChannelKeeper<GuildChannel>,
+	Membership<GuildPlayer> {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static fields
@@ -176,13 +174,8 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account,
 	}
 	
 	public ItemStack getAccountItem() {
-		return NoxItemUtil.addLore(getAccount().getIdentifiableItem(), 0,
-				ChatColor.GOLD
-						+ "Tax: "
-						+ ChatColor.AQUA
-						+ (isTaxPercentBased() ?
-								getMemberTax() + "%" : VaultAdapter.economy
-										.format(getMemberTax())));
+		return NoxItemUtil.addLore(getAccount().getIdentifiableItem(), 0, ChatColor.GOLD + "Tax: " + ChatColor.AQUA
+			+ (isTaxPercentBased() ? getMemberTax() + "%" : VaultAdapter.economy.format(getMemberTax())));
 	}
 	
 	public String getAccountName() {
@@ -231,13 +224,8 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account,
 			i++;
 		}
 		
-		return new ItemBuilder(Material.SKULL_ITEM, getMemberUIDs().size(),
-				(short) 3)
-				.setName(
-						ChatColor.GOLD + "Members: " + ChatColor.AQUA
-								+ getMemberUIDs().size())
-				.setLore(members)
-				.build();
+		return new ItemBuilder(Material.SKULL_ITEM, getMemberUIDs().size(), (short) 3)
+			.setName(ChatColor.GOLD + "Members: " + ChatColor.AQUA + getMemberUIDs().size()).setLore(members).build();
 	}
 	
 	public Set<UUID> getMemberUIDs() {
@@ -254,8 +242,7 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account,
 		final GuildPlayerManager gpm = GuildPlayerManager.getInstance();
 		Player next;
 		for (final UUID memberID : members)
-			if ((next = Bukkit.getPlayer(memberID)) != null
-					&& next.isOnline()) {
+			if ((next = Bukkit.getPlayer(memberID)) != null && next.isOnline()) {
 				ret.add(gpm.getFromPlayer(next));
 			}
 		
@@ -335,15 +322,12 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account,
 	}
 	
 	public void invite(final GuildPlayer player) {
-		getChatChannel().broadcast(
-				new FanceeMessage(NoxGuildLocale.GUILD_INVITED_PLAYER
-						.get(player)));
+		getChatChannel().broadcast(new FanceeMessage(NoxGuildLocale.GUILD_INVITED_PLAYER.get(player)));
 		
 		final List<QuestionOption> options = new ArrayList<QuestionOption>();
 		options.add(new QuestionOption("Join", "guild join " + getName()));
 		
-		new Question(NoxGuildLocale.PLAYER_INVITED_GUILD.get(this), options,
-				player.getPlayer()).send();
+		new Question(NoxGuildLocale.PLAYER_INVITED_GUILD.get(this), options, player.getPlayer()).send();
 		
 		invitedPlayers.add(player);
 		
@@ -352,15 +336,14 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account,
 			Bukkit.getScheduler().cancelTask(i);
 		}
 		
-		lastInviteRunners.put(player, Bukkit.getScheduler().runTaskLater(
-				NoxGuilds.getInstance(), new Runnable() {
-					
-					public void run() {
-						invitedPlayers.remove(player);
-						lastInviteRunners.remove(player);
-					}
-					
-				}, 20 * 30).getTaskId());
+		lastInviteRunners.put(player, Bukkit.getScheduler().runTaskLater(NoxGuilds.getInstance(), new Runnable() {
+			
+			public void run() {
+				invitedPlayers.remove(player);
+				lastInviteRunners.remove(player);
+			}
+			
+		}, 20 * 30).getTaskId());
 	}
 	
 	public boolean isInvited(GuildPlayer object) {
@@ -392,7 +375,7 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account,
 	// Serialize
 	@Override
 	public Map<String, Object> serialize() {
-		final Map<String, Object> data = new HashMap<String, Object>();
+		final Map<String, Object> data = super.serialize();
 		
 		data.put(NODE_ID, guildID.toString());
 		data.put(NODE_GUILD_NAME, guildName);

@@ -74,19 +74,16 @@ public class AccountManager extends CoreBox {
 	 * @param backButton
 	 */
 	public AccountManager(Player p, AccountBase bank, CoreBox backButton) {
-		super(p, MENU_NAME, InventoryType.DISPENSER,
-				backButton);
+		super(p, MENU_NAME, InventoryType.DISPENSER, backButton);
 		
 		final Player player = p;
 		givenAccount = bank;
 		final PlayerAccount playerAccount = new PlayerAccount(player);
 		
-		final ItemStack deposit = new ItemBuilder(Material.GOLD_BLOCK, 1)
-				.setName(ChatColor.AQUA + "Click to deposit")
-				.build();
+		final ItemStack deposit = new ItemBuilder(Material.GOLD_BLOCK, 1).setName(ChatColor.AQUA + "Click to deposit")
+			.build();
 		final ItemStack withdraw = new ItemBuilder(Material.IRON_BLOCK, 1)
-				.setName(ChatColor.AQUA + "Click to withdraw")
-				.build();
+			.setName(ChatColor.AQUA + "Click to withdraw").build();
 		
 		addMenuItem(3, new CoreBoxItem(this, withdraw) {
 			
@@ -113,16 +110,13 @@ public class AccountManager extends CoreBox {
 								// "Must be a number");TODO finish
 								return;
 							else {
-								final Result r = playerAccount
-										.depositFrom(givenAccount, amount);
+								final Result r = playerAccount.depositFrom(givenAccount, amount);
 								r.send(player);
 								
 								if (r.isResult()) {
-									player.playSound(player.getLocation(),
-											Sound.ARROW_HIT, 1, 0);
+									player.playSound(player.getLocation(), Sound.ARROW_HIT, 1, 0);
 								} else {
-									player.playSound(player.getLocation(),
-											Sound.ANVIL_LAND, 1, 0);
+									player.playSound(player.getLocation(), Sound.ANVIL_LAND, 1, 0);
 								}
 							}
 						}
@@ -154,16 +148,13 @@ public class AccountManager extends CoreBox {
 								// "Must be a number");TODO finish
 								return;
 							else {
-								final Result r = givenAccount.depositFrom(
-										playerAccount, amount);
+								final Result r = givenAccount.depositFrom(playerAccount, amount);
 								r.send(player);
 								
 								if (r.isResult()) {
-									player.playSound(player.getLocation(),
-											Sound.ARROW_HIT, 1, 0);
+									player.playSound(player.getLocation(), Sound.ARROW_HIT, 1, 0);
 								} else {
-									player.playSound(player.getLocation(),
-											Sound.ANVIL_LAND, 1, 0);
+									player.playSound(player.getLocation(), Sound.ANVIL_LAND, 1, 0);
 								}
 							}
 						}

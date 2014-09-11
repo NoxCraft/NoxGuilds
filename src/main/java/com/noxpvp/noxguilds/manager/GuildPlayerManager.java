@@ -74,8 +74,7 @@ public class GuildPlayerManager extends BaseManager<GuildPlayer> {
 	}
 	
 	public NoxPlugin getPlugin() {
-		return plugin != null ? plugin
-				: (plugin = NoxGuilds.getInstance());
+		return plugin != null ? plugin : (plugin = NoxGuilds.getInstance());
 	}
 	
 	public void load() {

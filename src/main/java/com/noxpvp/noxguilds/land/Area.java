@@ -46,9 +46,8 @@ public class Area implements ConfigurationSerializable {
 		if (!loc.getWorld().equals(min.getWorld()))
 			return false;
 		
-		return x >= min.getX() && x <= max.getX() &&
-				y >= min.getY() && y <= max.getY() &&
-				z >= min.getZ() && z <= max.getZ();
+		return x >= min.getX() && x <= max.getX() && y >= min.getY() && y <= max.getY() && z >= min.getZ()
+			&& z <= max.getZ();
 	}
 	
 	public LinkedList<Location> getCorners() {
@@ -56,8 +55,7 @@ public class Area implements ConfigurationSerializable {
 		
 		final World w = ret.getFirst().getWorld();
 		
-		final double minX = min.getX(), minZ = min.getZ(), maxX = max
-				.getX(), maxZ = max.getZ();
+		final double minX = min.getX(), minZ = min.getZ(), maxX = max.getX(), maxZ = max.getZ();
 		
 		// Top corners
 		ret.add(max);

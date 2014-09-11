@@ -13,8 +13,7 @@ import com.noxpvp.noxguilds.guildplayer.GuildPlayer;
 import com.noxpvp.noxguilds.permisson.PermissionCell;
 import com.noxpvp.noxguilds.permisson.PermissionCellKeeper;
 
-public abstract class BaseRank<T extends PermissionCell<?, ?>> implements
-		IRank, PermissionCellKeeper<T> {
+public abstract class BaseRank<T extends PermissionCell<?, ?>> implements IRank, PermissionCellKeeper<T> {
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static Fields

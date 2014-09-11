@@ -99,8 +99,7 @@ public class ItemBuilder {
 		final List<String> formated = new ArrayList<String>();
 		
 		for (final String s : lore) {
-			formated.addAll(MessageUtil.convertStringForLore(MessageUtil
-					.parseColor(s)));
+			formated.addAll(MessageUtil.convertStringForLore(MessageUtil.parseColor(s)));
 		}
 		
 		meta.setLore(formated);

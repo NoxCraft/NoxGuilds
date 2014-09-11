@@ -4,22 +4,22 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import com.bergerkiller.bukkit.common.utils.LogicUtil;
-import com.comphenix.packetwrapper.WrapperPlayServerUpdateSign;
+import com.comphenix.packetwrapper.WrapperPlayServerOpenSignEntity;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketEvent;
 import com.noxpvp.noxguilds.listeners.NoxPacketListener;
 
 public abstract class TextPrompt extends NoxPacketListener {
 	
-	private final WrapperPlayServerUpdateSign	packet;
-	private final Player						p;
+	private final WrapperPlayServerOpenSignEntity	packet;
+	private final Player							p;
 	
 	public TextPrompt(Player p) {
 		super(PacketType.Play.Client.UPDATE_SIGN);
 		
 		this.p = p;
 		final Location pLoc = p.getLocation();
-		packet = new WrapperPlayServerUpdateSign();
+		packet = new WrapperPlayServerOpenSignEntity();
 		packet.setLocation(pLoc);
 	}
 	
