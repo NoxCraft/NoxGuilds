@@ -20,9 +20,9 @@ public class Question {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final FancyMessage			question;
-	private final List<QuestionOption>	options;
-	private final CommandSender[]		recievers;
+	private final FancyMessage question;
+	private final List<QuestionOption> options;
+	private final CommandSender[] recievers;
 	
 	// private final int timeOutWait;
 	// private long startTimeStamp;
@@ -34,10 +34,12 @@ public class Question {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public Question(FancyMessage question, List<QuestionOption> options, CommandSender... receivers) {
+	
 		this(question, options, 15, receivers);
 	}
 	
 	public Question(FancyMessage question, List<QuestionOption> options, int secondTimeout, CommandSender... receivers) {
+	
 		this.question = question;
 		this.options = options;
 		recievers = receivers;
@@ -77,10 +79,12 @@ public class Question {
 	}
 	
 	public Question(String message, List<QuestionOption> options, CommandSender... receivers) {
+	
 		this(new FancyMessage(message), options, 15, receivers);
 	}
 	
 	public Question(String message, List<QuestionOption> options, int SecondTimeout, CommandSender... receivers) {
+	
 		this(new FancyMessage(message), options, SecondTimeout, receivers);
 	}
 	
@@ -104,6 +108,7 @@ public class Question {
 	// public abstract void onExpire();
 	
 	public void send() {
+	
 		// commandListener.register();
 		
 		question.then(" Options: ").color(ChatColor.YELLOW);

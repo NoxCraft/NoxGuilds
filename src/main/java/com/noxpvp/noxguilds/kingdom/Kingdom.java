@@ -23,16 +23,16 @@ public class Kingdom extends BaseKingdom {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static ModuleLogger		kingdomLogger			= new ModuleLogger(NoxGuilds.getInstance(), "Kingdoms");
-	public static final ItemStack	genericKingdomItem		= new ItemStack(Material.BEACON);
+	private static ModuleLogger kingdomLogger = new ModuleLogger(NoxGuilds.getInstance(), "Kingdoms");
+	public static final ItemStack genericKingdomItem = new ItemStack(Material.BEACON);
 	
 	// Serializers start
-	public static final String		NODE_KINGDOM_ITEM		= "kingdom-item";
-	public static final String		NODE_PERMS				= "permissions";
-	public static final String		NODE_OPEN				= "open";
-	public static final String		NODE_TAXES				= "taxes";
-	public static final String		NODE_TAXESPERCENTBASED	= "taxes-percent";
-	public static final String		NODE_FRIENDLYFIRE		= "friendly-fire";
+	public static final String NODE_KINGDOM_ITEM = "kingdom-item";
+	public static final String NODE_PERMS = "permissions";
+	public static final String NODE_OPEN = "open";
+	public static final String NODE_TAXES = "taxes";
+	public static final String NODE_TAXESPERCENTBASED = "taxes-percent";
+	public static final String NODE_FRIENDLYFIRE = "friendly-fire";
 	
 	// Serializers end
 	
@@ -40,19 +40,20 @@ public class Kingdom extends BaseKingdom {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private KingdomPermissionCell	perms;
-	private ItemStack				kingdomBadge;
-	private boolean					open;
-	private double					taxes;
-	private boolean					isTaxPercent;
-	private boolean					friendlyFire;
-	private KingdomChannel			channel;
+	private KingdomPermissionCell perms;
+	private ItemStack kingdomBadge;
+	private boolean open;
+	private double taxes;
+	private boolean isTaxPercent;
+	private boolean friendlyFire;
+	private KingdomChannel channel;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public Kingdom(Guild capital, String name) {
+	
 		super(capital.getID(), name);
 		
 		kingdomBadge = genericKingdomItem.clone();
@@ -67,6 +68,7 @@ public class Kingdom extends BaseKingdom {
 	
 	// Deserialize
 	public Kingdom(Map<String, Object> data) {
+	
 		super(data);
 		
 		Object getter;
@@ -119,10 +121,12 @@ public class Kingdom extends BaseKingdom {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public KingdomChannel getChatChannel() {
+	
 		return channel;
 	}
 	
 	public ItemStack getIdentifiableItem() {
+	
 		final Set<String> lore = new HashSet<String>();
 		lore.add(ChatColor.GOLD + "Owner: " + ChatColor.AQUA + getKing().getPlayer().getName());
 		lore.add(ChatColor.GOLD + "Tag: ");
@@ -134,27 +138,33 @@ public class Kingdom extends BaseKingdom {
 	}
 	
 	public KingdomPermissionCell getPermissions() {
+	
 		return perms;
 	}
 	
 	public double getTaxes() {
+	
 		return taxes;
 	}
 	
 	public boolean isFriendlyFire() {
+	
 		return friendlyFire;
 	}
 	
 	public boolean isOpen() {
+	
 		return open;
 	}
 	
 	public boolean isTaxesPercent() {
+	
 		return isTaxPercent;
 	}
 	
 	@Override
 	public Map<String, Object> serialize() {
+	
 		final Map<String, Object> data = super.serialize();
 		
 		data.put(NODE_OPEN, open);
@@ -171,6 +181,7 @@ public class Kingdom extends BaseKingdom {
 	}
 	
 	public void setItemBadge(ItemStack badge) {
+	
 		// Don't leak
 		final ItemStack copy = new ItemStack(badge);
 		
@@ -182,6 +193,7 @@ public class Kingdom extends BaseKingdom {
 	}
 	
 	private void instantiateNonPersistant() {
+	
 		channel = new KingdomChannel(this);
 	}
 	

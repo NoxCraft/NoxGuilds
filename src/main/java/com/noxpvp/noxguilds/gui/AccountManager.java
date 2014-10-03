@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 package com.noxpvp.noxguilds.gui;
 
@@ -50,13 +46,13 @@ public class AccountManager extends CoreBox {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public static final String	MENU_NAME	= "Account Manager";
+	public static final String MENU_NAME = "Account Manager";
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private AccountBase			givenAccount;
+	private AccountBase givenAccount;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -66,6 +62,7 @@ public class AccountManager extends CoreBox {
 	 * @param p
 	 */
 	public AccountManager(Player p, AccountBase bank) {
+	
 		this(p, bank, null);
 	}
 	
@@ -74,24 +71,27 @@ public class AccountManager extends CoreBox {
 	 * @param backButton
 	 */
 	public AccountManager(Player p, AccountBase bank, CoreBox backButton) {
+	
 		super(p, MENU_NAME, InventoryType.DISPENSER, backButton);
 		
 		final Player player = p;
 		givenAccount = bank;
 		final PlayerAccount playerAccount = new PlayerAccount(player);
 		
-		final ItemStack deposit = new ItemBuilder(Material.GOLD_BLOCK, 1).setName(ChatColor.AQUA + "Click to deposit")
-			.build();
-		final ItemStack withdraw = new ItemBuilder(Material.IRON_BLOCK, 1)
-			.setName(ChatColor.AQUA + "Click to withdraw").build();
+		final ItemStack deposit =
+			new ItemBuilder(Material.GOLD_BLOCK, 1).setName(ChatColor.AQUA + "Click to deposit").build();
+		final ItemStack withdraw =
+			new ItemBuilder(Material.IRON_BLOCK, 1).setName(ChatColor.AQUA + "Click to withdraw").build();
 		
 		addMenuItem(3, new CoreBoxItem(this, withdraw) {
 			
 			public boolean onClick(InventoryClickEvent click) {
+			
 				new TextPrompt(player) {
 					
 					@Override
 					public void onReturn(String[] lines) {
+					
 						if (LogicUtil.nullOrEmpty(lines))
 							return;
 						// NoxGuildLocale.ERROR_INVALID_INPUT.send(player,
@@ -131,10 +131,12 @@ public class AccountManager extends CoreBox {
 		addMenuItem(5, new CoreBoxItem(this, deposit) {
 			
 			public boolean onClick(InventoryClickEvent click) {
+			
 				new TextPrompt(player) {
 					
 					@Override
 					public void onReturn(String[] lines) {
+					
 						double amount = 0;
 						final String number = StringUtil.join("", lines);
 						
@@ -176,6 +178,7 @@ public class AccountManager extends CoreBox {
 	
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
+	
 		return new AccountManager(getPlayer(), givenAccount);
 	}
 	

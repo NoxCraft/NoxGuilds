@@ -13,14 +13,15 @@ public class KingdomRank extends BaseRank<KingdomPermissionCell> {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private Kingdom					owner;
-	private KingdomPermissionCell	perms;
+	private Kingdom owner;
+	private KingdomPermissionCell perms;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public KingdomRank(Kingdom owner, String name) {
+	
 		super(UUID.randomUUID(), name);
 		
 		this.owner = owner;
@@ -29,6 +30,7 @@ public class KingdomRank extends BaseRank<KingdomPermissionCell> {
 	
 	// Deserialize
 	public KingdomRank(Map<String, Object> data) {
+	
 		super(data);
 		
 		Object getter;
@@ -55,16 +57,19 @@ public class KingdomRank extends BaseRank<KingdomPermissionCell> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public Kingdom getOwner() {
+	
 		return owner;
 	}
 	
 	// Permission keeper
 	public KingdomPermissionCell getPermissions() {
+	
 		return perms;
 	};
 	
 	@Override
 	public Map<String, Object> serialize() {
+	
 		final Map<String, Object> data = super.serialize();
 		
 		data.put("kingdom-id", owner.getID().toString());

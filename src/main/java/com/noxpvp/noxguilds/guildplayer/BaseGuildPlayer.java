@@ -38,21 +38,21 @@ public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant, Permi
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	// Serializers start
-	private static final String			NODE_UID			= "uid";
-	private static final String			NODE_PLAYER_PERMS	= "permissions";
-	private static final String			NODE_PLAYER_STATS	= "stats";
+	private static final String NODE_UID = "uid";
+	private static final String NODE_PLAYER_PERMS = "permissions";
+	private static final String NODE_PLAYER_STATS = "stats";
 	// Serializers end
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private UUID						playerUUID;
-	private PlayerPermissionCell		perms;
-	private GulidPlayerStats			stats;
-	private final PlayerAccount			account;
-	private final Map<String, Object>	options;
-	private WeakReference<CoreBox>		currentBox;
+	private UUID playerUUID;
+	private PlayerPermissionCell perms;
+	private GulidPlayerStats stats;
+	private final PlayerAccount account;
+	private final Map<String, Object> options;
+	private WeakReference<CoreBox> currentBox;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -61,6 +61,7 @@ public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant, Permi
 	// Deserialize
 	@SuppressWarnings("unchecked")
 	public BaseGuildPlayer(Map<String, Object> data) {
+	
 		Object getter;
 		if ((getter = data.get(NODE_UID)) != null && getter instanceof String) {
 			playerUUID = UUID.fromString((String) getter);
@@ -87,6 +88,7 @@ public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant, Permi
 	
 	// From player
 	public BaseGuildPlayer(Player player) {
+	
 		playerUUID = player.getUniqueId();
 		perms = new PlayerPermissionCell();
 		stats = new GulidPlayerStats();
@@ -101,10 +103,12 @@ public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant, Permi
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public boolean canPay(double amount) {
+	
 		return account.canPay(amount);
 	}
 	
 	public void deleteCoreBox() {
+	
 		if (hasCoreBox()) {
 			getCoreBox().hide();
 		}
@@ -113,30 +117,37 @@ public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant, Permi
 	}
 	
 	public boolean deposit(double amount) {
+	
 		return account.deposit(amount);
 	}
 	
 	public Result depositFrom(AccountBase giver, double amount) {
+	
 		return account.depositFrom(giver, amount);
 	}
 	
 	public String getAccountName() {
+	
 		return account.getAccountName();
 	}
 	
 	public double getBalance() {
+	
 		return account.getBalance();
 	}
 	
 	public CoreBox getCoreBox() {
+	
 		return currentBox != null && currentBox.get() != null ? currentBox.get() : null;
 	}
 	
 	public String getFormatedName() {
+	
 		return VaultAdapter.ChatUtil.getFormatedPlayerName(getPlayer());
 	}
 	
 	public List<Guild> getGuilds() {
+	
 		final List<Guild> ret = new ArrayList<Guild>();
 		final GuildManager gm = GuildManager.getInstance();
 		for (final UUID id : getGuildsIDs()) {
@@ -147,6 +158,7 @@ public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant, Permi
 	}
 	
 	public List<UUID> getGuildsIDs() {
+	
 		final List<UUID> ret = new ArrayList<UUID>();
 		
 		for (final Guild g : GuildManager.getInstance().getLoadedMap().values())
@@ -158,6 +170,7 @@ public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant, Permi
 	}
 	
 	public ItemStack getIdentifiableItem() {
+	
 		return new ItemBuilder(new ItemStack(Material.SKULL_ITEM, 1, (short) 3))
 			.setName(getFormatedName())
 			.setLore(ChatColor.GOLD + "Kills: " + ChatColor.AQUA + getStats().getKills(),
@@ -168,54 +181,67 @@ public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant, Permi
 	}
 	
 	public OfflinePlayer getOffline() {
+	
 		return Bukkit.getOfflinePlayer(getUID());
 	}
 	
 	public Object getOption(String key) {
+	
 		return options.get(key);
 	}
 	
 	public Map<String, Object> getOptions() {
+	
 		return Collections.unmodifiableMap(options);
 	}
 	
 	public PlayerPermissionCell getPermissions() {
+	
 		return perms;
 	}
 	
 	public UUID getPersistentID() {
+	
 		return getUID();
 	}
 	
 	public String getPersistentStringID() {
+	
 		return getPersistentID().toString();
 	}
 	
 	public Player getPlayer() {
+	
 		return Bukkit.getPlayer(getUID());
 	}
 	
 	public GulidPlayerStats getStats() {
+	
 		return stats;
 	}
 	
 	public UUID getUID() {
+	
 		return playerUUID;
 	}
 	
 	public boolean hasCoreBox() {
+	
 		return getCoreBox() != null;
 	}
 	
 	public boolean hasCoreBox(CoreBox box) {
+	
 		return hasCoreBox() && getCoreBox().equals(box);
 	}
 	
 	public boolean hasGuild() {
+	
 		return !LogicUtil.nullOrEmpty(getGuildsIDs());
 	}
 	
 	public boolean isGuildMaster() {
+	
 		for (final Guild g : getGuilds())
 			if (g.getOwner() == this)
 				return true;
@@ -224,10 +250,12 @@ public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant, Permi
 	}
 	
 	public boolean pay(double amount) {
+	
 		return account.pay(amount);
 	}
 	
 	public Map<String, Object> serialize() {
+	
 		final Map<String, Object> data = new HashMap<String, Object>();
 		
 		if (playerUUID != null) {
@@ -238,14 +266,17 @@ public abstract class BaseGuildPlayer implements IGuildPlayer, Persistant, Permi
 	}
 	
 	public void setCoreBox(CoreBox box) {
+	
 		currentBox = new WeakReference<CoreBox>(box);
 	}
 	
 	public void setOption(String key, Object value) {
+	
 		options.put(key, value);
 	}
 	
 	public Result withdrawTo(AccountBase receiver, double amount) {
+	
 		return account.withdrawTo(receiver, amount);
 	}
 	

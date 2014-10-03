@@ -11,20 +11,21 @@ public class StringEncoder {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static final String	entrySeparater		= ",";
-	private static final String	keyValueSeparater	= ":";
+	private static final String entrySeparater = ",";
+	private static final String keyValueSeparater = ":";
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	Map<String, Object>			data;
+	Map<String, Object> data;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public StringEncoder() {
+	
 		data = new HashMap<String, Object>();
 	}
 	
@@ -33,6 +34,7 @@ public class StringEncoder {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static Map<String, Object> decode(String encodedMap) {
+	
 		final Map<String, Object> ret = new HashMap<String, Object>();
 		
 		for (final String entry : encodedMap.split(entrySeparater)) {
@@ -53,6 +55,7 @@ public class StringEncoder {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public String encode() {
+	
 		final StringBuilder ret = new StringBuilder();
 		
 		final Iterator<Entry<String, Object>> iterater = data.entrySet().iterator();
@@ -71,10 +74,12 @@ public class StringEncoder {
 	}
 	
 	public void put(String key, Object value) {
+	
 		data.put(key, value);
 	}
 	
 	public boolean remove(String key) {
+	
 		return data.remove(key) != null;
 	}
 	

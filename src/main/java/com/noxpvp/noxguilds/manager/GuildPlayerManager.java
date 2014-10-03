@@ -15,20 +15,21 @@ public class GuildPlayerManager extends BaseManager<GuildPlayer> {
 	// Static Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static final String			savePath	= "guildplayers";
-	private static GuildPlayerManager	instance;
+	private static final String savePath = "guildplayers";
+	private static GuildPlayerManager instance;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private NoxPlugin					plugin;
+	private NoxPlugin plugin;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public GuildPlayerManager() {
+	
 		this(NoxGuilds.getInstance());
 	}
 	
@@ -37,6 +38,7 @@ public class GuildPlayerManager extends BaseManager<GuildPlayer> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public GuildPlayerManager(NoxPlugin plugin) {
+	
 		super(GuildPlayer.class, savePath);
 		
 		GuildPlayerManager.instance = this;
@@ -44,6 +46,7 @@ public class GuildPlayerManager extends BaseManager<GuildPlayer> {
 	}
 	
 	public static GuildPlayerManager getInstance() {
+	
 		if (instance == null) {
 			setup();
 		}
@@ -52,6 +55,7 @@ public class GuildPlayerManager extends BaseManager<GuildPlayer> {
 	}
 	
 	public static void setup() {
+	
 		instance = new GuildPlayerManager();
 		instance.load();
 	}
@@ -61,6 +65,7 @@ public class GuildPlayerManager extends BaseManager<GuildPlayer> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public GuildPlayer getFromPlayer(Player player) {
+	
 		GuildPlayer p = get(player.getUniqueId());
 		if (p == null) {
 			p = new GuildPlayer(player);
@@ -70,14 +75,17 @@ public class GuildPlayerManager extends BaseManager<GuildPlayer> {
 	}
 	
 	public GuildPlayer getPlayer(UUID arg) {
+	
 		return get(arg);
 	}
 	
 	public NoxPlugin getPlugin() {
+	
 		return plugin != null ? plugin : (plugin = NoxGuilds.getInstance());
 	}
 	
 	public void load() {
+	
 		for (final Player p : Bukkit.getOnlinePlayers()) {
 			GuildPlayer gp;
 			if ((gp = get(p.getUniqueId())) != null && !isLoaded(gp)) {
@@ -87,6 +95,7 @@ public class GuildPlayerManager extends BaseManager<GuildPlayer> {
 	}
 	
 	public void load(Player player) {
+	
 		GuildPlayer getter;
 		if ((getter = get(player.getUniqueId())) == null) {
 			loadObject(new GuildPlayer(player));
@@ -96,6 +105,7 @@ public class GuildPlayerManager extends BaseManager<GuildPlayer> {
 	}
 	
 	public void unloadAndSave(Player player) {
+	
 		unloadAndSave(getIfLoaded(player.getUniqueId()));
 	}
 	

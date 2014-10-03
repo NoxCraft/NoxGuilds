@@ -50,32 +50,32 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static final String			DEFAULT_GUILD_TAG	= "";
+	private static final String DEFAULT_GUILD_TAG = "";
 	
 	// Serializers Start
-	private static final String			NODE_ID				= "guild-id";
-	private static final String			NODE_GUILD_NAME		= "guild-name";
-	private static final String			NODE_GUILD_TAG		= "guild-tag";
-	private static final String			NODE_OWNERID		= "owner-id";
-	private static final String			NODE_MEMBERS		= "guild-members";
-	private static final String			NODE_RANKS			= "player-ranks";
+	private static final String NODE_ID = "guild-id";
+	private static final String NODE_GUILD_NAME = "guild-name";
+	private static final String NODE_GUILD_TAG = "guild-tag";
+	private static final String NODE_OWNERID = "owner-id";
+	private static final String NODE_MEMBERS = "guild-members";
+	private static final String NODE_RANKS = "player-ranks";
 	// Serializers end
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final UUID					guildID;
-	private String						guildName;
-	private String						guildTag;
-	private final UUID					ownerID;
-	private Set<UUID>					members;
-	private Set<GuildRank>				ranks;
+	private final UUID guildID;
+	private String guildName;
+	private String guildTag;
+	private final UUID ownerID;
+	private Set<UUID> members;
+	private Set<GuildRank> ranks;
 	
 	// Other
-	private BankAccount					account;
-	private Set<GuildPlayer>			invitedPlayers;
-	private Map<GuildPlayer, Integer>	lastInviteRunners;
+	private BankAccount account;
+	private Set<GuildPlayer> invitedPlayers;
+	private Map<GuildPlayer, Integer> lastInviteRunners;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -83,6 +83,7 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	
 	@SuppressWarnings("unchecked")
 	public BaseGuild(Map<String, Object> data) {
+	
 		super(data);
 		
 		Object getter;
@@ -128,6 +129,7 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	
 	// Deserialize
 	public BaseGuild(String name, GuildPlayer owner) {
+	
 		super();
 		
 		guildID = UUID.randomUUID();
@@ -151,14 +153,17 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public void addMember(GuildPlayer player) {
+	
 		members.add(player.getUID());
 	}
 	
 	public void addMember(UUID newMember) {
+	
 		members.add(newMember);
 	}
 	
 	public boolean addRank(GuildRank rank) {
+	
 		if (!ranks.contains(rank))
 			return ranks.add(rank);
 		
@@ -166,40 +171,49 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	}
 	
 	public boolean deposit(double amount) {
+	
 		return account.deposit(amount);
 	}
 	
 	public BankAccount getAccount() {
+	
 		return account;
 	}
 	
 	public ItemStack getAccountItem() {
+	
 		return NoxItemUtil.addLore(getAccount().getIdentifiableItem(), 0, ChatColor.GOLD + "Tax: " + ChatColor.AQUA
 			+ (isTaxPercentBased() ? getMemberTax() + "%" : VaultAdapter.economy.format(getMemberTax())));
 	}
 	
 	public String getAccountName() {
+	
 		return account.getAccountName();
 	}
 	
 	public double getBalance() {
+	
 		return account.getBalance();
 	}
 	
 	public UUID getID() {
+	
 		return guildID;
 	}
 	
 	public Set<GuildPlayer> getInvites() {
+	
 		return Collections.unmodifiableSet(invitedPlayers);
 	}
 	
 	@Override
 	public int getMaxPlots() {
+	
 		return 0;// TODO
 	}
 	
 	public Set<GuildPlayer> getMembers() {
+	
 		final Set<GuildPlayer> ret = new HashSet<GuildPlayer>();
 		final GuildPlayerManager gpm = GuildPlayerManager.getInstance();
 		
@@ -211,6 +225,7 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	}
 	
 	public ItemStack getMembersItem() {
+	
 		final Set<String> members = new HashSet<String>();
 		int i = 0;
 		
@@ -229,14 +244,17 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	}
 	
 	public Set<UUID> getMemberUIDs() {
+	
 		return Collections.unmodifiableSet(members);
 	}
 	
 	public String getName() {
+	
 		return guildName;
 	}
 	
 	public Set<GuildPlayer> getOnlineMembers() {
+	
 		final Set<GuildPlayer> ret = new HashSet<GuildPlayer>();
 		
 		final GuildPlayerManager gpm = GuildPlayerManager.getInstance();
@@ -250,6 +268,7 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	}
 	
 	public List<Player> getOnlinePlayers() {
+	
 		final List<Player> ret = new ArrayList<Player>();
 		
 		for (final UUID pId : members) {
@@ -263,22 +282,27 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	}
 	
 	public GuildPlayer getOwner() {
+	
 		return GuildPlayerManager.getInstance().getPlayer(ownerID);
 	}
 	
 	public UUID getPersistentID() {
+	
 		return getID();
 	}
 	
 	public String getPersistentStringID() {
+	
 		return getPersistentID().toString();
 	}
 	
 	public Set<GuildRank> getRanks() {
+	
 		return Collections.unmodifiableSet(ranks);
 	}
 	
 	public List<GuildRank> getRanksFor(GuildPlayer p) {
+	
 		final List<GuildRank> ret = new ArrayList<GuildRank>();
 		for (final GuildRank r : getRanks())
 			if (r.hasMember(p)) {
@@ -289,10 +313,12 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	}
 	
 	public String getTag() {
+	
 		return guildTag;
 	}
 	
 	public boolean hasKingdom() {
+	
 		final KingdomManager km = KingdomManager.getInstance();
 		for (final Kingdom k : km.getLoadedMap().values())
 			if (k.getGuildIDs().contains(guildID))
@@ -302,18 +328,22 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	}
 	
 	public boolean hasMember(GuildPlayer player) {
+	
 		return getMemberUIDs().contains(player.getUID());
 	}
 	
 	public boolean hasMember(UUID player) {
+	
 		return getMemberUIDs().contains(player);
 	}
 	
 	public boolean hasRank(GuildRank rank) {
+	
 		return ranks.contains(rank);
 	}
 	
 	public boolean hasRank(UUID rankID) {
+	
 		for (final GuildRank r : ranks)
 			if (r.getID().equals(rankID))
 				return true;
@@ -322,6 +352,7 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	}
 	
 	public void invite(final GuildPlayer player) {
+	
 		getChatChannel().broadcast(new FanceeMessage(NoxGuildLocale.GUILD_INVITED_PLAYER.get(player)));
 		
 		final List<QuestionOption> options = new ArrayList<QuestionOption>();
@@ -339,6 +370,7 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 		lastInviteRunners.put(player, Bukkit.getScheduler().runTaskLater(NoxGuilds.getInstance(), new Runnable() {
 			
 			public void run() {
+			
 				invitedPlayers.remove(player);
 				lastInviteRunners.remove(player);
 			}
@@ -347,27 +379,33 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	}
 	
 	public boolean isInvited(GuildPlayer object) {
+	
 		return invitedPlayers.contains(object);
 	}
 	
 	public void load() {
+	
 		// Nothing not done with deserialization yet
 		return;
 	}
 	
 	public boolean pay(double amount) {
+	
 		return account.pay(amount);
 	}
 	
 	public boolean removeMember(GuildPlayer kicked) {
+	
 		return members.remove(kicked.getUID());
 	}
 	
 	public boolean removeRank(GuildRank rank) {
+	
 		return ranks.remove(rank);
 	}
 	
 	public void save() {
+	
 		// Nothing not done with serialization yet
 		return;
 	}
@@ -375,6 +413,7 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	// Serialize
 	@Override
 	public Map<String, Object> serialize() {
+	
 		final Map<String, Object> data = super.serialize();
 		
 		data.put(NODE_ID, guildID.toString());
@@ -398,6 +437,7 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	}
 	
 	public void setName(String newName) {
+	
 		if (newName == null || newName.length() < 3 || newName.length() > 20)
 			return;
 		
@@ -409,10 +449,12 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	};
 	
 	public void setTag(String tag) {
+	
 		guildTag = tag.length() <= 128 ? tag : getTag();
 	}
 	
 	public void uninvite(GuildPlayer object) {
+	
 		int i;
 		if ((i = lastInviteRunners.get(object)) != 0) {
 			Bukkit.getScheduler().cancelTask(i);
@@ -422,6 +464,7 @@ public abstract class BaseGuild extends LandOwner implements IGuild, Account, Pe
 	}
 	
 	private void instantiateNonSaves() {
+	
 		account = new BankAccount(guildID.toString());
 		invitedPlayers = new HashSet<GuildPlayer>();
 		lastInviteRunners = new HashMap<GuildPlayer, Integer>();

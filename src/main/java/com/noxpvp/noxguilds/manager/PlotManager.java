@@ -11,24 +11,26 @@ public class PlotManager extends BaseManager<GuildPlot> {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public static final String	savePath	= "plots";
-	public static PlotManager	instance;
+	public static final String savePath = "plots";
+	public static PlotManager instance;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public NoxGuilds			plugin;
+	public NoxGuilds plugin;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public PlotManager() {
+	
 		this(NoxGuilds.getInstance());
 	}
 	
 	public PlotManager(NoxGuilds plugin) {
+	
 		super(GuildPlot.class, savePath);
 		
 		this.plugin = plugin;
@@ -40,6 +42,7 @@ public class PlotManager extends BaseManager<GuildPlot> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static PlotManager getInstance() {
+	
 		if (instance == null) {
 			setup();
 		}
@@ -52,23 +55,28 @@ public class PlotManager extends BaseManager<GuildPlot> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static void setup() {
+	
 		instance = new PlotManager();
 		instance.load();
 	}
 	
 	public GuildPlot getPlot(String id) {
+	
 		return get(id);
 	}
 	
 	public GuildPlot getPlot(TerritoryID id) {
+	
 		return getPlot(id.getID());
 	}
 	
 	public NoxPlugin getPlugin() {
+	
 		return plugin != null ? plugin : (plugin = NoxGuilds.getInstance());
 	}
 	
 	public void load() {
+	
 		return;
 	}
 	

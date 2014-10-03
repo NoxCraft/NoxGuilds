@@ -22,6 +22,7 @@ public class LoginListener extends NoxListener<NoxGuilds> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public LoginListener(NoxGuilds plugin) {
+	
 		super(plugin);
 		
 	}
@@ -32,6 +33,7 @@ public class LoginListener extends NoxListener<NoxGuilds> {
 	
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onLogin(PlayerLoginEvent event) {
+	
 		GuildPlayerManager.getInstance().load(event.getPlayer());
 	}
 }

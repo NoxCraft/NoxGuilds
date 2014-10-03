@@ -12,24 +12,26 @@ public class ZoneManager extends BaseManager<Zone> {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static final String	savePath	= "zones";
-	private static ZoneManager	instance;
+	private static final String savePath = "zones";
+	private static ZoneManager instance;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final NoxGuilds		plugin;
+	private final NoxGuilds plugin;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public ZoneManager() {
+	
 		this(NoxGuilds.getInstance());
 	}
 	
 	public ZoneManager(NoxGuilds plugin) {
+	
 		super(Zone.class, savePath);
 		
 		this.plugin = plugin;
@@ -41,6 +43,7 @@ public class ZoneManager extends BaseManager<Zone> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static ZoneManager getInstance() {
+	
 		if (instance == null) {
 			instance = new ZoneManager();
 		}
@@ -53,14 +56,17 @@ public class ZoneManager extends BaseManager<Zone> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public NoxPlugin getPlugin() {
+	
 		return plugin;
 	}
 	
 	public Zone getZone(UUID zone) {
+	
 		return get(zone);
 	}
 	
 	public void load() {
+	
 		return;
 	}
 }

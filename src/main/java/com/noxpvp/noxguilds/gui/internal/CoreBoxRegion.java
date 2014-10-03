@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 
 package com.noxpvp.noxguilds.gui.internal;
@@ -30,12 +26,13 @@ import org.bukkit.util.Vector;
 
 public class CoreBoxRegion {
 	
-	private static final int	colums	= 9;
-	private final Vector		a, b;
-	private final CoreBox		parent;
-	private final int			rows;
+	private static final int colums = 9;
+	private final Vector a, b;
+	private final CoreBox parent;
+	private final int rows;
 	
 	public CoreBoxRegion(CoreBox parent, Vector topLeft, int height, int width) {
+	
 		this.parent = parent;
 		rows = parent.getBox().getSize();
 		
@@ -53,7 +50,7 @@ public class CoreBoxRegion {
 	}
 	
 	public boolean add(CoreBoxItem item) {
-		
+	
 		final Inventory box = parent.getBox();
 		ItemStack tempItem;
 		int tempSlot;
@@ -74,6 +71,7 @@ public class CoreBoxRegion {
 	}
 	
 	public void clearRegion() {
+	
 		for (int curX = (int) a.getX(); curX < b.getX(); curX++) {
 			for (int curZ = (int) a.getZ(); curZ < b.getZ(); curZ++) {
 				final int tempSlot = getSlotFromCoord(new Vector(curX, 0, curZ));
@@ -85,6 +83,7 @@ public class CoreBoxRegion {
 	}
 	
 	private int getSlotFromCoord(Vector coord) {
+	
 		final int x = (int) coord.getX();
 		final int z = (int) coord.getZ();
 		

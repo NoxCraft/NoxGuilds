@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 
 package com.noxpvp.noxguilds.manager;
@@ -46,17 +42,18 @@ public abstract class BaseManager<T extends Persistant> implements IManager<T> {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final ModuleLogger		logger;
-	private final Class<T>			typeClass;
-	private final String			saveFolder;
-	private File					folder;
-	private final Map<String, T>	loadedCache;
+	private final ModuleLogger logger;
+	private final Class<T> typeClass;
+	private final String saveFolder;
+	private File folder;
+	private final Map<String, T> loadedCache;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public BaseManager(Class<T> type, String saveFolderPath) {
+	
 		this.typeClass = type;
 		this.saveFolder = saveFolderPath;
 		this.loadedCache = new HashMap<String, T>();
@@ -69,6 +66,7 @@ public abstract class BaseManager<T extends Persistant> implements IManager<T> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public FileConfiguration getConfig(String name) {
+	
 		final File configFile = new File(getFile(), name);
 		if (!configFile.exists()) {
 			try {
@@ -83,10 +81,12 @@ public abstract class BaseManager<T extends Persistant> implements IManager<T> {
 	}
 	
 	public FileConfiguration getConfig(T object) {
+	
 		return getConfig(object.getPersistentID().toString() + ".yml");
 	}
 	
 	public File getFile() {
+	
 		if (folder == null) {
 			folder = new File(getPlugin().getDataFolder(), saveFolder);
 			if (!folder.exists()) {
@@ -99,48 +99,58 @@ public abstract class BaseManager<T extends Persistant> implements IManager<T> {
 	}
 	
 	public Map<String, T> getLoadedMap() {
+	
 		return Collections.unmodifiableMap(loadedCache);
 	}
 	
 	public List<T> getLoadedValues() {
+	
 		return Collections.unmodifiableList(new ArrayList<T>(loadedCache.values()));
 	}
 	
 	public boolean isLoaded(T object) {
+	
 		return loadedCache.containsValue(object);
 	}
 	
 	public void loadObject(T object) {
+	
 		if (!loadedCache.containsKey(object.getPersistentID())) {
 			loadedCache.put(object.getPersistentStringID(), object);
 		}
 	}
 	
 	public void log(Level lv, String msg) {
+	
 		logger.log(lv, msg);
 	}
 	
 	public void save() {
+	
 		for (final T loaded : loadedCache.values()) {
 			save(loaded);
 		}
 	}
 	
 	public void save(T object) {
+	
 		save(object, object.getPersistentID());
 		
 	}
 	
 	public void unload() {
+	
 		loadedCache.clear();
 	}
 	
 	public void unload(T object) {
+	
 		loadedCache.remove(object.getPersistentID());
 		
 	}
 	
 	public void unloadAndSave(T object) {
+	
 		if (isLoaded(object)) {
 			save(object);
 			unload(object);
@@ -148,6 +158,7 @@ public abstract class BaseManager<T extends Persistant> implements IManager<T> {
 	}
 	
 	public void unloadAndSaveAll() {
+	
 		// final Iterator<T> iterate = loadedCache.values().iterator();
 		// while (iterate.hasNext()) {
 		// save(iterate.next());
@@ -161,6 +172,7 @@ public abstract class BaseManager<T extends Persistant> implements IManager<T> {
 	}
 	
 	protected T get(String arg) {
+	
 		T it;
 		if ((it = loadedCache.get(arg)) != null)
 			return it;
@@ -169,10 +181,12 @@ public abstract class BaseManager<T extends Persistant> implements IManager<T> {
 	}
 	
 	protected T get(UUID arg) {
+	
 		return get(arg.toString());
 	}
 	
 	protected T getIfLoaded(String id) {
+	
 		T object;
 		if ((object = loadedCache.get(id)) != null)
 			return object;
@@ -181,15 +195,18 @@ public abstract class BaseManager<T extends Persistant> implements IManager<T> {
 	}
 	
 	protected T getIfLoaded(UUID id) {
+	
 		return getIfLoaded(id.toString());
 	}
 	
 	protected boolean isLoaded(String key) {
+	
 		return loadedCache.containsKey(key);
 	}
 	
 	@SuppressWarnings("unchecked")
 	protected T load(String path) {
+	
 		T created = null;
 		
 		try {
@@ -205,14 +222,17 @@ public abstract class BaseManager<T extends Persistant> implements IManager<T> {
 	}
 	
 	protected T load(T object) {
+	
 		return load(object.getPersistentID());
 	}
 	
 	protected T load(UUID path) {
+	
 		return load(path.toString());
 	}
 	
 	protected void save(T object, String id) {
+	
 		final String ymlName = id + ".yml";
 		final File file = new File(getFile(), ymlName);
 		
@@ -226,10 +246,12 @@ public abstract class BaseManager<T extends Persistant> implements IManager<T> {
 	}
 	
 	protected void save(T object, UUID id) {
+	
 		save(object, id.toString());
 	}
 	
 	protected void unload(String arg) {
+	
 		T object;
 		if ((object = getIfLoaded(arg)) != null) {
 			unload(object);
@@ -237,6 +259,7 @@ public abstract class BaseManager<T extends Persistant> implements IManager<T> {
 	}
 	
 	protected void unload(UUID arg) {
+	
 		unload(arg.toString());
 	}
 	

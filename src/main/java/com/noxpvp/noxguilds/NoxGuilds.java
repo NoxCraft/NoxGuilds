@@ -44,36 +44,38 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable, ChannelKe
 	// Static Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static NoxGuilds	instance;
+	private static NoxGuilds instance;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private PermissionHandler	permHandler;
-	private CommandHandler		commandHandler;
-	private ModuleLogger		pluginLogger;
+	private PermissionHandler permHandler;
+	private CommandHandler commandHandler;
+	private ModuleLogger pluginLogger;
 	
 	// Chat
-	ServerChannel				globalChat;
+	ServerChannel globalChat;
 	
 	// Commands
-	GuildCommands				guildCommands;
+	GuildCommands guildCommands;
 	
 	// Listeners
-	private LoginListener		loginListener;
-	private LogoutListener		logoutListener;
-	private PlayerMoveListener	moveListener;
+	private LoginListener loginListener;
+	private LogoutListener logoutListener;
+	private PlayerMoveListener moveListener;
 	
 	// Economy
-	private BankAccount			serverAccount;
+	private BankAccount serverAccount;
 	
 	public static NoxGuilds getInstance() {
+	
 		return instance;
 	}
 	
 	@Override
 	public boolean command(CommandSender arg0, String arg1, String[] arg2) {
+	
 		Bukkit.getPluginManager().callEvent(new CommandEvent(arg0, arg1, arg2));
 		
 		return true;
@@ -81,6 +83,7 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable, ChannelKe
 	
 	@Override
 	public void disable() {
+	
 		getMainConfig().save();
 		
 		KingdomManager.getInstance().unloadAndSaveAll();
@@ -92,6 +95,7 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable, ChannelKe
 	
 	@Override
 	public void enable() {
+	
 		instance = this;
 		permHandler = new PermissionHandler();
 		commandHandler = new CommandHandler(instance);
@@ -116,18 +120,22 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable, ChannelKe
 	}
 	
 	public ServerChannel getChatChannel() {
+	
 		return globalChat;
 	}
 	
 	public CommandHandler getCommandHandler() {
+	
 		return commandHandler;
 	}
 	
 	public ItemStack getIdentifiableItem() {
+	
 		return new ItemStack(Material.WORKBENCH);
 	}
 	
 	public FileConfiguration getMainConfig() {
+	
 		final FileConfiguration config = new FileConfiguration(instance, "config.yml");
 		
 		if (config.exists()) {
@@ -139,11 +147,13 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable, ChannelKe
 	
 	@Override
 	public NoxGuilds getNoxGuilds() {
+	
 		return getInstance();
 	}
 	
 	@Override
 	public PermissionHandler getPermissionHandler() {
+	
 		return permHandler;
 		
 	}
@@ -151,6 +161,7 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable, ChannelKe
 	@SuppressWarnings("unchecked")
 	@Override
 	public Class<? extends ConfigurationSerializable>[] getSerialiables() {
+	
 		return new Class[] { Area.class, Zone.class,
 		
 		GuildRank.class, KingdomRank.class,
@@ -161,16 +172,19 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable, ChannelKe
 	}
 	
 	public BankAccount getServerAcount() {
+	
 		return serverAccount;
 	}
 	
 	public void loadGuildsSettings() {
+	
 		Settings.setup();
 		serverAccount = new BankAccount(Settings.economyServerAccount);
 	}
 	
 	@Override
 	public void localization() {
+	
 		loadLocales(NoxGuildLocale.class);
 		loadLocales(NoxGuildLocale.class);
 		
@@ -178,10 +192,12 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable, ChannelKe
 	
 	@Override
 	public void log(Level l, String msg) {
+	
 		(pluginLogger != null ? pluginLogger : (pluginLogger = new ModuleLogger("NoxGuilds"))).log(l, msg);
 	}
 	
 	public void registerCommands() {
+	
 		final CommandHandler ch = getCommandHandler();
 		
 		guildCommands = new GuildCommands();
@@ -190,6 +206,7 @@ public class NoxGuilds extends NoxPlugin implements ItemRepresentable, ChannelKe
 	}
 	
 	private void setupListeners() {
+	
 		loginListener = new LoginListener(instance);
 		logoutListener = new LogoutListener(instance);
 		moveListener = new PlayerMoveListener(instance);

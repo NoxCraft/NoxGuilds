@@ -35,13 +35,14 @@ public class AttributeHider extends NoxPacketListener {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private Field	cC;
+	private Field cC;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public AttributeHider() {
+	
 		super(PacketType.Play.Server.WINDOW_ITEMS, PacketType.Play.Server.CUSTOM_PAYLOAD,
 			PacketType.Play.Server.SET_SLOT);
 		
@@ -61,6 +62,7 @@ public class AttributeHider extends NoxPacketListener {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static ItemStack removeAttributes(ItemStack i) {
+	
 		if (i == null)
 			return i;
 		if (i.getType() == Material.BOOK_AND_QUILL)
@@ -81,6 +83,7 @@ public class AttributeHider extends NoxPacketListener {
 	}
 	
 	public static net.minecraft.server.v1_7_R3.ItemStack removeAttributes(net.minecraft.server.v1_7_R3.ItemStack i) {
+	
 		if (i == null)
 			return i;
 		if (net.minecraft.server.v1_7_R3.Item.b(i.getItem()) == 386)
@@ -105,12 +108,13 @@ public class AttributeHider extends NoxPacketListener {
 	
 	@Override
 	public void onPacketReceiving(PacketEvent event) {
+	
 		super.onPacketReceiving(event);
 	}
 	
 	@Override
 	public void onPacketSending(PacketEvent event) {
-		
+	
 		final PacketContainer packet = event.getPacket();
 		final PacketType type = packet.getType();
 		if (type == PacketType.Play.Server.WINDOW_ITEMS) {
@@ -139,8 +143,9 @@ public class AttributeHider extends NoxPacketListener {
 					final MerchantRecipe recipe = (MerchantRecipe) orecipe;
 					final int uses = recipe.i().getInt("uses");
 					final int maxUses = recipe.i().getInt("maxUses");
-					final MerchantRecipe nrecipe = new MerchantRecipe(removeAttributes(recipe.getBuyItem1()),
-						removeAttributes(recipe.getBuyItem2()), removeAttributes(recipe.getBuyItem3()));
+					final MerchantRecipe nrecipe =
+						new MerchantRecipe(removeAttributes(recipe.getBuyItem1()),
+							removeAttributes(recipe.getBuyItem2()), removeAttributes(recipe.getBuyItem3()));
 					nrecipe.a(maxUses - 7);
 					for (int i = 0; i < uses; i++) {
 						nrecipe.f();

@@ -13,17 +13,18 @@ public class PlayerChunkMoveEvent extends PlayerMoveEvent implements Cancellable
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public static final HandlerList	handlers	= new HandlerList();
+	public static final HandlerList handlers = new HandlerList();
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final Chunk				from;
-	private final Chunk				to;
-	private boolean					cancelled;
+	private final Chunk from;
+	private final Chunk to;
+	private boolean cancelled;
 	
 	public PlayerChunkMoveEvent(Player player, Location from, Location to) {
+	
 		super(player, from, to);
 		
 		this.from = from.getChunk();
@@ -35,6 +36,7 @@ public class PlayerChunkMoveEvent extends PlayerMoveEvent implements Cancellable
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static HandlerList getHandlerList() {
+	
 		return handlers;
 	}
 	
@@ -43,6 +45,7 @@ public class PlayerChunkMoveEvent extends PlayerMoveEvent implements Cancellable
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public Chunk getFromChunk() {
+	
 		return from;
 	}
 	
@@ -52,20 +55,24 @@ public class PlayerChunkMoveEvent extends PlayerMoveEvent implements Cancellable
 	
 	@Override
 	public HandlerList getHandlers() {
+	
 		return handlers;
 	};
 	
 	public Chunk getToChunk() {
+	
 		return to;
 	}
 	
 	@Override
 	public boolean isCancelled() {
+	
 		return cancelled;
 	}
 	
 	@Override
 	public void setCancelled(boolean arg0) {
+	
 		cancelled = arg0;
 	}
 	

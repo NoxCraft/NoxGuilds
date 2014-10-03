@@ -38,33 +38,33 @@ public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<Ki
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	// Serializers start
-	public static final String	NODE_KINGDOM_ID			= "kingdom-id";
-	public static final String	NODE_KINGDOM_NAME		= "kingdom-name";
-	public static final String	NODE_KINGDOM_TAG		= "kingdom-tag";
-	public static final String	NODE_KINGDOM_CAPITAL	= "capital-id";
-	public static final String	NODE_KINGDOM_GUILDS		= "member-ids";
-	public static final String	NODE_KINGDOM_ALLIES		= "kingdom-allies";
-	public static final String	NODE_KINGDOM_ENEMIES	= "kingdom-enemies";
-	public static final String	NODE_KINGDOM_RANKS		= "kingdom-ranks";
+	public static final String NODE_KINGDOM_ID = "kingdom-id";
+	public static final String NODE_KINGDOM_NAME = "kingdom-name";
+	public static final String NODE_KINGDOM_TAG = "kingdom-tag";
+	public static final String NODE_KINGDOM_CAPITAL = "capital-id";
+	public static final String NODE_KINGDOM_GUILDS = "member-ids";
+	public static final String NODE_KINGDOM_ALLIES = "kingdom-allies";
+	public static final String NODE_KINGDOM_ENEMIES = "kingdom-enemies";
+	public static final String NODE_KINGDOM_RANKS = "kingdom-ranks";
 	// Serializers end
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private UUID				id;
-	private String				name;
-	private UUID				capital;
-	private String				tag;
+	private UUID id;
+	private String name;
+	private UUID capital;
+	private String tag;
 	
-	private Set<UUID>			guilds;
-	private Set<UUID>			allies;
-	private Set<UUID>			enemies;
-	private Set<KingdomRank>	ranks;
+	private Set<UUID> guilds;
+	private Set<UUID> allies;
+	private Set<UUID> enemies;
+	private Set<KingdomRank> ranks;
 	
-	private BankAccount			account;
-	private Set<Guild>			invitedGuilds;
-	private Map<Guild, Integer>	lastInviteRunners;
+	private BankAccount account;
+	private Set<Guild> invitedGuilds;
+	private Map<Guild, Integer> lastInviteRunners;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -73,6 +73,7 @@ public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<Ki
 	// Deserialize
 	@SuppressWarnings("unchecked")
 	public BaseKingdom(Map<String, Object> data) {
+	
 		Object getter;
 		
 		if ((getter = data.get(NODE_KINGDOM_ID)) != null && getter instanceof String) {
@@ -138,6 +139,7 @@ public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<Ki
 	}
 	
 	public BaseKingdom(UUID capital, String name) {
+	
 		id = UUID.randomUUID();
 		// this.name = checkKingdomName(name);
 		this.name = name;// TODO name fashion checks
@@ -158,31 +160,38 @@ public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<Ki
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public boolean addAlly(Kingdom ally) {
+	
 		return allies.add(ally.getID());
 	}
 	
 	public boolean addEnemy(Kingdom enemy) {
+	
 		return enemies.add(enemy.getID());
 	}
 	
 	public void addMember(Guild joining) {
+	
 		guilds.add(joining.getID());
 		
 	}
 	
 	public boolean addRank(KingdomRank rank) {
+	
 		return ranks.add(rank);
 	}
 	
 	public boolean deposit(double amount) {
+	
 		return account.deposit(amount);
 	}
 	
 	public String getAccountName() {
+	
 		return account.getAccountName();
 	}
 	
 	public Set<Kingdom> getAllies() {
+	
 		final Set<Kingdom> ret = new HashSet<Kingdom>();
 		final KingdomManager km = KingdomManager.getInstance();
 		for (final UUID id : getAlliesIDs()) {
@@ -193,18 +202,22 @@ public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<Ki
 	}
 	
 	public Set<UUID> getAlliesIDs() {
+	
 		return Collections.unmodifiableSet(allies);
 	}
 	
 	public double getBalance() {
+	
 		return account.getBalance();
 	}
 	
 	public Guild getCapital() {
+	
 		return GuildManager.getInstance().get(capital);
 	}
 	
 	public Set<Kingdom> getEnemies() {
+	
 		final Set<Kingdom> ret = new HashSet<Kingdom>();
 		final KingdomManager km = KingdomManager.getInstance();
 		for (final UUID id : getEnemiesIDs()) {
@@ -215,14 +228,17 @@ public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<Ki
 	}
 	
 	public Set<UUID> getEnemiesIDs() {
+	
 		return Collections.unmodifiableSet(enemies);
 	}
 	
 	public Set<UUID> getGuildIDs() {
+	
 		return Collections.unmodifiableSet(guilds);
 	}
 	
 	public Set<Guild> getGuilds() {
+	
 		final Set<Guild> ret = new HashSet<Guild>();
 		final GuildManager gm = GuildManager.getInstance();
 		for (final UUID id : getGuildIDs()) {
@@ -233,18 +249,22 @@ public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<Ki
 	}
 	
 	public UUID getID() {
+	
 		return id;
 	}
 	
 	public Set<Guild> getInvites() {
+	
 		return Collections.unmodifiableSet(invitedGuilds);
 	}
 	
 	public GuildPlayer getKing() {
+	
 		return getCapital().getOwner();
 	}
 	
 	public Set<Guild> getMembers() {
+	
 		final Set<Guild> ret = new HashSet<Guild>();
 		final GuildManager gm = GuildManager.getInstance();
 		
@@ -256,34 +276,42 @@ public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<Ki
 	}
 	
 	public String getName() {
+	
 		return name;
 	}
 	
 	public UUID getPersistentID() {
+	
 		return getID();
 	}
 	
 	public String getPersistentStringID() {
+	
 		return getPersistentID().toString();
 	}
 	
 	public Set<KingdomRank> getRanks() {
+	
 		return Collections.unmodifiableSet(ranks);
 	}
 	
 	public String getTag() {
+	
 		return tag;
 	}
 	
 	public boolean hasMember(Guild member) {
+	
 		return guilds.contains(member.getID());
 	}
 	
 	public boolean hasRank(KingdomRank rank) {
+	
 		return ranks.contains(rank);
 	}
 	
 	public boolean hasRank(UUID rankID) {
+	
 		for (final KingdomRank r : ranks)
 			if (r.getID().equals(rankID))
 				return true;
@@ -292,6 +320,7 @@ public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<Ki
 	}
 	
 	public void invite(final Guild guild) {
+	
 		invitedGuilds.add(guild);
 		guild.getChatChannel().broadcast(new FanceeMessage(NoxGuildLocale.KINGDOM_INVITED_GUILD.get(guild)));
 		
@@ -303,6 +332,7 @@ public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<Ki
 		lastInviteRunners.put(guild, Bukkit.getScheduler().runTaskLater(NoxGuilds.getInstance(), new Runnable() {
 			
 			public void run() {
+			
 				invitedGuilds.remove(guild);
 				lastInviteRunners.remove(guild);
 			}
@@ -311,39 +341,48 @@ public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<Ki
 	}
 	
 	public boolean isInvited(Guild object) {
+	
 		return invitedGuilds.contains(object);
 	}
 	
 	public void load() {
+	
 		return;
 	}
 	
 	public boolean pay(double amount) {
+	
 		return account.pay(amount);
 	}
 	
 	public boolean removeAlly(Kingdom ally) {
+	
 		return allies.remove(ally);
 	}
 	
 	public boolean removeEnemy(Kingdom enemy) {
+	
 		return enemies.remove(enemy);
 	}
 	
 	public boolean removeMember(Guild kicked) {
+	
 		return guilds.remove(kicked.getID());
 	}
 	
 	public boolean removeRank(KingdomRank rank) {
+	
 		return ranks.remove(rank);
 	}
 	
 	public void save() {
+	
 		return;
 	}
 	
 	// Serialize
 	public Map<String, Object> serialize() {
+	
 		final Map<String, Object> data = new HashMap<String, Object>();
 		
 		data.put(NODE_KINGDOM_ID, id.toString());
@@ -371,6 +410,7 @@ public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<Ki
 	}
 	
 	public void uninvite(Guild object) {
+	
 		int i;
 		if ((i = lastInviteRunners.get(object)) != 0) {
 			Bukkit.getScheduler().cancelTask(i);
@@ -380,6 +420,7 @@ public abstract class BaseKingdom implements IKingdom, Persistant, RankKeeper<Ki
 	}
 	
 	private void instantiateNonSaves() {
+	
 		account = new BankAccount(id.toString());
 		invitedGuilds = new HashSet<Guild>();
 		lastInviteRunners = new HashMap<Guild, Integer>();

@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 
 package com.noxpvp.noxguilds.gui.internal;
@@ -41,8 +37,7 @@ public interface ICoreBox {
 	public boolean addMenuItem(int slot, CoreBoxItem item);
 	
 	/**
-	 * Handles the code of what should go on if a player clicks on an item
-	 * in the box
+	 * Handles the code of what should go on if a player clicks on an item in the box
 	 * 
 	 * @param event
 	 */
@@ -73,8 +68,7 @@ public interface ICoreBox {
 	 * Gets the menu item (if any) from this slot in the menu
 	 * 
 	 * @param slot
-	 * @return {@link CoreBoxItem} that was found, null if the slot had no
-	 *         item
+	 * @return {@link CoreBoxItem} that was found, null if the slot had no item
 	 */
 	public CoreBoxItem getMenuItem(int slot);
 	
@@ -134,8 +128,7 @@ public interface ICoreBox {
 		public CoreBox getParentBox();
 		
 		/**
-		 * Handles the code of what should go on if a player clicks this
-		 * item, not necessary for most implementations
+		 * Handles the code of what should go on if a player clicks this item, not necessary for most implementations
 		 * 
 		 * @param click
 		 */

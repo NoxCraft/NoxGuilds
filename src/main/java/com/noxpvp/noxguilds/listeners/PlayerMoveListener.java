@@ -22,7 +22,7 @@ public class PlayerMoveListener extends NoxListener<NoxGuilds> {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static final String	lastPlotKey	= "last-plot";
+	private static final String lastPlotKey = "last-plot";
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
@@ -33,6 +33,7 @@ public class PlayerMoveListener extends NoxListener<NoxGuilds> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public PlayerMoveListener(NoxGuilds plugin) {
+	
 		super(plugin);
 		
 	}
@@ -47,7 +48,7 @@ public class PlayerMoveListener extends NoxListener<NoxGuilds> {
 	
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerChunkMove(PlayerChunkMoveEvent event) {
-		
+	
 		final GuildPlayer p = GuildPlayerManager.getInstance().getFromPlayer(event.getPlayer());
 		final GuildPlot lastPlot = (GuildPlot) p.getOption(lastPlotKey);
 		final GuildPlot newPlot = PlotManager.getInstance().getPlot(new TerritoryID(event.getToChunk()).getID());
@@ -85,6 +86,7 @@ public class PlayerMoveListener extends NoxListener<NoxGuilds> {
 	
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerMove(PlayerMoveEvent event) {
+	
 		final Location from = event.getFrom();
 		final Location to = event.getTo();
 		

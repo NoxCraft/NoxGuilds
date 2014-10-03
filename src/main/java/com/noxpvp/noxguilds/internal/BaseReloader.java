@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 
 package com.noxpvp.noxguilds.internal;
@@ -33,15 +29,16 @@ public abstract class BaseReloader implements Reloader {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final String			name;
-	protected Map<String, Reloader>	reloaders;
-	private final Reloader			parent;
+	private final String name;
+	protected Map<String, Reloader> reloaders;
+	private final Reloader parent;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public BaseReloader(Reloader parent, String name) {
+	
 		this.name = name;
 		this.parent = parent;
 		
@@ -53,6 +50,7 @@ public abstract class BaseReloader implements Reloader {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public boolean addModule(Reloader module) {
+	
 		final String name = module.getName();
 		
 		if (reloaders.containsKey(name))
@@ -65,6 +63,7 @@ public abstract class BaseReloader implements Reloader {
 	}
 	
 	public String getCurrentPath() {
+	
 		Reloader reloader = this;
 		Reloader prev = null;
 		final StringBuilder sb = new StringBuilder();
@@ -86,6 +85,7 @@ public abstract class BaseReloader implements Reloader {
 	 * @return Reloader object or null if module does not exist.
 	 */
 	public Reloader getModule(String path) {
+	
 		Reloader section = this;
 		int i1 = -1, i2;
 		while ((i1 = path.indexOf(':', i2 = i1 + 1)) != -1) {
@@ -101,18 +101,22 @@ public abstract class BaseReloader implements Reloader {
 	}
 	
 	public Reloader[] getModules() {
+	
 		return new ArrayList<Reloader>(reloaders.values()).toArray(new Reloader[reloaders.size()]);
 	}
 	
 	public String getName() {
+	
 		return name;
 	}
 	
 	public Reloader getParent() {
+	
 		return parent;
 	}
 	
 	public Reloader getRoot() {
+	
 		Reloader reloader = this, prev = null;
 		while (prev != (prev = reloader)) {
 			reloader = reloader.getParent();
@@ -121,18 +125,22 @@ public abstract class BaseReloader implements Reloader {
 	}
 	
 	public boolean hasModule(String name) {
+	
 		return getModule(name) != null;
 	}
 	
 	public boolean hasModules() {
+	
 		return !reloaders.isEmpty();
 	}
 	
 	public boolean hasParent() {
+	
 		return parent != null;
 	}
 	
 	public boolean reload(String module) {
+	
 		Reloader r;
 		if ((r = getModule(module)) != null)
 			return r.reload();
@@ -147,6 +155,7 @@ public abstract class BaseReloader implements Reloader {
 	 * @see Reloader#reloadAll()
 	 */
 	public boolean reloadAll() {
+	
 		if (hasModules()) {
 			for (final Reloader r : reloaders.values()) {
 				r.reloadAll();

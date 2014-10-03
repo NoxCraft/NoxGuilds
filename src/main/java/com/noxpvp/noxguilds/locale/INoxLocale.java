@@ -7,8 +7,7 @@ public interface INoxLocale {
 	/**
 	 * Gets this locale parsed from the args given, if any.
 	 * 
-	 * If no args are passed the returned String will be the same as
-	 * {@link #getDef()}
+	 * If no args are passed the returned String will be the same as {@link #getDef()}
 	 * 
 	 * @param args
 	 * @return String the parsed locale
@@ -39,8 +38,7 @@ public interface INoxLocale {
 	public INoxLocale send(CommandSender receiver);
 	
 	/**
-	 * Sends this locale to the given receiver parsed with the given
-	 * arguments, if any
+	 * Sends this locale to the given receiver parsed with the given arguments, if any
 	 * 
 	 * @param receiver
 	 * @param args

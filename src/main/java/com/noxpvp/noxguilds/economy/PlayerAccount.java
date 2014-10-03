@@ -13,17 +13,19 @@ public class PlayerAccount extends AccountBase {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final OfflinePlayer	holder;
+	private final OfflinePlayer holder;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public PlayerAccount(OfflinePlayer player) {
+	
 		holder = player;
 	}
 	
 	public PlayerAccount(UUID player) {
+	
 		holder = Bukkit.getOfflinePlayer(player);
 	}
 	
@@ -32,10 +34,12 @@ public class PlayerAccount extends AccountBase {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public boolean deposit(double amount) {
+	
 		return VaultAdapter.economy.depositPlayer(holder, amount).transactionSuccess();
 	}
 	
 	public String getAccountName() {
+	
 		String name;
 		if ((name = holder.getName()) == null) {
 			name = holder.getUniqueId().toString();
@@ -45,10 +49,12 @@ public class PlayerAccount extends AccountBase {
 	}
 	
 	public double getBalance() {
+	
 		return VaultAdapter.economy.getBalance(holder);
 	}
 	
 	public boolean pay(double amount) {
+	
 		return VaultAdapter.economy.withdrawPlayer(holder, amount).transactionSuccess();
 	}
 }

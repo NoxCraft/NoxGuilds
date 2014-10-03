@@ -65,8 +65,7 @@ public interface IGuild {
 	public boolean isFriendlyFire();
 	
 	/**
-	 * Gets if this guild is open; anyone can join with out being invited
-	 * first
+	 * Gets if this guild is open; anyone can join with out being invited first
 	 * 
 	 * @return open
 	 */

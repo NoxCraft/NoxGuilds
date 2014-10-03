@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 
 package com.noxpvp.noxguilds;
@@ -40,23 +36,27 @@ import com.noxpvp.noxguilds.util.MessageUtil;
 
 public class VaultAdapter {
 	
-	public static Chat			chat		= null;
-	public static Economy		economy		= null;
-	public static Permission	permission	= null;
+	public static Chat chat = null;
+	public static Economy economy = null;
+	public static Permission permission = null;
 	
 	public static boolean isChatLoaded() {
+	
 		return chat != null;
 	}
 	
 	public static boolean isEconomyLoaded() {
+	
 		return economy != null;
 	}
 	
 	public static boolean isPermissionsLoaded() {
+	
 		return permission != null;
 	}
 	
 	public static void load() {
+	
 		GroupUtils.log = new ModuleLogger(NoxGuilds.getInstance(), "VaultAdapter.GroupUtils");
 		setupChat();
 		setupEconomy();
@@ -64,8 +64,9 @@ public class VaultAdapter {
 	}
 	
 	public static boolean setupChat() {
-		final RegisteredServiceProvider<Chat> service = Bukkit.getServer().getServicesManager()
-			.getRegistration(net.milkbowl.vault.chat.Chat.class);
+	
+		final RegisteredServiceProvider<Chat> service =
+			Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.chat.Chat.class);
 		if (service != null) {
 			chat = service.getProvider();
 		}
@@ -73,8 +74,9 @@ public class VaultAdapter {
 	}
 	
 	public static boolean setupEconomy() {
-		final RegisteredServiceProvider<Economy> service = Bukkit.getServer().getServicesManager()
-			.getRegistration(net.milkbowl.vault.economy.Economy.class);
+	
+		final RegisteredServiceProvider<Economy> service =
+			Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
 		if (service != null) {
 			economy = service.getProvider();
 		}
@@ -82,8 +84,9 @@ public class VaultAdapter {
 	}
 	
 	public static boolean setupPermission() {
-		final RegisteredServiceProvider<Permission> service = Bukkit.getServer().getServicesManager()
-			.getRegistration(net.milkbowl.vault.permission.Permission.class);
+	
+		final RegisteredServiceProvider<Permission> service =
+			Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
 		if (service != null) {
 			permission = service.getProvider();
 		}
@@ -93,6 +96,7 @@ public class VaultAdapter {
 	public static class ChatUtil {
 		
 		public static String getFormatedPlayerName(Player p) {
+		
 			final StringBuilder name = new StringBuilder(p.getName());
 			if (isChatLoaded()) {
 				name.insert(0, chat.getPlayerPrefix(p));
@@ -106,9 +110,10 @@ public class VaultAdapter {
 	
 	public static class GroupUtils {
 		
-		static ModuleLogger	log;
+		static ModuleLogger log;
 		
 		public static List<String> getGroupList() {
+		
 			if (isPermissionsLoaded() && permission.hasGroupSupport())
 				return Arrays.asList(VaultAdapter.permission.getGroups());
 			else if (log != null) {
@@ -121,6 +126,7 @@ public class VaultAdapter {
 		}
 		
 		public static String getPlayerGroup(Player p) {
+		
 			if (isPermissionsLoaded())
 				return VaultAdapter.permission.getPrimaryGroup(p);
 			
@@ -132,6 +138,7 @@ public class VaultAdapter {
 	public static class PermUtils {
 		
 		public static boolean hasPermission(Player p, String perm) {
+		
 			if (isPermissionsLoaded())
 				return permission.has(p, perm);
 			

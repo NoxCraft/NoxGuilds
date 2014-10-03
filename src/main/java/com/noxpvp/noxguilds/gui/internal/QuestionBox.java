@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 
 package com.noxpvp.noxguilds.gui.internal;
@@ -33,8 +29,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public abstract class QuestionBox extends CoreBox {
 	
-	private static ItemStack	confirmItem, denyItem;
-	public static final String	MENU_NAME	= "Questioner";
+	private static ItemStack confirmItem, denyItem;
+	public static final String MENU_NAME = "Questioner";
 	
 	static {
 		confirmItem = new ItemStack(Material.WOOL, 1, (short) 5);
@@ -49,10 +45,12 @@ public abstract class QuestionBox extends CoreBox {
 	}
 	
 	public QuestionBox(Player p, String question) {
+	
 		this(p, question, null);
 	}
 	
 	public QuestionBox(Player p, String question, CoreBox backbutton) {
+	
 		super(p, ChatColor.AQUA + question.substring(0, Math.min(30, question.length())), InventoryType.DISPENSER,
 			backbutton);
 		
@@ -62,6 +60,7 @@ public abstract class QuestionBox extends CoreBox {
 		final CoreBoxItem confirm = new CoreBoxItem(this, QuestionBox.confirmItem) {
 			
 			public boolean onClick(InventoryClickEvent click) {
+			
 				QuestionBox.this.onConfirm();
 				return true;
 			}
@@ -71,6 +70,7 @@ public abstract class QuestionBox extends CoreBox {
 		final CoreBoxItem deny = new CoreBoxItem(this, QuestionBox.denyItem) {
 			
 			public boolean onClick(InventoryClickEvent click) {
+			
 				QuestionBox.this.onDeny();
 				return true;
 			}

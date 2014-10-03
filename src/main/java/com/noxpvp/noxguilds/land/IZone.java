@@ -23,8 +23,7 @@ public interface IZone {
 	public UUID getID();
 	
 	/**
-	 * Gets the name of this zone, this is very different from the id and
-	 * should only be used for display
+	 * Gets the name of this zone, this is very different from the id and should only be used for display
 	 * 
 	 * @return {@link String} this zones name
 	 */

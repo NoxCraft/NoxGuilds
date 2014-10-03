@@ -10,14 +10,15 @@ public class QuestionOption {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final String	name;
-	private final String	command;
+	private final String name;
+	private final String command;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public QuestionOption(String name, String command) {
+	
 		this.name = name;
 		this.command = command;
 	}
@@ -31,10 +32,12 @@ public class QuestionOption {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public String getCommand() {
+	
 		return command;
 	}
 	
 	public String getName() {
+	
 		return name;
 	}
 	

@@ -14,6 +14,7 @@ public class LogoutListener extends NoxListener<NoxGuilds> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public LogoutListener(NoxGuilds plugin) {
+	
 		super(plugin);
 	}
 	
@@ -23,6 +24,7 @@ public class LogoutListener extends NoxListener<NoxGuilds> {
 	
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onLogout(PlayerQuitEvent event) {
+	
 		final GuildPlayerManager gpm = GuildPlayerManager.getInstance();
 		
 		gpm.unloadAndSave(event.getPlayer());

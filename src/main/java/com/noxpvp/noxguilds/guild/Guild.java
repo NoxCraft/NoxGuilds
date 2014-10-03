@@ -28,29 +28,29 @@ public class Guild extends BaseGuild {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static final ItemStack	genericGuildItem		= new ItemStack(Material.IRON_SWORD);
-	private static ModuleLogger		guildLogger				= new ModuleLogger(NoxGuilds.getInstance(), "Guilds");
+	private static final ItemStack genericGuildItem = new ItemStack(Material.IRON_SWORD);
+	private static ModuleLogger guildLogger = new ModuleLogger(NoxGuilds.getInstance(), "Guilds");
 	
 	// Serializers start
-	private static final String		NODE_PERMS				= "permissions";
-	private static final String		NODE_ITEM_IDENTIFIER	= "guild-item";
-	private static final String		NODE_OPEN				= "isopen";
-	private static final String		NODE_TAXES				= "taxes";
-	private static final String		NODE_TAXESISPERCENT		= "is-tax-percent";
-	private static final String		NODE_FRIENDLYFIRE		= "friendly-fire";
+	private static final String NODE_PERMS = "permissions";
+	private static final String NODE_ITEM_IDENTIFIER = "guild-item";
+	private static final String NODE_OPEN = "isopen";
+	private static final String NODE_TAXES = "taxes";
+	private static final String NODE_TAXESISPERCENT = "is-tax-percent";
+	private static final String NODE_FRIENDLYFIRE = "friendly-fire";
 	// Serializers end
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private GuildPermissionCell		perms;
-	private ItemStack				guildItem;
-	private boolean					open;
-	private double					taxes;
-	private boolean					isTaxPercent;
-	private boolean					friendlyFire;
-	private GuildChannel			channel;
+	private GuildPermissionCell perms;
+	private ItemStack guildItem;
+	private boolean open;
+	private double taxes;
+	private boolean isTaxPercent;
+	private boolean friendlyFire;
+	private GuildChannel channel;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -58,6 +58,7 @@ public class Guild extends BaseGuild {
 	
 	// Deserialize
 	public Guild(Map<String, Object> data) {
+	
 		super(data);
 		
 		Object getter;
@@ -101,6 +102,7 @@ public class Guild extends BaseGuild {
 	}
 	
 	public Guild(String name, GuildPlayer owner) {
+	
 		super(name, owner);
 		
 		perms = new GuildPermissionCell();
@@ -123,23 +125,28 @@ public class Guild extends BaseGuild {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static void log(Level lv, String msg) {
+	
 		guildLogger.log(lv, msg);
 	}
 	
 	public GuildChannel getChatChannel() {
+	
 		return channel;
 	}
 	
 	public ItemStack getIdentifiableItem() {
-		guildItem = new ItemBuilder(guildItem)
-			.setName(ChatColor.GREEN + getName())
-			.setLore(ChatColor.GOLD + "Owner: " + ChatColor.AQUA + getOwner().getOffline().getName(),
-				ChatColor.GOLD + "Tag: " + ChatColor.AQUA + getTag()).build();
+	
+		guildItem =
+			new ItemBuilder(guildItem)
+				.setName(ChatColor.GREEN + getName())
+				.setLore(ChatColor.GOLD + "Owner: " + ChatColor.AQUA + getOwner().getOffline().getName(),
+					ChatColor.GOLD + "Tag: " + ChatColor.AQUA + getTag()).build();
 		
 		return guildItem.clone();
 	}
 	
 	public Set<Kingdom> getKingdoms() {
+	
 		final Set<Kingdom> ret = new HashSet<Kingdom>();
 		final KingdomManager km = KingdomManager.getInstance();
 		for (final Kingdom k : km.getLoadedMap().values())
@@ -151,6 +158,7 @@ public class Guild extends BaseGuild {
 	}
 	
 	public ItemStack getKingdomsItem() {
+	
 		final List<String> lore = new ArrayList<String>();
 		for (final Kingdom k : getKingdoms()) {
 			lore.add(ChatColor.LIGHT_PURPLE + k.getName());
@@ -161,15 +169,18 @@ public class Guild extends BaseGuild {
 	}
 	
 	public double getMemberTax() {
+	
 		return taxes;
 	}
 	
 	public GuildPermissionCell getPermissions() {
+	
 		return perms;
 	}
 	
 	@Override
 	public boolean hasKingdom() {
+	
 		final KingdomManager km = KingdomManager.getInstance();
 		for (final Kingdom k : km.getLoadedMap().values())
 			if (k.getGuildIDs().contains(getID()))
@@ -179,19 +190,23 @@ public class Guild extends BaseGuild {
 	}
 	
 	public boolean isFriendlyFire() {
+	
 		return friendlyFire;
 	}
 	
 	public boolean isOpen() {
+	
 		return open;
 	}
 	
 	public boolean isTaxPercentBased() {
+	
 		return isTaxPercent;
 	}
 	
 	@Override
 	public Map<String, Object> serialize() {
+	
 		final Map<String, Object> data = super.serialize();
 		
 		data.put(NODE_OPEN, open);
@@ -208,6 +223,7 @@ public class Guild extends BaseGuild {
 	}
 	
 	public void setItemBadge(ItemStack badge) {
+	
 		// Don't leak
 		final ItemStack copy = new ItemStack(badge);
 		
@@ -219,10 +235,12 @@ public class Guild extends BaseGuild {
 	}
 	
 	public void setOpen(boolean open) {
+	
 		this.open = open;
 	}
 	
 	private void instantiateNonSaves() {
+	
 		channel = new GuildChannel(this);
 	}
 }

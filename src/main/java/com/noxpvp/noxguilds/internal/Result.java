@@ -15,14 +15,15 @@ public class Result {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final boolean	result;
-	private final String[]	messages;
+	private final boolean result;
+	private final String[] messages;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public Result(boolean result, String... messages) {
+	
 		this.result = result;
 		this.messages = messages;
 	}
@@ -32,14 +33,17 @@ public class Result {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public String[] getMessages() {
+	
 		return messages;
 	}
 	
 	public boolean isResult() {
+	
 		return result;
 	}
 	
 	public void send(CommandSender receiver) {
+	
 		if (LogicUtil.nullOrEmpty(messages))
 			return;
 		

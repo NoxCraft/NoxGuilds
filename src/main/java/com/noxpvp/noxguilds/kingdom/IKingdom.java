@@ -88,8 +88,7 @@ public interface IKingdom {
 	public boolean isFriendlyFire();
 	
 	/**
-	 * Gets if this kingdom is open and any guild may join without
-	 * invitation
+	 * Gets if this kingdom is open and any guild may join without invitation
 	 * 
 	 * @return
 	 */
@@ -103,8 +102,7 @@ public interface IKingdom {
 	public boolean isTaxesPercent();
 	
 	/**
-	 * Removes the given kingdom as an ally to this kingdom if they are one
-	 * currently
+	 * Removes the given kingdom as an ally to this kingdom if they are one currently
 	 * 
 	 * @param ally
 	 * @return if any change was made
@@ -112,8 +110,7 @@ public interface IKingdom {
 	public boolean removeAlly(Kingdom ally);
 	
 	/**
-	 * Removes the given kingdom as an enemy to this kingdom if they are
-	 * one currently
+	 * Removes the given kingdom as an enemy to this kingdom if they are one currently
 	 * 
 	 * @param enemy
 	 * @return if any change was made

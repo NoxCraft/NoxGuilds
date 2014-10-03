@@ -29,14 +29,15 @@ public enum PlayerAccessLevel
 	ALLY(OUTSIDER, "Players in the same guild or a guild allied through a nation"),
 	FRIEND(ALLY, "Players who the player has added to their friends list");
 	
-	private PlayerAccessLevel	parent;
-	private String				desc;
+	private PlayerAccessLevel parent;
+	private String desc;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	private PlayerAccessLevel(PlayerAccessLevel parent, String description) {
+	
 		this.parent = parent;
 		desc = description;
 	}
@@ -46,6 +47,7 @@ public enum PlayerAccessLevel
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static PlayerAccessLevel getAccessLevel(GuildPlayer owner, GuildPlayer object) {
+	
 		PlayerAccessLevel last = null;
 		
 		for (final PlayerAccessLevel cur : values()) {
@@ -64,6 +66,7 @@ public enum PlayerAccessLevel
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public boolean filter(GuildPlayer owner, GuildPlayer object) {
+	
 		switch (this) {
 			case OUTSIDER:
 				if (!owner.hasGuild())
@@ -92,23 +95,28 @@ public enum PlayerAccessLevel
 	}
 	
 	public String getDescription() {
+	
 		return desc;
 	}
 	
 	public ItemStack getIdentifiableItem() {
+	
 		return new ItemBuilder(Material.BOOKSHELF, 1).setName(ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
 			.setLore(ChatColor.GOLD + getDescription()).build();
 	}
 	
 	public PlayerAccessLevel getParent() {
+	
 		return parent;
 	};
 	
 	public boolean isChildOf(PlayerAccessLevel parent) {
+	
 		return NoxEnumUtil.isChildOf(this, parent);
 	}
 	
 	public boolean isParentOf(PlayerAccessLevel child) {
+	
 		return NoxEnumUtil.isParentOf(this, child);
 	}
 	

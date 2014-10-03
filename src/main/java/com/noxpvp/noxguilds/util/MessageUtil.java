@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 
 package com.noxpvp.noxguilds.util;
@@ -44,49 +40,57 @@ import com.noxpvp.noxguilds.locale.NoxLocale;
 public class MessageUtil {
 	
 	public static void broadcast(String message) {
+	
 		sendMessage(Bukkit.getOnlinePlayers(), message);
 	}
 	
 	public static void broadcast(String... messages) {
+	
 		sendMessages(Bukkit.getOnlinePlayers(), messages);
 	}
 	
 	public static void broadcast(final String permission, String message) {
+	
 		sendPermMessages(Bukkit.getOnlinePlayers(), permission, message);
 	}
 	
 	public static void broadcast(final String permission, String... messages) {
+	
 		sendPermMessages(Bukkit.getOnlinePlayers(), permission, messages);
 	}
 	
 	public static void broadcast(World world, String message) {
+	
 		for (final Player player : world.getPlayers()) {
 			sendMessage(player, message);
 		}
 	}
 	
 	public static void broadcast(World world, String... messages) {
+	
 		for (final Player player : world.getPlayers()) {
 			sendMessages(player, messages);
 		}
 	}
 	
 	public static void broadcast(World world, final String permission, String message) {
+	
 		sendPermMessages(world.getPlayers().toArray(new Player[0]), permission, message);
 	}
 	
 	public static void broadcast(World world, final String permission, String... messages) {
+	
 		sendPermMessages(world.getPlayers().toArray(new Player[0]), permission, messages);
 	}
 	
 	/**
-	 * Converts a string message into 28~ish length strings for use as item
-	 * lore, or anything else
+	 * Converts a string message into 28~ish length strings for use as item lore, or anything else
 	 * 
 	 * @param lore
 	 * @return List<String> converted string
 	 */
 	public static List<String> convertStringForLore(String lore) {
+	
 		final List<String> ret = new ArrayList<String>();
 		lore = parseColor(lore);
 		final int lineLength = 30;
@@ -121,6 +125,7 @@ public class MessageUtil {
 	}
 	
 	public static String getLastColors(String message) {
+	
 		final char[] chars = message.toCharArray();
 		
 		int i = 0;
@@ -159,6 +164,7 @@ public class MessageUtil {
 	}
 	
 	public static String parseArguments(String message, String... args) {
+	
 		final StringBuilder msg = new StringBuilder(message);
 		if (args.length > 0) {
 			for (int i = 0; i < args.length; i++) {
@@ -169,10 +175,12 @@ public class MessageUtil {
 	}
 	
 	public static String parseColor(String message) {
+	
 		return ChatColor.translateAlternateColorCodes('&', message);
 	}
 	
 	public static FancyMessage parseFancyArguments(FancyMessage starter, String message, Object... args) {
+	
 		FancyMessage ret = starter;
 		final StringBuilder string = new StringBuilder(message);
 		
@@ -180,7 +188,7 @@ public class MessageUtil {
 			// For each argument...
 			for (int i = 0; i < args.length; i++) {
 				// get all possible fancy parts
-				final String[] posFancys = string.toString().split(FancyLocaleArg.getParseString());
+				final String[] posFancys = string.toString().split("" + FancyLocaleArg.getParseChar());
 				
 				// For each possible fancy part
 				for (final String posFancy : posFancys) {
@@ -193,8 +201,8 @@ public class MessageUtil {
 					// requires it
 					String numberGet;
 					final String copy = posFancy;
-					if (LogicUtil.nullOrEmpty(numberGet = copy.replaceAll("[&§][0-9a-frkmlno]", "").replaceAll(
-						"[^0-9]", ""))) {
+					if (LogicUtil.nullOrEmpty(numberGet =
+						copy.replaceAll("[&§][0-9a-frkmlno]", "").replaceAll("[^0-9]", ""))) {
 						
 						// if no number, add as not fancy and continue
 						ret.then(posFancy);
@@ -228,7 +236,7 @@ public class MessageUtil {
 					// type is same as arg type...
 					final Object curArg = args[i];
 					if (number == i && (type = FancyLocaleArg.valueOf(matcher)) != null
-						&& type.getTypeClass().equals(curArg.getClass())) {
+						&& type.getArgTypes().equals(curArg.getClass())) {
 						
 						// add fancy part
 						ret = type.parsePart(ret, curArg);
@@ -246,60 +254,75 @@ public class MessageUtil {
 	}
 	
 	public static void sendFilteredMessage(CommandSender[] senders, NoxFilter<CommandSender> filter, String message) {
-		for (final CommandSender sender : senders)
+	
+		for (final CommandSender sender : senders) {
 			if (filter.isFiltered(sender)) {
 				sendMessage(sender, message);
 			}
+		}
 	}
 	
 	public static void sendFilteredMessage(Player[] players, NoxFilter<Player> filter, String message) {
-		for (final Player player : players)
+	
+		for (final Player player : players) {
 			if (filter.isFiltered(player)) {
 				sendMessage(player, message);
 			}
+		}
 	}
 	
 	public static void sendFilteredMessages(CommandSender[] senders, NoxFilter<CommandSender> filter,
 		String... messages) {
-		for (final CommandSender sender : senders)
+	
+		for (final CommandSender sender : senders) {
 			if (filter.isFiltered(sender)) {
 				sendMessages(sender, messages);
 			}
+		}
 	}
 	
 	public static void sendFilteredMessages(Player[] players, NoxFilter<Player> filter, String... messages) {
-		for (final Player player : players)
+	
+		for (final Player player : players) {
 			if (filter.isFiltered(player)) {
 				sendMessages(player, messages);
 			}
+		}
 	}
 	
 	public static void sendLocale(CommandSender sender, NoxLocale locale, String... args) {
+	
 		locale.send(sender, args);
 	}
 	
 	public static void sendMessage(CommandSender sender, String message) {
+	
 		sender.sendMessage(parseColor(message));
 	}
 	
 	public static void sendMessage(CommandSender[] senders, String message) {
+	
 		for (final CommandSender sender : senders) {
 			sender.sendMessage(message);
 		}
 	}
 	
 	public static void sendMessageNearby(Entity entity, double radX, double radY, double radZ, String message) {
-		for (final Entity e : entity.getNearbyEntities(radX, radY, radZ))
+	
+		for (final Entity e : entity.getNearbyEntities(radX, radY, radZ)) {
 			if (e instanceof CommandSender) {
 				((CommandSender) e).sendMessage(message);
 			}
+		}
 	}
 	
 	public static void sendMessageNearby(Entity entity, double radius, String message) {
+	
 		sendMessageNearby(entity, radius, radius, radius, message);
 	}
 	
 	public static void sendMessages(CommandSender sender, String... messages) {
+	
 		if (!LogicUtil.nullOrEmpty(messages)) {
 			for (final String message : messages) {
 				sendMessage(sender, message);
@@ -308,16 +331,19 @@ public class MessageUtil {
 	}
 	
 	public static void sendMessages(CommandSender[] senders, String... messages) {
+	
 		for (final CommandSender sender : senders) {
 			sendMessages(sender, messages);
 		}
 	}
 	
 	public static void sendMessagesToGroup(final String groupName, String... messages) {
+	
 		sendFilteredMessages(Bukkit.getOnlinePlayers(), new NoxFilter<Player>() {
 			
 			@Override
 			public boolean isFiltered(Player player) {
+			
 				if (VaultAdapter.isPermissionsLoaded() && VaultAdapter.permission.hasGroupSupport()
 					&& VaultAdapter.permission.playerInGroup(player, groupName))
 					return true;
@@ -329,10 +355,12 @@ public class MessageUtil {
 	}
 	
 	public static void sendMessageToGroup(final String groupName, String message) {
+	
 		sendFilteredMessage(Bukkit.getOnlinePlayers(), new NoxFilter<Player>() {
 			
 			@Override
 			public boolean isFiltered(Player player) {
+			
 				if (VaultAdapter.isPermissionsLoaded() && VaultAdapter.permission.hasGroupSupport()
 					&& VaultAdapter.permission.playerInGroup(player, groupName))
 					return true;
@@ -344,10 +372,12 @@ public class MessageUtil {
 	}
 	
 	public static void sendPermMessages(CommandSender[] senders, final String permission, String... messages) {
+	
 		sendFilteredMessages(senders, new NoxFilter<CommandSender>() {
 			
 			@Override
 			public boolean isFiltered(CommandSender sender) {
+			
 				if (VaultAdapter.isPermissionsLoaded() && VaultAdapter.permission.has(sender, permission))
 					return true;
 				else if (sender.hasPermission(permission))

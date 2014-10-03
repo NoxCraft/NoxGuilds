@@ -19,16 +19,16 @@ public class TerritoryBlock implements Persistant, ItemRepresentable {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	// Serializers start
-	private static final String	NODE_UID		= "uuid";
-	private static final String	NODE_LOCATION	= "location";
+	private static final String NODE_UID = "uuid";
+	private static final String NODE_LOCATION = "location";
 	// Serializers end
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private TerritoryCoord		coord;
-	private final TerritoryID	id;
+	private TerritoryCoord coord;
+	private final TerritoryID id;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -36,6 +36,7 @@ public class TerritoryBlock implements Persistant, ItemRepresentable {
 	
 	// Deserialize
 	public TerritoryBlock(Map<String, Object> data) {
+	
 		Object getter;
 		
 		if ((getter = data.get(NODE_LOCATION)) != null && getter instanceof Location) {
@@ -47,6 +48,7 @@ public class TerritoryBlock implements Persistant, ItemRepresentable {
 	}
 	
 	public TerritoryBlock(TerritoryCoord coord) {
+	
 		this.coord = coord;
 		id = new TerritoryID(getChunk());
 	}
@@ -56,54 +58,65 @@ public class TerritoryBlock implements Persistant, ItemRepresentable {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public Chunk getChunk() {
+	
 		return coord.getChunk();
 	}
 	
 	public Area getChunkArea() {
+	
 		final Chunk c = coord.getChunk();
 		
 		final Location max = new Location(c.getWorld(), c.getX(), 0, c.getZ());
-		final Location min = new Location(c.getWorld(), c.getX() + 16, 256, c.getZ() + 16);
+		final Location min = new Location(c.getWorld(), c.getX() + 15, 256, c.getZ() + 15);
 		
 		return new Area(max, min);
 	}
 	
 	public TerritoryCoord getCoord() {
+	
 		return coord;
 	}
 	
 	public ItemStack getIdentifiableItem() {
+	
 		return null;
 	};
 	
 	public Location getLocation() {
+	
 		return coord.getLocation();
 	}
 	
 	@Deprecated
 	public UUID getPersistentID() {
+	
 		return null;
 	}
 	
 	public String getPersistentStringID() {
+	
 		return id.getID();
 	}
 	
 	public World getWorld() {
+	
 		return coord.getWorld();
 	}
 	
 	public void load() {
+	
 		return;
 		// nothing yet
 	}
 	
 	public void save() {
+	
 		return;
 		// Nothing yet
 	}
 	
 	public Map<String, Object> serialize() {
+	
 		final Map<String, Object> data = new HashMap<String, Object>();
 		
 		data.put(NODE_LOCATION, coord);

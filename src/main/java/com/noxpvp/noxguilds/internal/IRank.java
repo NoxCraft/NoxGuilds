@@ -73,8 +73,7 @@ public interface IRank extends ConfigurationSerializable {
 	public boolean hasMember(UUID playerID);
 	
 	/**
-	 * Removes a guild player from this rank, if they are currently apart
-	 * of it
+	 * Removes a guild player from this rank, if they are currently apart of it
 	 * 
 	 * @param curMember
 	 * @return true if successful, otherwise false
@@ -98,8 +97,7 @@ public interface IRank extends ConfigurationSerializable {
 	public boolean removeMember(UUID curMember);
 	
 	/**
-	 * Sets the name of this rank, must be for than 1 char long and less
-	 * than 17
+	 * Sets the name of this rank, must be for than 1 char long and less than 17
 	 * 
 	 * @param newName
 	 * @return true If name was successfully set, otherwise false

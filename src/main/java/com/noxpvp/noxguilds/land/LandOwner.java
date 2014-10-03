@@ -23,27 +23,29 @@ public abstract class LandOwner implements ConfigurationSerializable {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static final String	SERIALIZE_PLOTS	= "plots";
-	private static final String	SERIALIZE_ZONES	= "zones";
+	private static final String SERIALIZE_PLOTS = "plots";
+	private static final String SERIALIZE_ZONES = "zones";
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private Set<String>			plots;
-	private Set<UUID>			zones;
+	private Set<String> plots;
+	private Set<UUID> zones;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public LandOwner() {
+	
 		plots = new HashSet<String>();
 		zones = new HashSet<UUID>();
 		
 	}
 	
 	public LandOwner(Map<String, Object> data) {
+	
 		Object getter;
 		if ((getter = data.get(SERIALIZE_PLOTS)) != null && getter instanceof Collection) {
 			plots = new HashSet<String>((Collection<String>) getter);
@@ -68,6 +70,7 @@ public abstract class LandOwner implements ConfigurationSerializable {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public boolean addPlot(GuildPlot plot) {
+	
 		if (hasPlot(plot))
 			return false;
 		
@@ -75,6 +78,7 @@ public abstract class LandOwner implements ConfigurationSerializable {
 	}
 	
 	public boolean addZone(Zone zone) {
+	
 		if (hasZone(zone))
 			return false;
 		
@@ -82,16 +86,19 @@ public abstract class LandOwner implements ConfigurationSerializable {
 	}
 	
 	public boolean canClaimTerritory() {
+	
 		return plots.size() < getMaxPlots();
 	}
 	
 	public ItemStack getLandItem() {
+	
 		return new ItemBuilder(Material.GRASS).setName(ChatColor.GREEN + "Territory").build();
 	}
 	
 	public abstract int getMaxPlots();
 	
 	public Set<GuildPlot> getPlots() {
+	
 		final Set<GuildPlot> ret = new HashSet<GuildPlot>();
 		
 		final PlotManager pm = PlotManager.getInstance();
@@ -103,6 +110,7 @@ public abstract class LandOwner implements ConfigurationSerializable {
 	}
 	
 	public Set<Zone> getZones() {
+	
 		final Set<Zone> ret = new HashSet<Zone>();
 		
 		final ZoneManager zm = ZoneManager.getInstance();
@@ -114,30 +122,37 @@ public abstract class LandOwner implements ConfigurationSerializable {
 	}
 	
 	public boolean hasPlot(GuildPlot plot) {
+	
 		return plots.contains(plot.getPersistentStringID());
 	}
 	
 	public boolean hasTerritory(TerritoryBlock block) {
+	
 		return plots.contains(block.getPersistentStringID());
 	}
 	
 	public boolean hasZone(Zone zone) {
+	
 		return zones.contains(zone.getPersistentID());
 	}
 	
 	public boolean removePlot(GuildPlot plot) {
+	
 		return plots.remove(plot.getPersistentStringID());
 	}
 	
 	public boolean removeTerritory(TerritoryBlock block) {
+	
 		return plots.remove(block.getPersistentStringID());
 	}
 	
 	public boolean removeZone(Zone zone) {
+	
 		return zones.remove(zone.getPersistentID());
 	}
 	
 	public Map<String, Object> serialize() {
+	
 		final Map<String, Object> data = new HashMap<String, Object>();
 		
 		if (plots.size() > 0) {

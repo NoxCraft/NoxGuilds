@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 package com.noxpvp.noxguilds.access;
 
@@ -85,32 +81,38 @@ public enum GuildPermissionType implements IPermissionType<GuildPermissionType>,
 	NAME(SET, "Specific permission to set the Kingdom name"),
 	BADGE(SET, "Specific permission to set the Kingdom item-badge");
 	
-	private GuildPermissionType	parent;
-	private String				desc;
+	private GuildPermissionType parent;
+	private String desc;
 	
 	private GuildPermissionType(GuildPermissionType parent, String description) {
+	
 		this.parent = parent;
 		desc = description;
 	}
 	
 	public String getDescription() {
+	
 		return desc;
 	}
 	
 	public ItemStack getIdentifiableItem() {
+	
 		return new ItemBuilder(Material.BOOK, 1).setName(ChatColor.AQUA + NoxEnumUtil.getFriendlyName(this))
 			.setLore(ChatColor.GOLD + getDescription()).build();
 	}
 	
 	public GuildPermissionType getParent() {
+	
 		return parent;
 	}
 	
 	public boolean isChildOf(GuildPermissionType parent) {
+	
 		return NoxEnumUtil.isChildOf(this, parent);
 	}
 	
 	public boolean isParentOf(GuildPermissionType child) {
+	
 		return NoxEnumUtil.isParentOf(this, child);
 	}
 	

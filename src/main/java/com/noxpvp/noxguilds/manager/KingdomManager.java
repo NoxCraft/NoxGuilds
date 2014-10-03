@@ -16,23 +16,25 @@ public class KingdomManager extends BaseManager<Kingdom> {
 	// Static Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static KingdomManager	instance;
+	private static KingdomManager instance;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private NoxPlugin				plugin;
+	private NoxPlugin plugin;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public KingdomManager() {
+	
 		this(NoxGuilds.getInstance());
 	}
 	
 	public KingdomManager(NoxPlugin plugin) {
+	
 		super(Kingdom.class, "kingdoms");
 		
 		this.plugin = plugin;
@@ -44,6 +46,7 @@ public class KingdomManager extends BaseManager<Kingdom> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static KingdomManager getInstance() {
+	
 		if (instance == null) {
 			setup();
 		}
@@ -52,6 +55,7 @@ public class KingdomManager extends BaseManager<Kingdom> {
 	}
 	
 	public static void setup() {
+	
 		instance = new KingdomManager();
 		instance.load();
 	}
@@ -62,14 +66,17 @@ public class KingdomManager extends BaseManager<Kingdom> {
 	
 	@Override
 	public Kingdom get(UUID kingdomUID) {
+	
 		return super.get(kingdomUID);
 	}
 	
 	public NoxPlugin getPlugin() {
+	
 		return plugin != null ? plugin : (plugin = NoxGuilds.getInstance());
 	}
 	
 	public void load() {
+	
 		final List<String> files = new ArrayList<String>();
 		final File[] fileList = getFile().listFiles();
 		

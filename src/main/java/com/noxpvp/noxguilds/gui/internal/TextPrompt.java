@@ -11,10 +11,11 @@ import com.noxpvp.noxguilds.listeners.NoxPacketListener;
 
 public abstract class TextPrompt extends NoxPacketListener {
 	
-	private final WrapperPlayServerOpenSignEntity	packet;
-	private final Player							p;
+	private final WrapperPlayServerOpenSignEntity packet;
+	private final Player p;
 	
 	public TextPrompt(Player p) {
+	
 		super(PacketType.Play.Client.UPDATE_SIGN);
 		
 		this.p = p;
@@ -25,6 +26,7 @@ public abstract class TextPrompt extends NoxPacketListener {
 	
 	@Override
 	public void onPacketReceiving(PacketEvent event) {
+	
 		unRegister();
 		final String[] ret = event.getPacket().getStringArrays().read(0);
 		
@@ -37,12 +39,14 @@ public abstract class TextPrompt extends NoxPacketListener {
 	
 	@Override
 	public void onPacketSending(PacketEvent event) {
+	
 		super.onPacketSending(event);
 	}
 	
 	public abstract void onReturn(String[] lines);
 	
 	public void show() {
+	
 		register();
 		packet.sendPacket(p);
 	}

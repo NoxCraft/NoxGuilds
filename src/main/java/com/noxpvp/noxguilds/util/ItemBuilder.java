@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 package com.noxpvp.noxguilds.util;
 
@@ -45,27 +41,31 @@ public class ItemBuilder {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final ItemStack	item;
-	private ItemMeta		meta;
+	private final ItemStack item;
+	private ItemMeta meta;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public ItemBuilder(ItemStack item) {
+	
 		this.item = item;
 		meta = item.getItemMeta();
 	}
 	
 	public ItemBuilder(Material type) {
+	
 		this(new ItemStack(type, 1));
 	}
 	
 	public ItemBuilder(Material type, int amount) {
+	
 		this(new ItemStack(type, amount, (short) 0));
 	}
 	
 	public ItemBuilder(Material type, int amount, short damageValue) {
+	
 		this(new ItemStack(type, amount, damageValue));
 	}
 	
@@ -78,6 +78,7 @@ public class ItemBuilder {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public ItemBuilder addLore(List<String> lore) {
+	
 		final List<String> addition = meta.getLore();
 		addition.addAll(lore);
 		
@@ -86,16 +87,19 @@ public class ItemBuilder {
 	}
 	
 	public ItemBuilder addLore(String... lore) {
+	
 		addLore(Arrays.asList(lore));
 		return this;
 	}
 	
 	public ItemStack build() {
+	
 		item.setItemMeta(meta);
 		return item.clone();
 	}
 	
 	public ItemBuilder setLore(Collection<String> lore) {
+	
 		final List<String> formated = new ArrayList<String>();
 		
 		for (final String s : lore) {
@@ -107,16 +111,19 @@ public class ItemBuilder {
 	}
 	
 	public ItemBuilder setLore(String... lore) {
+	
 		setLore(Arrays.asList(lore));
 		return this;
 	}
 	
 	public ItemBuilder setName(String name) {
+	
 		meta.setDisplayName(name);
 		return this;
 	}
 	
 	public ItemBuilder withMeta(ItemMeta meta) {
+	
 		this.meta = meta.clone();
 		return this;
 	}

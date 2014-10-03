@@ -23,6 +23,7 @@ public abstract class AccountBase implements Account, ItemRepresentable {
 	 * @return
 	 */
 	public boolean canPay(double amount) {
+	
 		return getBalance() >= amount;
 	}
 	
@@ -34,11 +35,13 @@ public abstract class AccountBase implements Account, ItemRepresentable {
 	 * @return true if successful, otherwise false
 	 */
 	public Result depositFrom(AccountBase giver, double amount) {
+	
 		return giver.withdrawTo(this, amount);
 	}
 	
 	// Menu item
 	public ItemStack getIdentifiableItem() {
+	
 		return new ItemBuilder(Material.GOLD_INGOT, 1)
 			.setName(ChatColor.GOLD + "Balance: " + ChatColor.AQUA + VaultAdapter.economy.format(getBalance()))
 			.setLore(" ", ChatColor.AQUA + "Click here to deposit", ChatColor.AQUA + "or withdraw funds").build();
@@ -53,6 +56,7 @@ public abstract class AccountBase implements Account, ItemRepresentable {
 	 * @return true if successful, otherwise false
 	 */
 	public Result withdrawTo(AccountBase receiver, double amount) {
+	
 		if (!canPay(amount))
 			return new Result(false, NoxGuildLocale.TRANSFER_FAILED.get(getAccountName() + " can't afford to pay "
 				+ amount));

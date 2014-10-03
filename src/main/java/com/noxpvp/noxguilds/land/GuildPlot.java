@@ -18,24 +18,25 @@ public class GuildPlot extends TerritoryBlock implements PermissionCellKeeper<Pl
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	// Serializers start
-	private static final String			NODE_GUILD_OWNER	= "guild-owner-id";
-	private static final String			NODE_PLAYER_OWNER	= "player-owner-id";
-	private static final String			NODE_PERMISSIONS	= "player-perms";
+	private static final String NODE_GUILD_OWNER = "guild-owner-id";
+	private static final String NODE_PLAYER_OWNER = "player-owner-id";
+	private static final String NODE_PERMISSIONS = "player-perms";
 	// Serializers end
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private UUID						guildOwner;
-	private UUID						playerOwner;
-	private final PlayerPermissionCell	playerPerms;
+	private UUID guildOwner;
+	private UUID playerOwner;
+	private final PlayerPermissionCell playerPerms;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public GuildPlot(Guild owner, TerritoryCoord location) {
+	
 		super(location);
 		
 		guildOwner = owner.getPersistentID();
@@ -45,6 +46,7 @@ public class GuildPlot extends TerritoryBlock implements PermissionCellKeeper<Pl
 	}
 	
 	public GuildPlot(Map<String, Object> data) {
+	
 		super(data);
 		
 		Object getter;
@@ -78,6 +80,7 @@ public class GuildPlot extends TerritoryBlock implements PermissionCellKeeper<Pl
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public Guild getGuildOwner() {
+	
 		if (guildOwner != null && guildOwner instanceof UUID)
 			return GuildManager.getInstance().get(guildOwner);
 		else
@@ -85,14 +88,17 @@ public class GuildPlot extends TerritoryBlock implements PermissionCellKeeper<Pl
 	}
 	
 	public UUID getGuildOwnerID() {
+	
 		return guildOwner;
 	}
 	
 	public PlayerPermissionCell getPermissions() {
+	
 		return playerPerms;
 	}
 	
 	public GuildPlayer getPlayerOwner() {
+	
 		if (playerOwner != null && playerOwner instanceof UUID)
 			return GuildPlayerManager.getInstance().getPlayer(playerOwner);
 		else
@@ -100,11 +106,13 @@ public class GuildPlot extends TerritoryBlock implements PermissionCellKeeper<Pl
 	}
 	
 	public UUID getPlayerOwnerID() {
+	
 		return playerOwner;
 	}
 	
 	@Override
 	public Map<String, Object> serialize() {
+	
 		final Map<String, Object> data = super.serialize();
 		
 		if (guildOwner != null) {

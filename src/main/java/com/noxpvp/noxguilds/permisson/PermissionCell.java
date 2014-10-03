@@ -19,25 +19,27 @@ public abstract class PermissionCell<A extends AccessLevel<?, ?, ?>, PT extends 
 	// Static Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static final String			NODE_PERMS_KEY	= "permissions";
+	private static final String NODE_PERMS_KEY = "permissions";
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private Map<A, Map<PT, Boolean>>	cell;
+	private Map<A, Map<PT, Boolean>> cell;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public PermissionCell() {
+	
 		this.cell = new HashMap<A, Map<PT, Boolean>>();
 	}
 	
 	// Deserialize
 	@SuppressWarnings("unchecked")
 	public PermissionCell(Map<String, Object> serMap) {
+	
 		Object getter;
 		if ((getter = serMap.containsKey(NODE_PERMS_KEY)) != null && getter instanceof Map) {
 			this.cell = (HashMap<A, Map<PT, Boolean>>) serMap.get(NODE_PERMS_KEY);
@@ -55,6 +57,7 @@ public abstract class PermissionCell<A extends AccessLevel<?, ?, ?>, PT extends 
 	 * 
 	 */
 	public void clearPerms() {
+	
 		cell.clear();
 	}
 	
@@ -64,6 +67,7 @@ public abstract class PermissionCell<A extends AccessLevel<?, ?, ?>, PT extends 
 	 * @param level
 	 */
 	public void clearPerms(A level) {
+	
 		if (cell.containsKey(level)) {
 			cell.remove(level);
 		}
@@ -76,6 +80,7 @@ public abstract class PermissionCell<A extends AccessLevel<?, ?, ?>, PT extends 
 	 * @return
 	 */
 	public boolean get(A level, PT type) {
+	
 		final Map<PT, Boolean> map = cell.get(level);
 		if (LogicUtil.nullOrEmpty(map))
 			return false;
@@ -109,6 +114,7 @@ public abstract class PermissionCell<A extends AccessLevel<?, ?, ?>, PT extends 
 	}
 	
 	public Map<A, Map<PT, Boolean>> getPerms() {
+	
 		return Collections.unmodifiableMap(cell);
 	}
 	
@@ -120,6 +126,7 @@ public abstract class PermissionCell<A extends AccessLevel<?, ?, ?>, PT extends 
 	 * @return True if it is, otherwise false
 	 */
 	public boolean isSet(A level, PT type) {
+	
 		return cell.get(level).get(type) != null;
 	}
 	
@@ -130,6 +137,7 @@ public abstract class PermissionCell<A extends AccessLevel<?, ?, ?>, PT extends 
 	 * @param type
 	 */
 	public void removePerm(A level, PT type) {
+	
 		Map<PT, Boolean> getter = null;
 		
 		if ((getter = cell.get(level)) != null) {
@@ -139,6 +147,7 @@ public abstract class PermissionCell<A extends AccessLevel<?, ?, ?>, PT extends 
 	}
 	
 	public Map<String, Object> serialize() {
+	
 		final Map<String, Object> serMap = new HashMap<String, Object>();
 		
 		serMap.put(NODE_PERMS_KEY, cell);
@@ -147,6 +156,7 @@ public abstract class PermissionCell<A extends AccessLevel<?, ?, ?>, PT extends 
 	}
 	
 	public void set(A level, PT type, boolean value) {
+	
 		Map<PT, Boolean> levelGet = null;
 		
 		if ((levelGet = cell.get(level)) != null) {

@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 
 package com.noxpvp.noxguilds.internal;
@@ -26,8 +22,7 @@ package com.noxpvp.noxguilds.internal;
 public interface Reloader {
 	
 	/**
-	 * Adds module to this reloader. Useful for grouping a module to a
-	 * master loader.
+	 * Adds module to this reloader. Useful for grouping a module to a master loader.
 	 * 
 	 * @param module
 	 *            - to add.
@@ -89,8 +84,7 @@ public interface Reloader {
 	 * @param name
 	 *            - Name of module to check for.
 	 * @return true if exists and false if not.<br/>
-	 *         Will always return false if {@link #hasModules()} returns
-	 *         false
+	 *         Will always return false if {@link #hasModules()} returns false
 	 */
 	public boolean hasModule(String name);
 	
@@ -120,8 +114,7 @@ public interface Reloader {
 	 * 
 	 * @param module
 	 *            - to reload
-	 * @return true if successful and false if it failed to reload that
-	 *         module. <br/>
+	 * @return true if successful and false if it failed to reload that module. <br/>
 	 *         <i>Generally will return false if module does not exist.</i>
 	 */
 	public boolean reload(String module);
@@ -130,8 +123,7 @@ public interface Reloader {
 	 * Reloads all submodules and self.
 	 * 
 	 * @return true if successful and false if it failed to reload.<br/>
-	 *         <b>Warning Most implementations result in true no matter
-	 *         what.</b>
+	 *         <b>Warning Most implementations result in true no matter what.</b>
 	 */
 	public boolean reloadAll();
 }

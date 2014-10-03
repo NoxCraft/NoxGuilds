@@ -10,10 +10,12 @@ public class NoxMessageBuilder extends MessageBuilder {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public NoxMessageBuilder() {
+	
 		this(true);
 	}
 	
 	public NoxMessageBuilder(boolean startWithHeader) {
+	
 		super();
 		
 		if (startWithHeader) {
@@ -23,6 +25,7 @@ public class NoxMessageBuilder extends MessageBuilder {
 	}
 	
 	public NoxMessageBuilder(String context) {
+	
 		super();
 		
 		append(NoxGuildLocale.CHAT_HEADER_START_SPECIFIC.get(context)).newLine();

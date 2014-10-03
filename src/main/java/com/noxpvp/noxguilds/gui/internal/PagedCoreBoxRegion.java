@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 package com.noxpvp.noxguilds.gui.internal;
 
@@ -45,9 +41,9 @@ public class PagedCoreBoxRegion extends CoreBoxRegion {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private Cycler<CoreBoxItem>	items;
-	private int					size;
-	private CoreBoxItem			back, next;
+	private Cycler<CoreBoxItem> items;
+	private int size;
+	private CoreBoxItem back, next;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
@@ -60,18 +56,20 @@ public class PagedCoreBoxRegion extends CoreBoxRegion {
 	 * @param width
 	 */
 	public PagedCoreBoxRegion(CoreBox parent, Vector topLeft, int height, int width) {
+	
 		super(parent, topLeft, height, width);
 		
 		size = height * width;
 		items = new Cycler<CoreBoxItem>();
 		
-		final ItemStack arrowBack = new ItemBuilder(Material.ARROW, 1).setName(ChatColor.AQUA + "Previous Page")
-			.build();
+		final ItemStack arrowBack =
+			new ItemBuilder(Material.ARROW, 1).setName(ChatColor.AQUA + "Previous Page").build();
 		final ItemStack arrowNext = new ItemBuilder(Material.ARROW, 1).setName(ChatColor.AQUA + "Next Page").build();
 		
 		next = new CoreBoxItem(parent, arrowNext) {
 			
 			public boolean onClick(InventoryClickEvent click) {
+			
 				next();
 				return true;
 			}
@@ -80,6 +78,7 @@ public class PagedCoreBoxRegion extends CoreBoxRegion {
 		back = new CoreBoxItem(parent, arrowBack) {
 			
 			public boolean onClick(InventoryClickEvent click) {
+			
 				previous();
 				return true;
 			}
@@ -97,20 +96,24 @@ public class PagedCoreBoxRegion extends CoreBoxRegion {
 	
 	@Override
 	public boolean add(CoreBoxItem item) {
+	
 		items.add(item);
 		
 		return true;
 	};
 	
 	public CoreBoxItem getBackArrow() {
+	
 		return back;
 	}
 	
 	public CoreBoxItem getNextArrow() {
+	
 		return next;
 	}
 	
 	public void next() {
+	
 		clearRegion();
 		
 		super.add(items.next());
@@ -121,6 +124,7 @@ public class PagedCoreBoxRegion extends CoreBoxRegion {
 	}
 	
 	public void previous() {
+	
 		clearRegion();
 		
 		super.add(items.previous());

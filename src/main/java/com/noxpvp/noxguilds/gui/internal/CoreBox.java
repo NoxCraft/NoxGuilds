@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 
 package com.noxpvp.noxguilds.gui.internal;
@@ -55,47 +51,54 @@ import com.noxpvp.noxguilds.manager.GuildPlayerManager;
 
 public abstract class CoreBox extends NoxListener<NoxPlugin> implements ICoreBox, ItemRepresentable, Cloneable {
 	
-	private final UUID					playerID;
-	private final String				name;
-	private Inventory					box;
-	private Map<Integer, CoreBoxItem>	menuItems;
-	private CoreBox						backButton;
-	public Runnable						closeRunnable;
-	private final GuildPlayerManager	pm;
-	private final NoxPacketListener		attributeHider;
+	private final UUID playerID;
+	private final String name;
+	private Inventory box;
+	private Map<Integer, CoreBoxItem> menuItems;
+	private CoreBox backButton;
+	public Runnable closeRunnable;
+	private final GuildPlayerManager pm;
+	private final NoxPacketListener attributeHider;
 	
-	private ItemStack					identifiableItem;
+	private ItemStack identifiableItem;
 	
 	public CoreBox(Player p, String name, int size) {
+	
 		this(p, name, size, null, NoxGuilds.getInstance());
 	}
 	
 	public CoreBox(Player p, String name, int size, @Nullable CoreBox backButton) {
+	
 		this(p, name, size, backButton, NoxGuilds.getInstance());
 	}
 	
 	public CoreBox(Player p, String name, int size, @Nullable CoreBox backbutton, NoxPlugin plugin) {
+	
 		this(p, name, InventoryType.CHEST, size, backbutton, plugin);
 	}
 	
 	public CoreBox(Player p, String name, InventoryType type) {
+	
 		this(p, name, type, 0, null, NoxGuilds.getInstance());
 	}
 	
 	public CoreBox(Player p, String name, InventoryType type, @Nullable CoreBox backButton) {
+	
 		this(p, name, type, 0, backButton, NoxGuilds.getInstance());
 	}
 	
 	public CoreBox(final Player p, String name, InventoryType type, int size, @Nullable CoreBox backButton,
 		NoxPlugin plugin) {
+	
 		super(plugin);
 		
 		pm = GuildPlayerManager.getInstance();
 		playerID = p.getUniqueId();
 		
 		this.name = ChatColor.GOLD + name;
-		box = size == 0 ? Bukkit.getServer().createInventory(null, type, this.name) : Bukkit.getServer()
-			.createInventory(null, size, this.name);
+		box =
+			size == 0 ? Bukkit.getServer().createInventory(null, type, this.name) : Bukkit.getServer().createInventory(
+				null, size, this.name);
 		
 		menuItems = new HashMap<Integer, CoreBoxItem>();
 		
@@ -116,9 +119,10 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements ICoreBox
 		
 		closeRunnable = new Runnable() {
 			
-			final CoreBox	thisBox	= CoreBox.this;
+			final CoreBox thisBox = CoreBox.this;
 			
 			public void run() {
+			
 				Player p;
 				if ((p = getPlayer()) != null && box.getViewers().contains(p)) {
 					p.closeInventory();
@@ -141,6 +145,7 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements ICoreBox
 	}
 	
 	public boolean addMenuItem(int slot, CoreBoxItem item) {
+	
 		box.setItem(slot, item.getItem());
 		menuItems.put(slot, item);
 		
@@ -149,22 +154,25 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements ICoreBox
 	}
 	
 	public void clickHandler(InventoryClickEvent event) {
-		
+	
 	}
 	
 	public void closeHandler(InventoryCloseEvent event) {
-		
+	
 	}
 	
 	public CoreBox getBackButton() {
+	
 		return backButton;
 	}
 	
 	public Inventory getBox() {
+	
 		return box;
 	}
 	
 	public ItemStack getIdentifiableItem() {
+	
 		if (identifiableItem == null) {
 			identifiableItem = new ItemStack(Material.CHEST);
 			final ItemMeta meta = identifiableItem.getItemMeta();
@@ -178,6 +186,7 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements ICoreBox
 	}
 	
 	public CoreBoxItem getMenuItem(CoreBoxItem item) {
+	
 		for (final CoreBoxItem menuItem : menuItems.values()) {
 			if (menuItem.equals(item))
 				return menuItem;
@@ -190,6 +199,7 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements ICoreBox
 	}
 	
 	public CoreBoxItem getMenuItem(int slot) {
+	
 		try {
 			return menuItems.get(slot);
 		} catch (final IllegalArgumentException e) {
@@ -198,14 +208,17 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements ICoreBox
 	}
 	
 	public String getName() {
+	
 		return name;
 	}
 	
 	public Player getPlayer() {
+	
 		return Bukkit.getPlayer(playerID);
 	}
 	
 	public void hide() {
+	
 		if (isValid()) {
 			CommonUtil.nextTick(closeRunnable);
 		}
@@ -214,12 +227,14 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements ICoreBox
 	}
 	
 	public boolean isValid() {
+	
 		final Player p = getPlayer();
 		return p != null && p.isValid() && pm.getFromPlayer(p).hasCoreBox(this);
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onClick(InventoryClickEvent event) {
+	
 		if (!isValid()) {
 			hide();
 			
@@ -263,6 +278,7 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements ICoreBox
 	
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onClose(InventoryCloseEvent event) {
+	
 		if (!isValid()) {
 			hide();
 			
@@ -275,20 +291,24 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements ICoreBox
 	}
 	
 	public boolean removeMenuItem(CoreBoxItem item) {
+	
 		return box.removeItem(item.getItem()) == null && menuItems.values().remove(item);
 	}
 	
 	public void removeMenuItem(int slot) {
+	
 		box.setItem(slot, null);
 		
 		return;
 	}
 	
 	public void setBox(Inventory newBox) {
+	
 		box = newBox;
 	}
 	
 	public void show() {
+	
 		Player p;
 		if ((p = getPlayer()) == null)
 			return;
@@ -302,9 +322,11 @@ public abstract class CoreBox extends NoxListener<NoxPlugin> implements ICoreBox
 	}
 	
 	protected void updatePlayerInvetory() {
+	
 		CommonUtil.nextTick(new Runnable() {
 			
 			public void run() {
+			
 				getPlayer().updateInventory();
 			}
 		});

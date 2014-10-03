@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 package com.noxpvp.noxguilds.gui;
 
@@ -41,24 +37,26 @@ public class GuildInfoMenu extends CoreBox {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public static final String	MENU_NAME	= "Guild Menu";
-	public static final int		size		= 27;
+	public static final String MENU_NAME = "Guild Menu";
+	public static final int size = 27;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private Guild				g;
+	private Guild g;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public GuildInfoMenu(Player p, Guild guild) {
+	
 		this(p, guild, null);
 	}
 	
 	public GuildInfoMenu(Player p, Guild guild, CoreBox backbutton) {
+	
 		super(p, MENU_NAME, size, backbutton);
 		
 		g = guild;
@@ -73,6 +71,7 @@ public class GuildInfoMenu extends CoreBox {
 		addMenuItem(4, new CoreBoxItem(this, g.getIdentifiableItem()) {
 			
 			public boolean onClick(InventoryClickEvent click) {
+			
 				return false;
 			}
 		});
@@ -81,6 +80,7 @@ public class GuildInfoMenu extends CoreBox {
 		addMenuItem(18, new CoreBoxItem(this, g.getAccountItem()) {
 			
 			public boolean onClick(InventoryClickEvent click) {
+			
 				new AccountManager(getPlayer(), g.getAccount(), GuildInfoMenu.this).show();
 				return true;
 			}
@@ -90,6 +90,7 @@ public class GuildInfoMenu extends CoreBox {
 		addMenuItem(19, new CoreBoxItem(this, g.getMembersItem()) {
 			
 			public boolean onClick(InventoryClickEvent click) {
+			
 				// TODO guild members info menu
 				return true;
 			}
@@ -99,6 +100,7 @@ public class GuildInfoMenu extends CoreBox {
 		addMenuItem(22, new CoreBoxItem(this, g.getLandItem()) {
 			
 			public boolean onClick(InventoryClickEvent click) {
+			
 				// TODO territory menu
 				return true;
 			}
@@ -108,6 +110,7 @@ public class GuildInfoMenu extends CoreBox {
 		addMenuItem(23, new CoreBoxItem(this, g.getKingdomsItem()) {
 			
 			public boolean onClick(InventoryClickEvent click) {
+			
 				if (!g.hasKingdom())
 					return false;
 				
@@ -115,6 +118,7 @@ public class GuildInfoMenu extends CoreBox {
 					
 					@Override
 					public void onSelect(Kingdom selected) {
+					
 						new KingdomInfoMenu(getPlayer(), selected, GuildInfoMenu.this).show();
 					}
 				};
@@ -134,6 +138,7 @@ public class GuildInfoMenu extends CoreBox {
 	
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
+	
 		return new GuildInfoMenu(getPlayer(), g);
 	}
 	

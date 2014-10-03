@@ -10,21 +10,22 @@ public class TerritoryID {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static final String	WORLD_KEY	= "world";
-	private static final String	X_COORD_KEY	= "x";
-	private static final String	Z_COORD_KEY	= "z";
+	private static final String WORLD_KEY = "world";
+	private static final String X_COORD_KEY = "x";
+	private static final String Z_COORD_KEY = "z";
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final String		id;
+	private final String id;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public TerritoryID(Chunk territoryChunk) {
+	
 		final StringEncoder se = new StringEncoder();
 		
 		se.put(WORLD_KEY, territoryChunk.getWorld().getUID().toString());
@@ -43,6 +44,7 @@ public class TerritoryID {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public String getID() {
+	
 		return id;
 	}
 }

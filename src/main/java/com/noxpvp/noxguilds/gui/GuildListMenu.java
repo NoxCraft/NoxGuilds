@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 package com.noxpvp.noxguilds.gui;
 
@@ -45,8 +41,8 @@ public class GuildListMenu extends CoreBox {
 	// Static fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	public static final String	MENU_NAME	= "Guild list";
-	private static final int	size		= 9;
+	public static final String MENU_NAME = "Guild list";
+	private static final int size = 9;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
@@ -57,6 +53,7 @@ public class GuildListMenu extends CoreBox {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public GuildListMenu(Player p) {
+	
 		super(p, MENU_NAME, size);
 		
 		final List<Guild> guilds = new ArrayList<Guild>(GuildManager.getInstance().getLoadedMap().values());
@@ -66,6 +63,7 @@ public class GuildListMenu extends CoreBox {
 			guildsRegion.add(new CoreBoxItem(this, g.getIdentifiableItem()) {
 				
 				public boolean onClick(InventoryClickEvent click) {
+				
 					new GuildInfoMenu(getPlayer(), g, GuildListMenu.this).show();
 					return true;
 				}
@@ -89,6 +87,7 @@ public class GuildListMenu extends CoreBox {
 	
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
+	
 		return new GuildListMenu(getPlayer());
 	}
 	

@@ -16,24 +16,26 @@ public class GuildManager extends BaseManager<Guild> {
 	// Static Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private static final String	savePath	= "guilds";
-	private static GuildManager	instance;
+	private static final String savePath = "guilds";
+	private static GuildManager instance;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private NoxPlugin			plugin;
+	private NoxPlugin plugin;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public GuildManager() {
+	
 		this(NoxGuilds.getInstance());
 	}
 	
 	public GuildManager(NoxPlugin plugin) {
+	
 		super(Guild.class, savePath);
 		
 		GuildManager.instance = this;
@@ -44,6 +46,7 @@ public class GuildManager extends BaseManager<Guild> {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static GuildManager getInstance() {
+	
 		if (instance != null)
 			return instance;
 		else {
@@ -53,6 +56,7 @@ public class GuildManager extends BaseManager<Guild> {
 	}
 	
 	public static void setup() {
+	
 		instance = new GuildManager();
 		instance.load();
 	}
@@ -63,10 +67,12 @@ public class GuildManager extends BaseManager<Guild> {
 	
 	@Override
 	public Guild get(UUID guildID) {
+	
 		return super.get(guildID);
 	}
 	
 	public Guild getByName(String guildName) {
+	
 		for (final Guild g : getLoadedMap().values())
 			if (g.getName().equalsIgnoreCase(guildName))
 				return g;
@@ -75,10 +81,12 @@ public class GuildManager extends BaseManager<Guild> {
 	}
 	
 	public NoxPlugin getPlugin() {
+	
 		return plugin != null ? plugin : (plugin = NoxGuilds.getInstance());
 	}
 	
 	public boolean hasGuild(String name) {
+	
 		for (final Guild g : getLoadedMap().values())
 			if (g.getName().equalsIgnoreCase(name))
 				return true;
@@ -87,6 +95,7 @@ public class GuildManager extends BaseManager<Guild> {
 	}
 	
 	public void load() {
+	
 		final List<String> files = new ArrayList<String>();
 		final File[] fileList = getFile().listFiles();
 		

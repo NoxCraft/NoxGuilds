@@ -1,24 +1,20 @@
 /*
  * Copyright (c) 2014. NoxPVP.com
- *
+ * 
  * All rights are reserved.
- *
- * You are not permitted to
- * 	Modify
- * 	Redistribute nor distribute
- * 	Sublicense
- *
+ * 
+ * You are not permitted to Modify Redistribute nor distribute Sublicense
+ * 
  * You are required to keep this license header intact
- *
+ * 
  * You are allowed to use this for non commercial purpose only. This does not allow any ad.fly type links.
- *
- * When using this you are required to
- * 	Display a visible link to noxpvp.com
- * 	For crediting purpose.
- *
+ * 
+ * When using this you are required to Display a visible link to noxpvp.com For crediting purpose.
+ * 
  * For more information please refer to the license.md file in the root directory of repo.
- *
- * To use this software with any different license terms you must get prior explicit written permission from the copyright holders.
+ * 
+ * To use this software with any different license terms you must get prior explicit written permission from the
+ * copyright holders.
  */
 package com.noxpvp.noxguilds.commands;
 
@@ -78,18 +74,17 @@ public class GuildCommands {
 	// Instance Methods
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	@Command(
-		identifier = "guild",
-		description = "Shows the player their guild info, if they belong to one",
-		onlyPlayers = true,
-		permissions = "noxguilds.guild.show")
+	@Command(identifier = "guild", description = "Shows the player their guild info, if they belong to one",
+		onlyPlayers = true, permissions = "noxguilds.guild.show")
 	public void guild(final Player sender) {
+	
 		final GuildPlayer gp = GuildPlayerManager.getInstance().getFromPlayer(sender);
 		
 		new GuildGetter(gp) {
 			
 			@Override
 			public void onReturn(Guild returned) {
+			
 				new GuildInfoMenu(sender, returned).show();
 			}
 		}.body();
@@ -98,6 +93,7 @@ public class GuildCommands {
 	
 	@Command(identifier = "guild claim", description = "Claim land for your guild", onlyPlayers = true)
 	public void guildClaim(final Player sender) {
+	
 		final TerritoryCoord coord = new TerritoryCoord(sender.getLocation());
 		final GuildPlayer gp = GuildPlayerManager.getInstance().getFromPlayer(sender);
 		
@@ -105,7 +101,7 @@ public class GuildCommands {
 			
 			@Override
 			protected void onReturn(Guild returned) {
-				
+			
 				if (returned.hasTerritory(coord.getBlockAt())) {
 					NoxGuildLocale.GUILD_ERROR_CLAIM_ALREADYOWNED.send(sender, returned);
 					return;
@@ -126,12 +122,11 @@ public class GuildCommands {
 		
 	}
 	
-	@Command(
-		identifier = "guild create",
-		description = "creates a new guild with the given name",
-		onlyPlayers = true,
+	@Command(identifier = "guild create", description = "creates a new guild with the given name", onlyPlayers = true,
 		permissions = "noxguilds.guild.create")
-	public void guildCreate(Player sender, @Arg(name = "guild name", description = "the name of the guild") String name) {
+	public void
+		guildCreate(Player sender, @Arg(name = "guild name", description = "the name of the guild") String name) {
+	
 		final GuildPlayer gp = GuildPlayerManager.getInstance().getFromPlayer(sender);
 		
 		if (gp.isGuildMaster()) {
@@ -156,11 +151,12 @@ public class GuildCommands {
 	@Command(identifier = "guild invite", description = "Invite a outsider into the guild", onlyPlayers = true)
 	public void guildInvite(final Player sender,
 		@Arg(name = "Player Name", description = "Name of a player to invite") final Player invited) {
-		
+	
 		new GuildGetter(GuildPlayerManager.getInstance().getFromPlayer(sender)) {
 			
 			@Override
 			public void onReturn(Guild returned) {
+			
 				final GuildPlayer gpInvited = GuildPlayerManager.getInstance().getFromPlayer(invited);
 				
 				if (returned.hasMember(gpInvited)) {
@@ -183,13 +179,11 @@ public class GuildCommands {
 		}.body();
 	}
 	
-	@Command(
-		identifier = "guild join",
-		description = "Join an open guild, or one you have been recently invited to join",
-		onlyPlayers = true,
+	@Command(identifier = "guild join",
+		description = "Join an open guild, or one you have been recently invited to join", onlyPlayers = true,
 		permissions = "noxguilds.guild.join")
 	public void guildJoin(Player sender, @Arg(name = "Guild name", description = "Guild to join") String guildName) {
-		
+	
 		final Guild guild = GuildManager.getInstance().getByName(guildName);
 		if (guild == null) {
 			NoxGuildLocale.GUILD_ERROR_NOT_FOUND_NAMED.send(sender, guildName);
@@ -220,12 +214,12 @@ public class GuildCommands {
 	@Command(identifier = "guild kick", description = "Kicks a player from the guild", onlyPlayers = true)
 	public void guildKick(final Player sender,
 		@Arg(name = "player name", description = "The guild member to kick") final Player kicked) {
-		
+	
 		new GuildGetter(GuildPlayerManager.getInstance().getFromPlayer(sender)) {
 			
 			@Override
 			public void onReturn(Guild returned) {
-				
+			
 				if (!returned.hasMember(kicked.getUniqueId())) {
 					NoxGuildLocale.GUILD_ERROR_MEMBER_NOTFOUND.send(sender, kicked.getName());
 					return;
@@ -242,29 +236,25 @@ public class GuildCommands {
 		
 	}
 	
-	@Command(
-		identifier = "guild list",
-		description = "Shows all the guilds on the server",
-		onlyPlayers = true,
+	@Command(identifier = "guild list", description = "Shows all the guilds on the server", onlyPlayers = true,
 		permissions = "noxguilds.guild.show-all")
 	public void guildList(final Player sender) {
+	
 		new GuildSelectMenu(sender, new ArrayList<Guild>(GuildManager.getInstance().getLoadedMap().values()), null) {
 			
 			@Override
 			public void onSelect(Guild selected) {
+			
 				new GuildInfoMenu(sender, selected, null).show();
 			}
 		}.show();
 		
 	}
 	
-	@Command(
-		identifier = "guild set badge",
-		description = "Sets your guild badge item to the item you are holding",
-		onlyPlayers = true,
-		permissions = "noxguilds.guild.set.badge")
+	@Command(identifier = "guild set badge", description = "Sets your guild badge item to the item you are holding",
+		onlyPlayers = true, permissions = "noxguilds.guild.set.badge")
 	public void guildSetBadge(final Player sender) {
-		
+	
 		final ItemStack held;
 		final GuildPlayer gp = GuildPlayerManager.getInstance().getFromPlayer(sender);
 		
@@ -280,6 +270,7 @@ public class GuildCommands {
 			
 			@Override
 			protected void onReturn(Guild returned) {
+			
 				returned.setItemBadge(held);
 				// TODO message
 			}
@@ -289,15 +280,11 @@ public class GuildCommands {
 	// Guild set taxes [amount]
 	
 	// Guild set tag [tag / description]
-	@Command(
-		identifier = "guild set tag",
-		description = "Sets your guild tag",
-		onlyPlayers = true,
+	@Command(identifier = "guild set tag", description = "Sets your guild tag", onlyPlayers = true,
 		permissions = "noxguilds.guild.set.tag")
-	public void guildSetTag(final Player sender, @Wildcard @Arg(
-		name = "tag",
+	public void guildSetTag(final Player sender, @Wildcard @Arg(name = "tag",
 		description = "New description for the guild") final String tag) {
-		
+	
 		final GuildPlayer gp = GuildPlayerManager.getInstance().getFromPlayer(sender);
 		
 		if (!validateHasGuild(gp))
@@ -313,6 +300,7 @@ public class GuildCommands {
 			
 			@Override
 			public void onReturn(Guild returned) {
+			
 				returned.setTag(tag);
 				MessageUtil.sendMessage(sender, "&6You set the tag of \"&b" + returned.getName() + "&6\" to &b" + tag);
 				
@@ -323,6 +311,7 @@ public class GuildCommands {
 	// testing
 	@Command(identifier = "test")
 	public void test(final Player sender) {
+	
 		new FanceeMessage(new FancyMessage("").then("[").color(ChatColor.GRAY).then("Celsius").color(ChatColor.GREEN)
 			.then("] ").color(ChatColor.GRAY).then("playername ").color(ChatColor.YELLOW).then("test test test test")
 			.color(ChatColor.AQUA).then(" guildname").color(ChatColor.GREEN).then(" kingdomname")
@@ -335,6 +324,7 @@ public class GuildCommands {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	private boolean validateHasGuild(GuildPlayer gp) {
+	
 		if (!GuildPlayerUtils.hasGuild(gp)) {
 			NoxGuildLocale.PLAYER_ERROR_NO_GUILD.send(gp.getPlayer());
 			return false;
@@ -344,6 +334,7 @@ public class GuildCommands {
 	}
 	
 	private boolean validateHasGuild(GuildPlayer gp, String guild) {
+	
 		if (!validateHasGuild(gp))
 			return false;
 		
@@ -356,14 +347,16 @@ public class GuildCommands {
 	
 	private abstract class GuildGetter extends FutureReturn<Guild> {
 		
-		private final GuildPlayer	gp;
+		private final GuildPlayer gp;
 		
 		public GuildGetter(GuildPlayer gp) {
+		
 			this.gp = gp;
 		}
 		
 		@Override
 		public void body() {
+		
 			final List<Guild> guilds = gp.getGuilds();
 			
 			if (guilds.size() > 1) {
@@ -371,6 +364,7 @@ public class GuildCommands {
 					
 					@Override
 					public void onSelect(Guild selected) {
+					
 						onReturn(selected);
 					}
 				}.show();

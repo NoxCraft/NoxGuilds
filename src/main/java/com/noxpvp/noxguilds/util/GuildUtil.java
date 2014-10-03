@@ -28,6 +28,7 @@ public class GuildUtil {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public static List<String> getUUIDStrings(Collection<UUID> ids) {
+	
 		final List<String> ret = new ArrayList<String>();
 		
 		for (final UUID id : ids) {
@@ -38,6 +39,7 @@ public class GuildUtil {
 	}
 	
 	public static boolean isAllyOf(Guild of, Guild ally) {
+	
 		if (of.hasKingdom()) {
 			for (final Kingdom k : of.getKingdoms())
 				if (k.getGuilds().contains(ally))
@@ -48,6 +50,7 @@ public class GuildUtil {
 	}
 	
 	public static boolean isAllyOf(Guild of, GuildPlayer ally) {
+	
 		if (ally.hasGuild()) {
 			for (final Guild g : ally.getGuilds())
 				return isAllyOf(of, g);
@@ -57,6 +60,7 @@ public class GuildUtil {
 	}
 	
 	public static boolean isEnemyOf(Guild of, Guild enemy) {
+	
 		if (enemy.hasKingdom()) {
 			for (final Kingdom k : of.getKingdoms()) {
 				for (final Kingdom e : k.getEnemies())
@@ -69,6 +73,7 @@ public class GuildUtil {
 	}
 	
 	public static boolean isEnemyOf(Guild of, GuildPlayer enemy) {
+	
 		if (enemy.hasGuild()) {
 			for (final Guild g : enemy.getGuilds())
 				if (isAllyOf(of, g))
@@ -79,6 +84,7 @@ public class GuildUtil {
 	}
 	
 	public static List<UUID> UUIDSFromStrings(Collection<String> ids) {
+	
 		final List<UUID> ret = new ArrayList<UUID>();
 		
 		for (final String id : ids) {

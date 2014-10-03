@@ -9,6 +9,7 @@ import com.noxpvp.noxguilds.manager.PlotManager;
 public class TerritoryUtils {
 	
 	public static Guild getOwner(TerritoryCoord coord) {
+	
 		final GuildPlot plot = PlotManager.getInstance().getPlot(new TerritoryID(coord.getChunk()));
 		
 		if (plot != null)
@@ -18,6 +19,7 @@ public class TerritoryUtils {
 	}
 	
 	public static boolean isClaimed(TerritoryCoord coord) {
+	
 		return getOwner(coord) != null;
 	}
 	

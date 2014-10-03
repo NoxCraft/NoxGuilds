@@ -9,10 +9,11 @@ import com.noxpvp.noxguilds.permisson.GuildPermissionCell;
 
 public class GuildRank extends BaseRank<GuildPermissionCell> {
 	
-	private Guild				guild;
-	private GuildPermissionCell	perms;
+	private Guild guild;
+	private GuildPermissionCell perms;
 	
 	public GuildRank(Guild owner, String name) {
+	
 		super(UUID.randomUUID(), name);
 		
 		guild = owner;
@@ -20,6 +21,7 @@ public class GuildRank extends BaseRank<GuildPermissionCell> {
 	}
 	
 	public GuildRank(Map<String, Object> data) {
+	
 		super(data);
 		
 		Object getter;
@@ -41,11 +43,13 @@ public class GuildRank extends BaseRank<GuildPermissionCell> {
 	
 	// Permission keeper
 	public GuildPermissionCell getPermissions() {
+	
 		return perms;
 	}
 	
 	@Override
 	public Map<String, Object> serialize() {
+	
 		final Map<String, Object> data = super.serialize();
 		
 		data.put("guild-id", guild.getID().toString());
@@ -54,6 +58,7 @@ public class GuildRank extends BaseRank<GuildPermissionCell> {
 	}
 	
 	private void setGuild(Guild g) {
+	
 		if (guild != null) {
 			guild.removeRank(this);
 		}

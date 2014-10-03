@@ -21,13 +21,14 @@ public abstract class NoxCommandListener<T extends NoxPlugin> extends NoxListene
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private final List<String>	commands;
+	private final List<String> commands;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public NoxCommandListener(T plugin, String... commands) {
+	
 		super(plugin);
 		
 		this.commands = Arrays.asList(commands);
@@ -43,6 +44,7 @@ public abstract class NoxCommandListener<T extends NoxPlugin> extends NoxListene
 	
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public boolean onCommand(CommandEvent event) {
+	
 		if (!commands.contains(event.getLabel()))
 			return true;
 		

@@ -16,18 +16,20 @@ public class Area implements ConfigurationSerializable {
 	// Instance Fields
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private Location	min, max;
+	private Location min, max;
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Constructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public Area(Location min, Location max) {
+	
 		setMinMaxPoints(Arrays.asList(min, max));
 	}
 	
 	// Deserialize
 	public Area(Map<String, Object> data) {
+	
 		try {
 			min = (Location) data.get("min");
 			max = (Location) data.get("max");
@@ -41,6 +43,7 @@ public class Area implements ConfigurationSerializable {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	public boolean contains(Location loc) {
+	
 		final double x = loc.getX(), y = loc.getY(), z = loc.getZ();
 		
 		if (!loc.getWorld().equals(min.getWorld()))
@@ -51,6 +54,7 @@ public class Area implements ConfigurationSerializable {
 	}
 	
 	public LinkedList<Location> getCorners() {
+	
 		final LinkedList<Location> ret = new LinkedList<Location>();
 		
 		final World w = ret.getFirst().getWorld();
@@ -73,18 +77,22 @@ public class Area implements ConfigurationSerializable {
 	}
 	
 	public Location getMax() {
+	
 		return max;
 	}
 	
 	public Location getMin() {
+	
 		return min;
 	}
 	
 	public LinkedList<Location> getOutline() {
+	
 		return null;// TODO
 	}
 	
 	public Map<String, Object> serialize() {
+	
 		final Map<String, Object> data = new HashMap<String, Object>();
 		
 		data.put("min", min);
@@ -94,6 +102,7 @@ public class Area implements ConfigurationSerializable {
 	}
 	
 	public void setMinMaxPoints(List<Location> points) {
+	
 		final World w = points.get(0).getWorld();
 		
 		int minX = points.get(0).getBlockX();
